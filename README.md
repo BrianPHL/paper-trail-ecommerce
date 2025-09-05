@@ -6,7 +6,7 @@ A simple Django project for ecommerce.
 
 1. **Clone the repository:**
    ```
-   git clone https://github.com/<your-username>/paper-trail-ecommerce.git
+   git clone https://github.com/BrianPHL/paper-trail-ecommerce.git
    cd paper-trail-ecommerce
    ```
 
@@ -23,10 +23,6 @@ A simple Django project for ecommerce.
    - On Windows (cmd):
      ```
      .\venv\Scripts\activate.bat
-     ```
-   - On macOS/Linux:
-     ```
-     source venv/bin/activate
      ```
 
 4. **Install dependencies:**
