@@ -1,22 +1,54 @@
 {% load static %}
 
 <!DOCTYPE html>
-
 <html lang="en">
 
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Paper Trail | Your Everyday Stationery, Just a Click Away.</title>
-        <link rel="stylesheet" href="{% static 'shop/styles.css' %}">
-    </head>
-    
-    <body>
-    
-        <h1>Hello, world!</h1>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paper Trails | Ride Beyond Limits</title>
+    <link rel="stylesheet" href="{% static 'shop/styles.css' %}">
+</head>
 
-        <script src="{% static 'shop/scripts.js' %}"></script>
-    
-    </body>
+<body>
+
+    <header>
+        <h2>Paper<b>Trails</b></h2>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Collections</a>
+            <a href="#">Parts & Accessories</a>
+            <a href="#">Sign in</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-text">
+            <p class="breadcrumb">Home</p>
+            <h1 class="hero-title">
+                <img src="{% static 'shop/images/logo.png' %}" alt="Paper Trails Logo" class="site-logo">
+            </h1>
+            <h2 class="hero-subtitle">Ride Beyond Limits. Own the Road Today!</h2>
+            <p class="hero-desc">Premium motorcycles, top-tier accessories, and hassle-free reservations – all in one
+                place.</p>
+
+            <a href="#" class="btn-primary">Reserve now</a>
+            <select class="dropdown">
+                <option>Browse Inventory</option>
+                <option>Notebooks</option>
+                <option>Pens and Pencils</option>
+            </select>
+
+            <p class="scroll-text">Scroll down and see what we have in store for you ↓</p>
+        </div>
+
+        <div class="right-container">
+            <img src="{% static 'shop/images/landing_img.png' %}" alt="Paper Trails Logo" class="landing-image">
+        </div>
+
+    </section>
+
+    <script src="{% static 'shop/scripts.js' %}"></script>
+</body>
 
 </html>
