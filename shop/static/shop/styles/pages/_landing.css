@@ -1,0 +1,42 @@
+.hero {
+    background-color: var(--bg-primary);
+    flex-direction: row;
+    padding: 4rem 16rem;
+    display: flex;
+    gap: 4rem;
+}
+
+.hero-details {
+    flex-direction: column;
+    display: flex;
+    gap: 8rem;
+}
+
+.hero-image {
+    border-radius: 0.25rem;
+    object-fit: cover;
+    width: 24rem;
+}
+
+.hero-details-info {
+    flex-direction: column;
+    display: flex;
+    gap: 1rem;
+}
+
+.hero-details-info h1 {
+    font-weight: 700;
+    font-size: 4rem;
+    color: var(--tg-primary);
+}
+
+.hero-details-info h2 {
+    font-weight: 500;
+    font-size: 1.5rem;
+    color: var(--tg-secondary);
+}
+
+.hero-details-ctas {
+    display: flex;
+    gap: 1rem;
+}

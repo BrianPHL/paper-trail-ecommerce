@@ -1,0 +1,46 @@
+@media only screen and (max-width: 1680px) {
+    .hero {
+        padding: 4rem 8rem;
+    }
+}
+
+@media only screen and (max-width: 1560px) {
+    .hero-details-info h1 {
+        font-size: 3.5rem;
+    }
+}
+
+@media only screen and (max-width: 1500px) {
+    .hero {
+        background-image: url('../../images/hero-lightened.jpg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding: 2rem 4rem;
+    }
+    .hero-details {
+        width: 80%;
+        gap: 4rem;
+    }
+    .hero-details-ctas {
+        border-radius: 0.5rem;
+        align-self: flex-start;
+        background-color: var(--bg-secondary);
+        padding: 1rem;
+    }
+    .hero-image {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 720px) {
+    .hero {
+        padding: 1rem 2rem;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .hero-details {
+        width: 100%;
+    }
+}
