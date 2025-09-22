@@ -1,0 +1,41 @@
+.header {
+    background-color: var(--bg-secondary);
+    flex-direction: column;
+    padding: 1.5rem 16rem;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.header-top {
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+}
+
+.header-top-ctas {
+    display: flex;
+    gap: 1rem;
+}
+
+.header-top-logo {
+    width: 12rem;
+}
+
+.header-bottom {
+    justify-content: space-between;
+    display: flex;
+}
+
+.header-bottom-breadcrumbs {
+    align-items: center;
+    font-weight: 400;
+    font-size: 0.875rem;
+    display: flex;
+    color: var(--tg-primary);
+}
+
+.header-bottom-navigation {
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+}

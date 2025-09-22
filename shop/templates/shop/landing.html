@@ -1,27 +1,10 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+
+<html data-theme="light" lang="en">
 
     <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paper Trails | Ride Beyond Limits</title>
-    <link rel="stylesheet" href="{% static 'shop/styles.css' %}">
-</head>
-
-<body>
-
-    <header>
-        <h2>Paper<b>Trails</b></h2>
-        <nav>
-            <a href="#">Home</a>
-            <a href="#">Collections</a>
-            <a href="#">Parts & Accessories</a>
-            <a href="#">Sign in</a>
-        </nav>
-    </header>
-
     <section class="hero">
         <div class="hero-text">
             <p class="breadcrumb">Home</p>
@@ -49,6 +32,49 @@
     </section>
 
     <script src="{% static 'shop/scripts.js' %}"></script>
-</body>
+    
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Paper Trails | Your Everyday Stationery, Just a Click Away</title>
+        <link rel="stylesheet" href="{% static 'shop/main.css' %}">
+    
+    </head>
+
+    <body>
+
+        <header class="header">
+
+            <div class="header-top">
+                <img class="header-top-logo" src="{% static 'shop/images/logo-light.png' %}" alt="PaperTrail logo">
+                <div class="header-top-ctas">
+                    <div class="button-secondary">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        0 items
+                    </div>
+                    <div class="button-secondary">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        Sign in
+                    </div>
+                    <div class="button-icon_outlined">
+                        <i class="fa-solid fa-moon"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="horizontal-divider"></div>
+            <div class="header-bottom">
+                <div class="header-bottom-breadcrumbs">
+                    <p>Home /</p>
+                </div>
+                <nav class="header-bottom-navigation">
+                    <a class="anchor-button active" href="/">Home</a>
+                    <a class="anchor-button" href="/shop">Our shop</a>
+                    <a class="anchor-button" href="/about-us">About us</a>
+                    <a class="anchor-button" href="/contact-us">Contact us</a>
+                </nav>
+            </div>
+
+        </header>
+    
+    </body>
 
 </html>
