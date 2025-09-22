@@ -9,10 +9,12 @@
 /* BASE - Foundation styles */
 @import url('styles/base/_reset.css');
 
-/* LAYOUT - Layout-related styles */
-@import url('styles/layout/_header.css');
 /* COMPONENTS - Reusable component styles */
 @import url('styles/components/_divider.css');
 @import url('styles/components/_button.css');
 @import url('styles/components/_anchor.css');
 @import url('styles/components/_header.css');
+
+/* LAYOUT - Layout-related styles */
+@import url('styles/layout/_header.css');
+
