@@ -1,0 +1,11 @@
+/* VENDORS - Third-party CSS libraries */
+@import url('styles/vendors/_poppins-google-fonts.css');
+@import url('styles/vendors/_font-awesome.css');
+
+/* ABSTRACTS - Variables and theme definitions */
+@import url('styles/abstracts/_light-theme.css');
+@import url('styles/abstracts/_dark-theme.css');
+
+/* BASE - Foundation styles */
+@import url('styles/base/_reset.css');
+

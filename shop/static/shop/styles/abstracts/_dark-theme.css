@@ -1,0 +1,8 @@
+html[data-theme="dark"] {
+    --accent: #CA56A3;
+    --bg-primary: #1F1B1F;
+    --bg-secondary: #262026;
+    --bg-outline: #3A2A36;
+    --tg-primary: #F6DBEC;
+    --tg-secondary: #8F7988;
+}
