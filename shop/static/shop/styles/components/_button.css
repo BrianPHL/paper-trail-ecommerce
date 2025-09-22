@@ -1,0 +1,67 @@
+.button-primary {
+    background-color: var(--accent);
+    justify-content: center;
+    border-radius: 0.5rem;
+    align-items: center;
+    font-weight: 600;
+    transition: 0.25s ease all;
+    font-size: 0.875rem;
+    padding: 0 0.75rem;
+    display: flex;
+    border: 1px solid var(--bg-outline);
+    height: 3rem;
+    color: var(--tg-primary);
+    gap: 0.5rem;
+    &:hover {
+        background-color: var(--bg-outline);
+        cursor: pointer;
+    }
+}
+
+.button-secondary {
+    justify-content: center;
+    border-radius: 0.5rem;
+    align-items: center;
+    font-weight: 600;
+    transition: 0.25s ease all;
+    font-size: 0.875rem;
+    padding: 0 0.75rem;
+    display: flex;
+    border: 1px solid var(--bg-outline);
+    height: 3rem;
+    color: var(--tg-primary);
+    gap: 0.5rem;
+    &:hover {
+        background-color: var(--bg-outline);
+        cursor: pointer;
+    }
+}
+
+.button-icon {
+    border-radius: 0.5rem;
+    place-content: center;
+    transition: 0.25s ease all;
+    display: grid;
+    height: 3rem;
+    width: 3rem;
+    color: var(--tg-primary);
+    &:hover {
+        background-color: var(--bg-outline);
+        cursor: pointer;
+    }
+}
+
+.button-icon_outlined {
+    border-radius: 0.5rem;
+    place-content: center;
+    transition: 0.25s ease all;
+    display: grid;
+    border: 1px solid var(--bg-outline);
+    height: 3rem;
+    width: 3rem;
+    color: var(--tg-primary);
+    &:hover {
+        background-color: var(--bg-outline);
+        cursor: pointer;
+    }
+}
