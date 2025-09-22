@@ -8,7 +8,7 @@
     font-size: 0.875rem;
     padding: 0 0.75rem;
     display: flex;
-    border: 1px solid var(--bg-outline);
+    border: 0;
     height: 3rem;
     color: var(--tg-primary);
     gap: 0.5rem;
@@ -19,6 +19,7 @@
 }
 
 .button-secondary {
+    background-color: transparent;
     justify-content: center;
     border-radius: 0.5rem;
     align-items: center;
@@ -38,6 +39,7 @@
 }
 
 .button-icon {
+    background-color: transparent;
     border-radius: 0.5rem;
     place-content: center;
     transition: 0.25s ease all;
@@ -52,6 +54,7 @@
 }
 
 .button-icon_outlined {
+    background-color: transparent;
     border-radius: 0.5rem;
     place-content: center;
     transition: 0.25s ease all;
