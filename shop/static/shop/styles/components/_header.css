@@ -1,9 +1,10 @@
 .header {
     background-color: var(--bg-secondary);
     flex-direction: column;
-    padding: 1.5rem 16rem;
+    padding: 1rem 16rem;
     display: flex;
-    gap: 1.5rem;
+    border-bottom: 1px solid var(--bg-outline);
+    gap: 1rem;
 }
 
 .header-top {
@@ -18,7 +19,7 @@
 }
 
 .header-top-logo {
-    width: 12rem;
+    width: 8rem;
 }
 
 .header-bottom {
