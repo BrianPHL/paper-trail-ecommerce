@@ -1,18 +1,18 @@
 @media only screen and (max-width: 1680px) {
     .header {
-        padding: 1.5rem 8rem;
+        padding: 1rem 8rem;
     }
 }
 
 @media only screen and (max-width: 1500px) {
     .header {
-        padding: 1.5rem 4rem;
+        padding: 1rem 4rem;
     }
 }
 
 @media only screen and (max-width: 720px) {
     .header {
-        padding: 1.5rem 2rem;
+        padding: 1rem 2rem;
     }
 }
 
