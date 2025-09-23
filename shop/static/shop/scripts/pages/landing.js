@@ -3,17 +3,22 @@ import * as utilities from "../utils/theme.js";
 const landingPageLogic = async () => {
 
     const themeSwitchBtn = document.querySelector('#theme-switcher-btn');
+    const htmlElement = document.querySelector('html');
 
     const initializePageTheme = () => {
 
-        utilities.getTheme((callback) => {
-            utilities.setTheme(callback);
-        })
+        utilities.getTheme((theme) => {
 
-    }
+            utilities.setTheme(theme);
+
+            htmlElement.setAttribute('data-theme', theme);
+
+        });
+
+    };
 
     themeSwitchBtn.addEventListener('click', () => {
-        
+
         utilities.getTheme((callback) => {
 
             const alternateTheme =
@@ -27,6 +32,7 @@ const landingPageLogic = async () => {
             `
 
             utilities.setTheme(alternateTheme);
+            initializePageTheme();
 
         });
 

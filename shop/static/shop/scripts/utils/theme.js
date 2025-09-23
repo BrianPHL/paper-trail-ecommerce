@@ -11,11 +11,4 @@ export const getTheme = (callback) => {
 
 };
 
-export const setTheme = (theme) => {
-
-    const htmlElement = document.querySelector('html');
-
-    htmlElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-
-};
+export const setTheme = (theme) => localStorage.setItem('theme', theme);
