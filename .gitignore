@@ -6,12 +6,6 @@ __pycache__/
 *.db
 *.sqlite3
 
-# Virtual environment
-Lib/
-Include/
-Scripts/
-pyvenv.cfg
-
 # VS Code
 .vscode/
 
