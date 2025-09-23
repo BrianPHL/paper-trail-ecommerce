@@ -19,3 +19,14 @@
         cursor: pointer;
     }
 }
+
+.anchor-link {
+    transition: 0.25s ease all;
+    font-size: 0.875rem;
+    color: var(--tg-secondary);
+    &:hover {
+        background-color: var(--accent);
+        cursor: pointer;
+        color: var(--tg-primary);
+    }
+}
