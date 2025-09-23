@@ -38,6 +38,7 @@
 }
 
 .hero-details-ctas {
+    flex-wrap: wrap;
     display: flex;
     gap: 1rem;
 }
