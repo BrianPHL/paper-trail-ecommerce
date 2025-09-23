@@ -21,7 +21,13 @@ const landingPageLogic = async () => {
             ? 'dark'
             : 'light'
 
+            themeSwitchBtn.innerHTML=
+            `
+                <i class="fa-solid ${ alternateTheme === 'light' ? 'fa-moon' : 'fa-sun' }"></i>
+            `
+
             utilities.setTheme(alternateTheme);
+
         });
 
     })
