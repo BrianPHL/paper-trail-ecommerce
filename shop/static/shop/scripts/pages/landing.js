@@ -2,10 +2,9 @@ import * as utilities from "../utils/theme.js";
 
 const landingPageLogic = async () => {
 
-    const themeSwitchBtn = document.querySelector('#theme-switcher-btn');
-    const headerLogo = document.querySelector('#header-logo');
+    const themeSwitchBtns = document.querySelectorAll('.theme-switcher-btn');
+    const logos = document.querySelectorAll('.logo');
     const hero = document.querySelector('#hero');
-    const heroImg = document.querySelector('#hero-img');
     const htmlElement = document.querySelector('html');
 
     const initializePageTheme = () => {
@@ -16,7 +15,7 @@ const landingPageLogic = async () => {
 
             utilities.setTheme(theme);
 
-            headerLogo.src = `/static/shop/images/logo-${ theme }.png`
+            logos.forEach(logo => logo.src = `/static/shop/images/logo-${ theme }.png`)
 
             if (mediaQuery.matches)
                 hero.style.backgroundImage = `url(/static/shop/images/hero-${ theme }.jpg)`;
@@ -35,8 +34,8 @@ const landingPageLogic = async () => {
 
     };
 
-    themeSwitchBtn.addEventListener('click', () => {
-
+    themeSwitchBtns.forEach(themeSwitchBtn => themeSwitchBtn.addEventListener('click', () => {
+        
         utilities.getTheme((callback) => {
 
             const alternateTheme =
@@ -54,7 +53,7 @@ const landingPageLogic = async () => {
 
         });
 
-    });
+    }))
 
     console.log("Initialized landing page logic!");
 
