@@ -76,6 +76,90 @@
 
         </section>
 
+        <section class="shop">
+
+            <h3 class="shop-header">
+                Shop Stationery
+            </h3>
+
+            <div class="shop-container">
+
+                <div class="shop-sidebar">
+                    
+                    <div class="search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input class="input-nested" type="text" placeholder="Search for products here...">
+                    </div>
+
+                    <h3 class="shop-sidebar-header">
+                        Filters
+                    </h3>
+
+                    <div class="shop-sidebar-sort_by">
+                        <h3 class="shop-sidebar-sort_by-header">
+                            Sort by
+                        </h3>
+                        <div class="shop-sidebar-sort_by-options">
+                            <label class="input-radio">
+                                <input type="radio" id="sort_by-a-to-z" name="sort_by" value="a-to-z">
+                                A to Z
+                            </label>
+                            <label class="input-radio">
+                                <input type="radio" id="sort_by-z-to-a" name="sort_by" value="z-to-a">
+                                Z to A
+                            </label>
+                            <label class="input-radio">
+                                <input type="radio" id="sort_by-price-lowest-first" name="sort_by" value="price-lowest-first">
+                                Price: Lowest First
+                            </label>
+                            <label class="input-radio">
+                                <input type="radio" id="sort_by-price-highest-first" name="sort_by" value="price-highest-first">
+                                Price: Highest First
+                            </label>
+                            <label class="input-radio">
+                                <input type="radio" id="sort_by-recently-added" name="sort_by" value="recently-added">
+                                Recently Added
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="shop-sidebar-categories">
+                        <h3 class="shop-sidebar-categories-header">
+                            Categories
+                        </h3>
+                        <div class="shop-sidebar-categories-options">
+                            <label class="input-checkbox">
+                                <input type="checkbox" id="categories-notebooks" name="categories" value="notebooks">
+                                Notebooks
+                            </label>
+                            <label class="input-checkbox">
+                                <input type="checkbox" id="categories-pens" name="categories" value="pens">
+                                Pens
+                            </label>
+                            <label class="input-checkbox">
+                                <input type="checkbox" id="categories-pencils" name="categories" value="pencils">
+                                Pencils
+                            </label>
+                            <label class="input-checkbox">
+                                <input type="checkbox" id="categories-art_materials" name="categories" value="art-materials">
+                                Art Materials
+                            </label>
+                            <label class="input-checkbox">
+                                <input type="checkbox" id="categories-papers" name="categories" value="papers">
+                                Papers
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="shop-list">
+
+                </div>
+
+            </div>
+
+        </section>
+
         <footer class="footer">
             <div class="footer-top">
                 <img class="footer-top-logo logo" src="{% static 'shop/images/logo-light.png' %}" alt="PaperTrail logo" />
