@@ -16,6 +16,7 @@
 @import url('styles/components/_header.css');
 @import url('styles/components/_footer.css');
 @import url('styles/components/_search.css');
+@import url('styles/components/_input.css');
 
 /* PAGES - Page-specific styles */
 @import url('styles/pages/_landing.css');
