@@ -1,9 +1,9 @@
 .header {
     background-color: var(--bg-secondary);
     flex-direction: column;
+    border-bottom: 1px solid var(--bg-outline);
     padding: 1rem 16rem;
     display: flex;
-    border-bottom: 1px solid var(--bg-outline);
     gap: 1rem;
 }
 
