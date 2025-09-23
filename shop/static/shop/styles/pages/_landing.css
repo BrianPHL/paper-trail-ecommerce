@@ -9,13 +9,14 @@
 .hero-details {
     flex-direction: column;
     display: flex;
-    gap: 8rem;
+    gap: 4rem;
 }
 
 .hero-image {
     border-radius: 0.25rem;
     object-fit: cover;
     width: 24rem;
+    height: 32rem;
 }
 
 .hero-details-info {
