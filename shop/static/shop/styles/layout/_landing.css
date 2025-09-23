@@ -12,7 +12,7 @@
 
 @media only screen and (max-width: 1500px) {
     .hero {
-        background-image: url('../../images/hero-lightened.jpg');
+        background-image: url('../../images/hero-light.jpg');
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;

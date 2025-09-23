@@ -3,13 +3,28 @@ import * as utilities from "../utils/theme.js";
 const landingPageLogic = async () => {
 
     const themeSwitchBtn = document.querySelector('#theme-switcher-btn');
+    const hero = document.querySelector('#hero');
+    const heroImg = document.querySelector('#hero-img');
     const htmlElement = document.querySelector('html');
 
     const initializePageTheme = () => {
 
+        const mediaQuery = window.matchMedia('(max-width: 1500px');
+
         utilities.getTheme((theme) => {
 
             utilities.setTheme(theme);
+
+            if (mediaQuery.matches)
+                hero.style.backgroundImage = `url(/static/shop/images/hero-${ theme }.jpg)`;
+
+            mediaQuery.addEventListener('change', (event) => {
+                if (event.matches) {
+                    hero.style.backgroundImage = `url(/static/shop/images/hero-${ theme }.jpg)`;
+                } else {
+                    hero.style.backgroundImage = ``;
+                }
+            }) 
 
             htmlElement.setAttribute('data-theme', theme);
 
@@ -36,7 +51,7 @@ const landingPageLogic = async () => {
 
         });
 
-    })
+    });
 
     console.log("Initialized landing page logic!");
 
