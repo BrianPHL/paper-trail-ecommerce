@@ -60,15 +60,18 @@
 .shop-container {
     display: flex;
     gap: 2rem;
+    width: 100%;
 }
 
 .shop-sidebar {
     background-color: var(--bg-secondary);
     flex-direction: column;
     border-radius: 0.5rem;
-    border: 1px solid var(--bg-outline);
+    justify-self: flex-start;
+    align-self: flex-start;
     display: flex;
     padding: 1rem;
+    border: 1px solid var(--bg-outline);
     gap: 1rem;
 }
 
@@ -95,3 +98,8 @@
     display: flex;
     gap: 0.25rem;
 }
+
+.shop-sidebar-sort_by-options label, .shop-sidebar-categories-options label {
+    align-self: stretch;
+}
+
