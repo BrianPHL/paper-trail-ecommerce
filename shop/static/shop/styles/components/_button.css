@@ -44,8 +44,9 @@
     place-content: center;
     transition: 0.25s ease all;
     display: grid;
-    height: 3rem;
-    width: 3rem;
+    border: none;
+    height: 2rem;
+    width: 2rem;
     color: var(--tg-primary);
     &:hover {
         background-color: var(--bg-outline);
