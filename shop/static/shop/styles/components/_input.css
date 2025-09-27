@@ -1,10 +1,19 @@
-.input-field {
+.input-nested {
     background-color: transparent;
     font-weight: 500;
     outline: none;
     border: none;
     height: 100%;
     width: 100%;
+    color: var(--tg-secondary);
+}
+
+.input-unnested {
+    background-color: transparent;
+    font-weight: 500;
+    outline: none;
+    border: 2px solid var(--bg-outline);
+    height: 3rem;
     color: var(--tg-secondary);
 }
 
