@@ -1,6 +1,6 @@
 import * as utilities from "../utils/theme.js";
 
-const landingPageLogic = async () => {
+const initializeLandingPage = () => {
 
     const themeSwitchBtns = document.querySelectorAll('.theme-switcher-btn');
     const logos = document.querySelectorAll('.logo');
@@ -61,4 +61,4 @@ const landingPageLogic = async () => {
 
 };
 
-export default landingPageLogic;
+export default initializeLandingPage;

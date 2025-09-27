@@ -1,11 +1,12 @@
-import landingPageLogic from "./pages/landing.js";
+import initializeLandingPage from "./pages/landing.js";
+import initializeModalComponent from "./components/modal.js";
 
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
     
     console.log("Initializing main JavaScript entry file!");
 
-    // pages - JavaScript for page-specific logic
-    await landingPageLogic();
+    initializeLandingPage();
+    initializeModalComponent();
 
     console.log("Main JavaScript entry file successfully initialized!");
 
