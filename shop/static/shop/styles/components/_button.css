@@ -28,7 +28,7 @@
     font-size: 0.875rem;
     padding: 0 0.75rem;
     display: flex;
-    border: 1px solid var(--bg-outline);
+    border: 2px solid var(--bg-outline);
     height: 3rem;
     color: var(--tg-primary);
     gap: 0.5rem;
@@ -60,7 +60,7 @@
     place-content: center;
     transition: 0.25s ease all;
     display: grid;
-    border: 1px solid var(--bg-outline);
+    border: 2px solid var(--bg-outline);
     height: 3rem;
     width: 3rem;
     color: var(--tg-primary);
