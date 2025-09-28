@@ -10,11 +10,19 @@
 
 .input-unnested {
     background-color: transparent;
+    border-radius: 0.5rem;
     font-weight: 500;
+    transition: 0.25s ease all;
     outline: none;
+    padding: 0 1rem;
     border: 2px solid var(--bg-outline);
     height: 3rem;
     color: var(--tg-secondary);
+}
+
+.input-unnested:focus {
+    background-color: var(--bg-outline);
+    border-color: var(--accent);
 }
 
 .input-radio {
