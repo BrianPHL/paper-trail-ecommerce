@@ -73,7 +73,7 @@
     display: flex;
     padding: 1rem;
     border: 1px solid var(--bg-outline);
-    width: 16rem;
+    width: 22rem;
     gap: 1rem;
 }
 
@@ -106,7 +106,10 @@
 }
 
 .shop-list {
+    flex-direction: column;
+    display: flex;
     width: 100%;
+    gap: 1rem;
 }
 
 .shop-list-header {
@@ -124,7 +127,10 @@
 }
 
 .shop-list-wrapper {
-    
+    grid-template-columns: repeat(3, minmax(12rem, 1fr));
+    justify-items: center;
+    display: grid;
+    gap: 1rem;
 }
 
 .modal-wrapper {
