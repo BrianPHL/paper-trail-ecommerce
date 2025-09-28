@@ -1,6 +1,9 @@
 import * as utilities from "../utils/theme.js";
 
+
 const initializeLandingPage = () => {
+
+    if (window.location.pathname !== '/') return;
 
     const themeSwitchBtns = document.querySelectorAll('.theme-switcher-btn');
     const logos = document.querySelectorAll('.logo');
