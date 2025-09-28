@@ -68,11 +68,12 @@
     flex-direction: column;
     border-radius: 0.5rem;
     justify-self: flex-start;
+    flex-shrink: 0;
     align-self: flex-start;
     display: flex;
     padding: 1rem;
     border: 1px solid var(--bg-outline);
-    width: 24rem;
+    width: 16rem;
     gap: 1rem;
 }
 
