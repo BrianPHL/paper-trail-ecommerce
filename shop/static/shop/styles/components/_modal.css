@@ -2,13 +2,14 @@
 	background-color: var(--bg-secondary);
 	flex-direction: column;
 	border-radius: 0.5rem;
-	max-height: 80vh;
 	overflow-y: scroll;
+	max-height: 80vh;
+	max-width: 40rem;
 	padding: 1rem;
+	z-index: 9998;
 	display: flex;
 	border: 1px solid var(--bg-outline);
-	margin: 2rem;
-	width: 40rem;
+	margin: 1rem;
 	gap: 1rem;
 }
 
@@ -20,7 +21,7 @@
 
 .modal-header-title {
 	font-weight: 600;
-	font-size: 1rem;
+	font-size: 0.875rem;
 	color: var(--tg-primary);
 }
 
@@ -35,4 +36,8 @@
 	align-items: center;
 	display: flex;
 	gap: 1rem;
+}
+
+.modal-header-exit, .modal-ctas-btn {
+	border-radius: 0.25rem;
 }
