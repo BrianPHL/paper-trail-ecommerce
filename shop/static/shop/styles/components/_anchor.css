@@ -21,6 +21,7 @@
 }
 
 .anchor-link {
+    text-decoration: underline;
     transition: 0.25s ease all;
     font-size: 0.875rem;
     color: var(--tg-secondary);
