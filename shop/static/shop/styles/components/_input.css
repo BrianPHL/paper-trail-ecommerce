@@ -34,14 +34,16 @@
 }
 
 .input-radio input[type="radio"] {
+    justify-content: center;
     border-radius: 50%;
-    place-content: center;
+    align-items: center;
+    flex-shrink: 0;
     appearance: none;
-    display: grid;
+    display: flex;
     margin: 0;
-    height: 1.2rem;
     border: 0.15rem solid currentColor;
-    width: 1.2rem;
+    height: 1.25rem;
+    width: 1.25rem;
     color: var(--tg-primary);
 }
 
@@ -51,8 +53,8 @@
     border-radius: 50%;
     transition: 0.05s transform ease;
     transform: scale(0);
-    height: 0.7rem;
-    width: 0.7rem;
+    height: 0.75rem;
+    width: 0.75rem;
 }
 
 .input-radio input[type="radio"]:checked::before {
@@ -76,14 +78,15 @@
 }
 
 .input-checkbox input[type="checkbox"] {
+    justify-content: center;
     border-radius: 0.25rem;
-    place-content: center;
+    align-items: center;
     appearance: none;
-    display: grid;
+    display: flex;
     margin: 0;
-    height: 1.2rem;
+    height: 1.25rem;
     border: 0.15rem solid currentColor;
-    width: 1.2rem;
+    width: 1.25rem;
     color: var(--tg-primary);
 }
 
@@ -93,8 +96,8 @@
     border-radius: 0.125rem;
     transition: 0.05s transform ease;
     transform: scale(0);
-    height: 0.7rem;
-    width: 0.7rem;
+    height: 0.75rem;
+    width: 0.75rem;
 }
 
 .input-checkbox input[type="checkbox"]:checked::before {
