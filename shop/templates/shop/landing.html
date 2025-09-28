@@ -156,11 +156,11 @@
                             <input class="input-nested" type="text" placeholder="Search here...">
                         </div>
 
-                        <button class="button-secondary shop-list-header-filters">
+                        <button class="button-secondary shop-list-header-filters" data-modal-trigger="shop-filters-modal">
                             <i class="fa-solid fa-sliders"></i>
                             Filters
                         </button>
-
+                        
                     </div>
 
                     <div class="shop-list-wrapper">
@@ -217,6 +217,90 @@
                 </h6>
             </div>
         </footer>
+
+        <div class="modal-wrapper">
+
+            <div class="modal" data-modal="shop-filters-modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-description">
+
+                <div class="modal-header">
+                    <h2 class="modal-header-title">Filters</h2>
+                    <button class="button-icon modal-header-exit" data-modal-close aria-label="Close modal">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <p class="modal-description">
+                    Select one or more filters below to refine the products shown in the shop. You can sort items, choose categories, and combine options to find exactly what you need.
+                </p>
+
+                <div class="modal-body">
+
+                    <div class="modal-filters-sort_by">
+                        <h3 class="modal-filters-sort_by-header">
+                            Sort by
+                        </h3>
+                        <div class="modal-filters-sort_by-options">
+                            <label class="input-radio">
+                                <input type="radio" id="sort_by-a-to-z" name="sort_by" value="a-to-z" checked>
+                                A to Z
+                            </label>
+                            <label class="input-radio">
+                                <input type="radio" id="sort_by-z-to-a" name="sort_by" value="z-to-a">
+                                Z to A
+                            </label>
+                            <label class="input-radio">
+                                <input type="radio" id="sort_by-price-lowest-first" name="sort_by" value="price-lowest-first">
+                                Price: Lowest First
+                            </label>
+                            <label class="input-radio">
+                                <input type="radio" id="sort_by-price-highest-first" name="sort_by" value="price-highest-first">
+                                Price: Highest First
+                            </label>
+                            <label class="input-radio">
+                                <input type="radio" id="sort_by-recently-added" name="sort_by" value="recently-added">
+                                Recently Added
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="modal-filters-categories">
+                        <h3 class="modal-filters-categories-header">
+                            Categories
+                        </h3>
+                        <div class="modal-filters-categories-options">
+                            <label class="input-checkbox">
+                                <input type="checkbox" id="categories-notebooks" name="categories" value="notebooks">
+                                Notebooks
+                            </label>
+                            <label class="input-checkbox">
+                                <input type="checkbox" id="categories-pens" name="categories" value="pens">
+                                Pens
+                            </label>
+                            <label class="input-checkbox">
+                                <input type="checkbox" id="categories-pencils" name="categories" value="pencils">
+                                Pencils
+                            </label>
+                            <label class="input-checkbox">
+                                <input type="checkbox" id="categories-art_materials" name="categories" value="art-materials">
+                                Art Materials
+                            </label>
+                            <label class="input-checkbox">
+                                <input type="checkbox" id="categories-papers" name="categories" value="papers">
+                                Papers
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-ctas">
+                    <button class="button-secondary modal-ctas-btn" data-modal-close>Cancel</button>
+                    <button class="button-primary modal-ctas-btn">Apply Filters</button>
+                </div>
+
+            </div>
+        
+        </div>
 
         <script type="module" src="{% static 'shop/scripts/main.js' %}"></script>
     
