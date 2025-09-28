@@ -11,7 +11,8 @@
 }
 
 .search:focus-within {
-    border-color: var(--tg-primary);
+    background-color: var(--bg-outline);
+    border-color: var(--accent);
 }
 
 .input-nested:focus {
