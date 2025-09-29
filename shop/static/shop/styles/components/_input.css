@@ -30,9 +30,47 @@
     }
 }
 
-.input-unnested:focus {
+.input-with-btn {
+    border-radius: 0.5rem;
+    align-items: center;
+    transition: 0.25s ease all;
+    overflow: hidden;
+    display: flex;
+    padding: 0 0 0 0.75rem;
+    border: 0.15rem solid var(--bg-outline);
+    height: 3rem;
+    color: var(--tg-primary);
+    gap: 0.75rem;
+}
+
+.input-with-btn i {
+    place-content: center;
+    border-left: 2px solid var(--bg-outline);
+    flex-shrink: 0;
+    transition: 0.25s ease all;
+    font-size: 1rem;
+    display: grid;
+    height: 3rem;
+    width: 3rem;
+}
+
+.input-with-btn i:hover {
+    background-color: var(--bg-outline);
+    cursor: pointer;
+    color: var(--accent);
+}
+
+.input-with-btn:focus-within {
     background-color: var(--bg-outline);
     border-color: var(--accent);
+}
+
+.input-with-btn:focus-within i {
+    border-color: var(--accent);
+}
+
+.input-with-btn .input-nested:focus {
+    outline: none;
 }
 
 .input-radio {
