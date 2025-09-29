@@ -63,8 +63,29 @@ const initializeSignInPage = () => {
 
     };
 
+    const initializeFormHandling = () => {
+
+
+        const passwordToggle = form.querySelector('[data-toggle="password"]');
+        
+        passwordToggle.addEventListener('click', () => {
+
+            const input = passwordToggle.previousElementSibling;
+
+            inputUtilities.handlePasswordToggle(input, (callback) => {
+
+                input.type = callback || 'password';
+                passwordToggle.className = `fa-solid ${ callback === 'password' ? 'fa-eye-slash' : 'fa-eye' }`
+            
+            });
+
+        });
+
+
+    };
 
     initializeThemeHandling();
+    initializeFormHandling();
     initializeTheme();
 
     console.log("Initialized sign in page logic!");
