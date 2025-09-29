@@ -18,6 +18,12 @@
     border: 2px solid var(--bg-outline);
     height: 3rem;
     color: var(--tg-secondary);
+    &:disabled {
+        background-color: var(--bg-disabled);
+        border-color: var(--bg-disabled);
+        cursor: not-allowed;
+        color: var(--tg-disabled);
+    }
 }
 
 .input-unnested:focus {
@@ -69,6 +75,13 @@
     transform: scale(1);
 }
 
+.input-radio input[type="radio"]:disabled,
+.input-radio:has(input[type="radio"]:disabled) {
+    border-color: var(--tg-disabled);
+    cursor: not-allowed;
+    color: var(--tg-disabled);
+}
+
 .input-checkbox {
     border-radius: 0.5rem;
     align-items: center;
@@ -110,4 +123,21 @@
 
 .input-checkbox input[type="checkbox"]:checked::before {
     transform: scale(1);
+}
+
+.input-checkbox input[type="checkbox"]:disabled,
+.input-checkbox:has(input[type="checkbox"]:disabled) {
+    border-color: var(--tg-disabled);
+    cursor: not-allowed;
+    color: var(--tg-disabled);
+}
+
+.input-checkbox input[type="checkbox"]:disabled::before {
+    background-color: var(--tg-disabled);
+}
+
+.input-radio:has(input[type="radio"]:disabled):hover,
+.input-checkbox:has(input[type="checkbox"]:disabled):hover {
+    background-color: transparent;
+    cursor: not-allowed;
 }

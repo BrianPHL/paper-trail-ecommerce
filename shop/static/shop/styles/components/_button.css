@@ -16,6 +16,12 @@
         background-color: var(--bg-hovered);
         cursor: pointer;
     }
+    &:disabled {
+        background-color: var(--bg-disabled);
+        border-color: var(--bg-disabled);
+        cursor: not-allowed;
+        color: var(--tg-disabled);
+    }
 }
 
 .button-secondary {
@@ -36,6 +42,12 @@
         background-color: var(--bg-outline);
         cursor: pointer;
     }
+    &:disabled {
+        background-color: var(--bg-disabled);
+        border-color: var(--bg-disabled);
+        cursor: not-allowed;
+        color: var(--tg-disabled);
+    }
 }
 
 .button-icon {
@@ -52,6 +64,11 @@
         background-color: var(--bg-outline);
         cursor: pointer;
     }
+    &:disabled {
+        background-color: transparent;
+        cursor: not-allowed;
+        color: var(--tg-disabled);
+    }
 }
 
 .button-icon_outlined {
@@ -67,5 +84,11 @@
     &:hover {
         background-color: var(--bg-outline);
         cursor: pointer;
+    }
+    &:disabled {
+        background-color: var(--bg-disabled);
+        border-color: var(--bg-disabled);
+        cursor: not-allowed;
+        color: var(--tg-disabled);
     }
 }
