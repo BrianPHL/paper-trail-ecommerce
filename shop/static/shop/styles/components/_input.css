@@ -18,6 +18,10 @@
     border: 2px solid var(--bg-outline);
     height: 3rem;
     color: var(--tg-secondary);
+    &:focus {
+        background-color: var(--bg-outline);
+        border-color: var(--accent);
+    }
     &:disabled {
         background-color: var(--bg-disabled);
         border-color: var(--bg-disabled);
