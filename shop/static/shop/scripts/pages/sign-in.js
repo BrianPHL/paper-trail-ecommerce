@@ -65,6 +65,19 @@ const initializeSignInPage = () => {
 
     const initializeFormHandling = () => {
 
+        const form = document.querySelector('form');
+
+        const formInputsCheckingHandler = (formInputs, formSubmitBtn) => {
+
+            inputUtilities.handleFormInputsChecking(formInputs, (callback) => {
+
+                (!callback)
+                    ? formSubmitBtn.setAttribute('disabled', 'disabled')
+                    : formSubmitBtn.removeAttribute('disabled')
+
+            });
+
+        }
 
         const passwordToggle = form.querySelector('[data-toggle="password"]');
         
@@ -81,6 +94,14 @@ const initializeSignInPage = () => {
 
         });
 
+        const formInputs = form.querySelectorAll('input');
+        const formSubmitBtn = form.querySelector('button[type="submit"]');
+
+        formInputs.forEach(formInput => formInput.addEventListener('input', () => {
+            formInputsCheckingHandler(formInputs, formSubmitBtn)
+        }));
+
+        formInputsCheckingHandler(formInputs, formSubmitBtn);
 
     };
 
