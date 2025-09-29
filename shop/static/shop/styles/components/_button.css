@@ -13,7 +13,7 @@
     color: var(--tg-primary);
     gap: 0.5rem;
     &:hover {
-        background-color: var(--bg-outline);
+        background-color: var(--bg-hovered);
         cursor: pointer;
     }
 }
