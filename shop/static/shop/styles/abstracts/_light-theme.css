@@ -4,6 +4,8 @@ html[data-theme="light"] {
     --bg-secondary: #FFEEF8;
     --bg-outline: #FFDBF1;
     --bg-hovered: #FF7BCA;
+    --bg-disabled: #FFD9F0;
     --tg-primary: #62003B;
     --tg-secondary: #DD73B1;
+    --tg-disabled: #E9AED1;
 }
