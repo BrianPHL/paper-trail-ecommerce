@@ -3,6 +3,7 @@ html[data-theme="light"] {
     --bg-primary: #FDFAF5;
     --bg-secondary: #FFEEF8;
     --bg-outline: #FFDBF1;
+    --bg-hovered: #FF7BCA;
     --tg-primary: #62003B;
     --tg-secondary: #DD73B1;
 }
