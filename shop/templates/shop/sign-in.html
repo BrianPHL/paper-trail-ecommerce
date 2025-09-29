@@ -1,0 +1,127 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html data-theme="light" lang="en">
+
+    <head>
+    
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Paper Trails | Sign In</title>
+        <link rel="stylesheet" href="{% static 'shop/styles/main.css' %}">
+    
+    </head>
+
+    <body>
+
+        <div class="wrapper">
+
+            <section class="main">
+
+                <div class="main-form">
+
+                    <div class="main-form-container">
+
+                        <div class="main-form-info">
+                            <h1 class="main-form-info-header">
+                                We've missed you!
+                            </h1>
+                            <h2 class="main-form-info-subheader">
+                                Sign in to your account to continue.
+                            </h2>
+                        </div>
+
+                        <form class="main-form-group">
+
+                            <div class="main-form-group-container">
+                                
+                                <div class="main-form-group-input">
+                                    <label for="email_address">Email address</label>
+                                    <input class="input-unnested" name="email_address" placeholder="Your email address..." type="email">
+                                </div>
+
+                                <div class="main-form-group-input">
+                                    <label for="password">Password</label>
+                                    <div class="input-with-btn main-form-group-input-container">
+                                        <input class="input-nested" name="password" type="password" placeholder="Search here...">
+                                        <i class="fa-solid fa-eye-slash" data-toggle="password"></i>
+                                    </div>
+                                    <p class="anchor-link main-form-group-input-helper">Forgot password?</p>
+                                </div>
+
+                            </div>
+
+                            <div class="main-form-group-ctas">
+                                <button class="button-primary main-form-group-ctas-btn" type="submit" disabled>
+                                    Sign in to my account
+                                    <i class="fa-solid fa-circle-arrow-right"></i>
+                                </button>
+                                <p class="main-form-group-ctas-helper">
+                                    Don't have an account yet? 
+                                    <span class="anchor-link">Create an account</span>.
+                                </p>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+                <img class="main-img" src="{% static 'shop/images/auth.png' %}" alt="PaperTrail Sign In Banner" />
+
+            </section>
+
+            <footer class="footer">
+                <div class="footer-top">
+                    <img class="footer-top-logo logo" src="{% static 'shop/images/logo-light.png' %}" alt="PaperTrail logo" />
+                    <div class="footer-top-ctas">
+                        <div class="footer-top-ctas-socials">
+                            <button class="button-icon_outlined">
+                                <i class="fa-brands fa-facebook"></i>
+                            </button>
+                            <button class="button-icon_outlined">
+                                <i class="fa-brands fa-x-twitter"></i>
+                            </button>
+                            <button class="button-icon_outlined">
+                                <i class="fa-brands fa-instagram"></i>
+                            </button>
+                        </div>
+                        <button class="button-icon_outlined theme-switcher-btn">
+                            <i class="fa-solid fa-moon"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="horizontal-divider"></div>
+                <div class="footer-middle">
+                    <nav class="footer-middle-navigation_main">
+                        <a class="anchor-button" href="/">Home</a>
+                        <a class="anchor-button" href="/shop">Our shop</a>
+                        <a class="anchor-button" href="/about-us">About us</a>
+                        <a class="anchor-button" href="/contact-us">Contact us</a>
+                    </nav>
+                    <div class="footer-middle-navigation_other">
+                        <a class="anchor-button" href="/privacy-policy">Privacy Policy</a>
+                        <a class="anchor-button" href="/terms-and-conditions">Terms & Conditions</a>
+                        <a class="anchor-button" href="/faq">Frequently Asked Questions</a>
+                    </div>
+                </div>
+                <div class="horizontal-divider"></div>
+                <div class="footer-bottom">
+                    <h6 class="footer-bottom-copyright">
+                        2025 Paper Trails. All rights reserved.
+                    </h6>
+                    <h6 class="footer-bottom-credits">
+                        Built with <a class="anchor-link" href="https://www.djangoproject.com/">Django Framework</a>.
+                    </h6>
+                </div>
+            </footer>
+
+        </div>
+
+        <script type="module" src="{% static 'shop/scripts/main.js' %}"></script>
+    
+    </body>
+
+</html>

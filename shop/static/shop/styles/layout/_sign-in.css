@@ -1,0 +1,38 @@
+@media only screen and (max-width: 1680px) {
+    .main {
+        padding: 4rem 8rem;
+    }
+}
+
+@media only screen and (max-width: 1500px) {
+    .main {
+        background-image: url('../../images/auth-light.png');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding: 2rem 4rem;
+    }
+    .main-img {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 1080px) {
+    .main {
+        justify-self: flex-start;
+    }
+}
+
+@media only screen and (max-width: 720px) {
+    .main {
+        padding: 1rem 2rem;
+    }
+}
+
+@media only screen and (max-width: 410px) {
+    .main-form {
+        padding: 2rem 1rem;
+    }
+}
+
+
