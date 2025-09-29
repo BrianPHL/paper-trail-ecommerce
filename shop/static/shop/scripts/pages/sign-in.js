@@ -1,7 +1,6 @@
 import * as themeUtilities from "../utils/theme.js";
 import * as inputUtilities from "../utils/input.js";
 
-
 const initializeSignInPage = () => {
 
     if (window.location.pathname !== '/sign-in/') return;
@@ -9,7 +8,7 @@ const initializeSignInPage = () => {
     const initializeTheme = () => {
 
         const htmlElement = document.querySelector('html');
-        const main = document.querySelector('.main');
+        const signIn = document.querySelector('.sign_in');
         const logos = document.querySelectorAll('.logo');
         const mediaQuery = window.matchMedia('(max-width: 1500px');
 
@@ -20,13 +19,13 @@ const initializeSignInPage = () => {
             logos.forEach(logo => logo.src = `/static/shop/images/logo-${ theme }.png`)
 
             if (mediaQuery.matches)
-                main.style.backgroundImage = `url(/static/shop/images/auth-${ theme }.png)`;
+                signIn.style.backgroundImage = `url(/static/shop/images/auth-${ theme }.png)`;
 
             mediaQuery.addEventListener('change', (event) => {
                 if (event.matches) {
-                    main.style.backgroundImage = `url(/static/shop/images/auth-${ theme }.png)`;
+                    signIn.style.backgroundImage = `url(/static/shop/images/auth-${ theme }.png)`;
                 } else {
-                    main.style.backgroundImage = ``;
+                    signIn.style.backgroundImage = ``;
                 }
             }) 
 

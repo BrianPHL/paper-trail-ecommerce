@@ -4,7 +4,7 @@
     height: 100vh;
 }
 
-.main {
+.sign_in {
     background-color: var(--bg-primary);
     flex-direction: row;
     flex-shrink: 0;
@@ -15,7 +15,7 @@
     gap: 4rem;
 }
 
-.main-img {
+.sign_in-img {
     object-position: center;
     flex-shrink: 1;
     object-fit: cover;
@@ -24,7 +24,7 @@
     width: 100%;
 }
 
-.main-form {
+.sign_in-form {
     background-color: var(--bg-secondary);
     flex-direction: column;
     border-radius: 0.5rem;
@@ -36,31 +36,31 @@
     gap: 2rem;
 }
 
-.main-form-container {
+.sign_in-form-container {
     flex-direction: column;
     display: flex;
     height: 100%;
     gap: 2rem;
 }
 
-.main-form-info {
+.sign_in-form-info {
     flex-direction: column;
     display: flex;
 }
 
-.main-form-info-header {
+.sign_in-form-info-header {
     font-weight: 700;
     font-size: 2rem;
     color: var(--tg-primary);
 }
 
-.main-form-info-subheader {
+.sign_in-form-info-subheader {
     font-weight: 500;
     font-size: 0.875rem;
     color: var(--tg-secondary);
 }
 
-.main-form-group {
+.sign_in-form-group {
     justify-content: space-between;
     flex-direction: column;
     display: flex;
@@ -68,48 +68,48 @@
     gap: 1rem;
 }
 
-.main-form-group-container {
+.sign_in-form-group-container {
     flex-direction: column;
     display: flex;
     gap: 1rem;
 }
 
-.main-form-group-input {
+.sign_in-form-group-input {
     flex-direction: column;
     display: flex;
     gap: 0.5rem;
 }
 
-.main-form-group-input-container {
+.sign_in-form-group-input-container {
     border-radius: 0.25rem;
 }
 
-.main-form-group-input label {
+.sign_in-form-group-input label {
     font-weight: 400;
     font-size: 0.875rem;
     color: var(--tg-primary);
 }
 
-.main-form-group-input input {
+.sign_in-form-group-input input {
     border-radius: 0.25rem;
 }
 
-.main-form-group-input-helper {
+.sign_in-form-group-input-helper {
     align-self: flex-start;
     color: var(--tg-primary);
 }
-.main-form-group-ctas {
+.sign_in-form-group-ctas {
     flex-direction: column;
     display: flex;
     align-items: center;
     gap: 1rem;
 }
 
-.main-form-group-ctas-btn {
+.sign_in-form-group-ctas-btn {
     width: 100%;
 }
 
-.main-form-group-ctas-helper {
+.sign_in-form-group-ctas-helper {
     font-weight: 400;
     font-size: 0.875rem;
     color: var(--tg-secondary);

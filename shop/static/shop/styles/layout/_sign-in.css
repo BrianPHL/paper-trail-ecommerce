@@ -1,36 +1,36 @@
 @media only screen and (max-width: 1680px) {
-    .main {
+    .sign_in {
         padding: 4rem 8rem;
     }
 }
 
 @media only screen and (max-width: 1500px) {
-    .main {
+    .sign_in {
         background-image: url('../../images/auth-light.png');
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
         padding: 2rem 4rem;
     }
-    .main-img {
+    .sign_in-img {
         display: none;
     }
 }
 
 @media only screen and (max-width: 1080px) {
-    .main {
+    .sign_in {
         justify-self: flex-start;
     }
 }
 
 @media only screen and (max-width: 720px) {
-    .main {
+    .sign_in {
         padding: 1rem 2rem;
     }
 }
 
 @media only screen and (max-width: 410px) {
-    .main-form {
+    .sign_in-form {
         padding: 2rem 1rem;
     }
 }
