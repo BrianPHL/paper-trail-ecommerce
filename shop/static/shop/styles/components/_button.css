@@ -50,6 +50,27 @@
     }
 }
 
+.button-tertiary {
+    background-color: transparent;
+    border-radius: 0.5rem;
+    align-items: center;
+    font-weight: 600;
+    transition: 0.25s ease all;
+    font-size: 0.875rem;
+    border: none;
+    display: flex;
+    color: var(--tg-secondary);
+    gap: 0.25rem;
+    &:hover {
+        color: var(--tg-primary);
+        cursor: pointer;
+    }
+    &:disabled {
+        cursor: not-allowed;
+        color: var(--tg-disabled);
+    }  
+}
+
 .button-icon {
     background-color: transparent;
     border-radius: 0.5rem;
