@@ -95,12 +95,23 @@ const initializeSignInPage = () => {
 
         const formInputs = form.querySelectorAll('input');
         const formSubmitBtn = form.querySelector('button[type="submit"]');
+        const formResetBtn = form.querySelector('button[type="reset"]');
 
         formInputs.forEach(formInput => formInput.addEventListener('input', () => {
             formInputsCheckingHandler(formInputs, formSubmitBtn)
         }));
 
         formInputsCheckingHandler(formInputs, formSubmitBtn);
+
+        formResetBtn.addEventListener('click', (event) => {
+            
+            event.preventDefault();
+
+            formInputs.forEach(formInput => formInput.value = '');
+
+            formInputsCheckingHandler(formInputs, formSubmitBtn);
+
+        });
 
     };
 

@@ -105,8 +105,18 @@
     gap: 1rem;
 }
 
-.sign_in-form-group-ctas-btn {
+.sign_in-form-group-ctas-container {
+    display: flex;
     width: 100%;
+    gap: 0.5rem;
+}
+
+.sign_in-form-group-ctas-btn[type="submit"] {
+    width: 100%;
+}
+
+.sign_in-form-group-ctas-btn[type="reset"] {
+    flex-shrink: 0;
 }
 
 .sign_in-form-group-ctas-helper {
