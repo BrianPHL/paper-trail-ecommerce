@@ -1,5 +1,6 @@
 import * as themeUtilities from "../utils/theme.js";
 import * as inputUtilities from "../utils/input.js";
+import { loginUser } from "../api/auth.js";
 
 const initializeSignInPage = () => {
 
@@ -65,15 +66,33 @@ const initializeSignInPage = () => {
     const initializeFormHandling = () => {
 
         const form = document.querySelector('form');
+        const formError = document.querySelector('.sign_in-form-error');
+        const formErrorText = document.querySelector('.sign_in-form-error-text');
 
         const handleAccountAuthorization = async () => {
 
             const formData = new FormData(form);
 
-            // email_address
-            // password
+            formError.style.display = 'none';
 
-            // TODO: setup POST request here to backend.
+            try {
+            
+                const result = await loginUser({
+                    email_address: formData.get('email_address'),
+                    password: formData.get('password')
+                });
+
+                if (!result.success)
+                    throw new Error(result.err || 'Failed to login!');
+
+                window.location.href = '/';
+
+            } catch (err) {
+
+                formError.style.display = 'flex';
+                formErrorText.innerHTML = err.message;
+
+            }
 
         };
 

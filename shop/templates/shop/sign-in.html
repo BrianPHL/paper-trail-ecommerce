@@ -32,7 +32,14 @@
                             </h2>
                         </div>
 
+                        <div class="sign_in-form-error" style="display: none;">
+                            <i class="sign_in-form-error-icon fa-solid fa-triangle-exclamation"></i>
+                            <p class="sign_in-form-error-text">Test</p>
+                        </div>
+
                         <form class="sign_in-form-group">
+
+                            {% csrf_token %}
 
                             <div class="sign_in-form-group-container">
                                 
