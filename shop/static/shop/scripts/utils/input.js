@@ -12,6 +12,9 @@ export const handleFormInputsChecking = (formInputs, callback) => {
 
     for (const formInput of formInputs) {
 
+        if (!formInput.required)
+            continue;
+
         if (!formInput.value || formInput.value.trim() === '') {
             callback(false);
             return;
