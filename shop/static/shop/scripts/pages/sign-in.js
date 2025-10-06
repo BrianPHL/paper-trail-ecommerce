@@ -142,7 +142,14 @@ const initializeSignInPage = () => {
             
             event.preventDefault();
 
-            formInputs.forEach(formInput => formInput.value = '');
+            formInputs.forEach(formInput => {
+            
+                if (formInput.name === 'csrfmiddlewaretoken')
+                    return;
+            
+                formInput.value = '';
+
+            });
 
             formInputsCheckingHandler(formInputs, formSubmitBtn);
 
