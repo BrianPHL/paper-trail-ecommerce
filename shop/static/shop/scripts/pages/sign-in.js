@@ -66,6 +66,17 @@ const initializeSignInPage = () => {
 
         const form = document.querySelector('form');
 
+        const handleAccountAuthorization = async () => {
+
+            const formData = new FormData(form);
+
+            // email_address
+            // password
+
+            // TODO: setup POST request here to backend.
+
+        };
+
         const formInputsCheckingHandler = (formInputs, formSubmitBtn) => {
 
             inputUtilities.handleFormInputsChecking(formInputs, (callback) => {
@@ -102,6 +113,11 @@ const initializeSignInPage = () => {
         }));
 
         formInputsCheckingHandler(formInputs, formSubmitBtn);
+
+        formSubmitBtn.addEventListener('click', async (event) => {
+            event.preventDefault();
+            await handleAccountAuthorization();
+        });
 
         formResetBtn.addEventListener('click', (event) => {
             
