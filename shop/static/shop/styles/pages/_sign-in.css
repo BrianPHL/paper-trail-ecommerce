@@ -121,8 +121,8 @@
 }
 .sign_in-form-group-ctas {
     flex-direction: column;
-    display: flex;
     align-items: center;
+    display: flex;
     gap: 1rem;
 }
 
@@ -133,10 +133,12 @@
 }
 
 .sign_in-form-group-ctas-btn[type="submit"] {
+    border-radius: 0.25rem;
     width: 100%;
 }
 
 .sign_in-form-group-ctas-btn[type="reset"] {
+    border-radius: 0.25rem;
     flex-shrink: 0;
 }
 
