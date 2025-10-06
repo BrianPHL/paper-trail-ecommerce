@@ -1,5 +1,6 @@
 import initializeLandingPage from "./pages/landing.js";
 import initializeSignInPage from "./pages/sign-in.js";
+import initializeSignUpPage from "./pages/sign-up.js";
 import initializeModalComponent from "./components/modal.js";
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -9,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Pages JavaScript Logic
     initializeLandingPage();
     initializeSignInPage();
+    initializeSignUpPage();
 
     // Components JavaScript Logic
     initializeModalComponent();

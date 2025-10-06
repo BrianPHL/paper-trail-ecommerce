@@ -1,0 +1,183 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html data-theme="light" lang="en">
+
+    <head>
+    
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Paper Trails | Create My Account</title>
+        <link rel="stylesheet" href="{% static 'shop/styles/main.css' %}">
+    
+    </head>
+
+    <body>
+
+        <div class="wrapper">
+
+            <section class="sign_up">
+
+                <div class="sign_up-form">
+
+                    <div class="sign_up-form-container">
+
+                        <div class="sign_up-form-info">
+                            <h1 class="sign_up-form-info-header">
+                                Hey there!
+                            </h1>
+                            <h2 class="sign_up-form-info-subheader">
+                                Fill in your details to create an account.
+                            </h2>
+                        </div>
+
+                        <div class="sign_up-form-progress_bar">
+                            <div class="sign_up-form-progress_bar-level"></div>
+                        </div>
+
+                        <form class="sign_up-form-group">
+
+                            <div class="sign_up-form-group-container" data-step="1">
+
+                                <div class="sign_up-form-group-horizontal">
+                                    <div class="sign_up-form-group-input">
+                                        <label for="first_name">First name *</label>
+                                        <input class="input-unnested" name="first_name" placeholder="John Michael" type="text" required>
+                                    </div>
+                                    <div class="sign_up-form-group-input">
+                                        <label for="last_name">Last name *</label>
+                                        <input class="input-unnested" name="last_name" placeholder="Doe" type="text" required>
+                                    </div>                             
+                                </div>
+
+                                <div class="sign_up-form-group-input">
+                                    <label for="house_address">House address (optional)</label>
+                                    <input class="input-unnested" name="house_address" placeholder="123 Sunny St., Mayers Blvd." type="text">
+                                </div>
+
+                                <div class="sign_up-form-group-input">
+                                    <label for="contact_number">Contact number *</label>
+                                    <input class="input-unnested" name="contact_number" placeholder="09123456789" type="tel" required>
+                                </div>
+
+                            </div>
+
+                            <div class="sign_up-form-group-container" data-step="2" style="display: none;">
+
+                                <div class="sign_up-form-group-input">
+                                    <label for="email_address">Email address *</label>
+                                    <input class="input-unnested" name="email_address" placeholder="john.doe@email.com" type="email" required>
+                                </div>
+
+                                <div class="sign_up-form-group-input">
+                                    <label for="password">Password *</label>
+                                    <div class="input-with-btn sign_up-form-group-input-container">
+                                        <input class="input-nested" name="password" type="password" placeholder="••••••••••" required>
+                                        <i class="fa-solid fa-eye-slash" data-toggle="password"></i>
+                                    </div>
+                                </div>
+
+                                <div class="sign_up-form-group-input">
+                                    <label for="confirm_password">Confirm password *</label>
+                                    <div class="input-with-btn sign_up-form-group-input-container">
+                                        <input class="input-nested" name="confirm_password" type="password" placeholder="••••••••••" required>
+                                        <i class="fa-solid fa-eye-slash" data-toggle="password"></i>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="sign_up-form-group-ctas">
+
+                                <div class="sign_up-form-group-ctas-container" data-step="1">
+                                    <button class="button-icon_outlined sign_up-form-group-ctas-btn" type="reset">
+                                        <i class="fa-solid fa-arrow-rotate-left"></i>
+                                    </button>
+                                    <button class="button-primary sign_up-form-group-ctas-btn" type="submit" disabled>
+                                        Next Step
+                                        <i class="fa-solid fa-circle-arrow-right"></i>
+                                    </button>
+                                </div>
+
+                                <div class="sign_up-form-group-ctas-container" data-step="2" style="display: none;">
+                                    <button class="button-icon_outlined sign_up-form-group-ctas-btn" type="button">
+                                        <i class="fa-solid fa-chevron-left"></i>
+                                    </button>
+                                    <button class="button-icon_outlined sign_up-form-group-ctas-btn" type="reset">
+                                        <i class="fa-solid fa-arrow-rotate-left"></i>
+                                    </button>
+                                    <button class="button-primary sign_up-form-group-ctas-btn" type="submit" disabled>
+                                        Create my account
+                                        <i class="fa-solid fa-circle-arrow-right"></i>
+                                    </button>
+                                </div>
+
+                                <p class="sign_up-form-group-ctas-helper">
+                                    Don't have an account yet? 
+                                    <span class="anchor-link" href="/sign-up">Sign up</span>.
+                                </p>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+                <img class="sign_up-img" src="{% static 'shop/images/auth.png' %}" alt="PaperTrail Sign Up Banner" />
+
+            </section>
+
+            <footer class="footer">
+                <div class="footer-top">
+                    <img class="footer-top-logo logo" src="{% static 'shop/images/logo-light.png' %}" alt="PaperTrail logo" />
+                    <div class="footer-top-ctas">
+                        <div class="footer-top-ctas-socials">
+                            <button class="button-icon_outlined">
+                                <i class="fa-brands fa-facebook"></i>
+                            </button>
+                            <button class="button-icon_outlined">
+                                <i class="fa-brands fa-x-twitter"></i>
+                            </button>
+                            <button class="button-icon_outlined">
+                                <i class="fa-brands fa-instagram"></i>
+                            </button>
+                        </div>
+                        <button class="button-icon_outlined theme-switcher-btn">
+                            <i class="fa-solid fa-moon"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="horizontal-divider"></div>
+                <div class="footer-middle">
+                    <nav class="footer-middle-navigation_main">
+                        <a class="anchor-button" href="/">Home</a>
+                        <a class="anchor-button" href="/shop">Our shop</a>
+                        <a class="anchor-button" href="/about-us">About us</a>
+                        <a class="anchor-button" href="/contact-us">Contact us</a>
+                    </nav>
+                    <div class="footer-middle-navigation_other">
+                        <a class="anchor-button" href="/privacy-policy">Privacy Policy</a>
+                        <a class="anchor-button" href="/terms-and-conditions">Terms & Conditions</a>
+                        <a class="anchor-button" href="/faq">Frequently Asked Questions</a>
+                    </div>
+                </div>
+                <div class="horizontal-divider"></div>
+                <div class="footer-bottom">
+                    <h6 class="footer-bottom-copyright">
+                        2025 Paper Trails. All rights reserved.
+                    </h6>
+                    <h6 class="footer-bottom-credits">
+                        Built with <a class="anchor-link" href="https://www.djangoproject.com/">Django Framework</a>.
+                    </h6>
+                </div>
+            </footer>
+
+        </div>
+
+        <script type="module" src="{% static 'shop/scripts/main.js' %}"></script>
+    
+    </body>
+
+</html>
