@@ -1,13 +1,14 @@
 .wrapper {
     flex-direction: column;
     display: flex;
-    height: 110vh;
 }
 
 .sign_up {
     background-color: var(--bg-primary);
     flex-direction: row;
     flex-shrink: 0;
+    align-items: center;
+    align-self: stretch;
     padding: 4rem 16rem;
     display: flex;
     width: 100%;
@@ -17,12 +18,12 @@
 
 .sign_up-img {
     border-radius: 0.5rem;
-    object-position: center;
-    flex-shrink: 1;
-    object-fit: cover;
-    min-height: 100%;
-    height: 0;
-    width: 100%;
+    align-items: flex-start;
+    align-self: stretch;
+    object-fit: contain;
+    display: flex;
+    padding: 2rem;
+    flex: 1 0 0;
 }
 
 .sign_up-form {

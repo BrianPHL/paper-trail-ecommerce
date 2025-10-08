@@ -1,13 +1,14 @@
 .wrapper {
     flex-direction: column;
     display: flex;
-    height: 100vh;
 }
 
 .sign_in {
     background-color: var(--bg-primary);
     flex-direction: row;
     flex-shrink: 0;
+    align-items: center;
+    align-self: stretch;
     padding: 4rem 16rem;
     display: flex;
     width: 100%;
@@ -16,12 +17,13 @@
 }
 
 .sign_in-img {
-    object-position: center;
-    flex-shrink: 1;
-    object-fit: cover;
-    min-height: 100%;
-    height: 0;
-    width: 100%;
+    border-radius: 0.5rem;
+    align-items: flex-start;
+    align-self: stretch;
+    object-fit: contain;
+    display: flex;
+    padding: 2rem;
+    flex: 1 0 0;
 }
 
 .sign_in-form {
