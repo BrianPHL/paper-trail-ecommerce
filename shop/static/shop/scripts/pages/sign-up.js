@@ -208,12 +208,12 @@ const initializeSignUpPage = () => {
         formReturnBtn.addEventListener('click', showFirstStep);
 
         window.addEventListener("resize", () => {
-            responsiveUtilities.equalizeChildrenHeightInContainer(formSignIn);
+            responsiveUtilities.equalizeChildrenHeightInContainer(formSignUp);
             
         });
 
         window.addEventListener('load', () => {
-            responsiveUtilities.equalizeChildrenHeightInContainer(formSignIn);
+            responsiveUtilities.equalizeChildrenHeightInContainer(formSignUp);
         });
 
     };
