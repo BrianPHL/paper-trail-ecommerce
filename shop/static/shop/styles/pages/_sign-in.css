@@ -1,14 +1,13 @@
 .wrapper {
     flex-direction: column;
+    min-height: 100vh;
     display: flex;
 }
 
 .sign_in {
     background-color: var(--bg-primary);
     flex-direction: row;
-    flex-shrink: 0;
     align-items: center;
-    align-self: stretch;
     padding: 4rem 16rem;
     display: flex;
     width: 100%;
@@ -18,12 +17,12 @@
 
 .sign_in-img {
     border-radius: 0.5rem;
-    align-items: flex-start;
-    align-self: stretch;
-    object-fit: contain;
+    /* align-self: stretch; */
+    object-fit: cover;
     display: flex;
-    padding: 2rem;
-    flex: 1 0 0;
+    height: auto;
+    width: 100%;
+    flex: 1;
 }
 
 .sign_in-form {
@@ -31,10 +30,11 @@
     flex-direction: column;
     border-radius: 0.5rem;
     flex-shrink: 0;
-    max-width: 25rem;
     padding: 3rem 2rem;
     display: flex;
     border: 1px solid var(--bg-outline);
+    height: auto;
+    width: 25rem;
     gap: 2rem;
 }
 

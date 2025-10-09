@@ -1,5 +1,6 @@
 import * as themeUtilities from "../utils/theme.js";
 import * as inputUtilities from "../utils/input.js";
+import * as responsiveUtilities from "../utils/responsive.js";
 import { loginUser } from "../api/auth.js";
 
 const initializeSignInPage = () => {
@@ -66,6 +67,7 @@ const initializeSignInPage = () => {
     const initializeFormHandling = () => {
 
         const form = document.querySelector('form');
+        const formSignIn = document.querySelector('.sign_in');
         const formError = document.querySelector('.sign_in-form-error');
         const formErrorText = document.querySelector('.sign_in-form-error-text');
 
@@ -154,6 +156,16 @@ const initializeSignInPage = () => {
             formInputsCheckingHandler(formInputs, formSubmitBtn);
 
         });
+
+        window.addEventListener("resize", () => {
+            responsiveUtilities.equalizeChildrenHeightInContainer(formSignIn);
+            
+        });
+
+        window.addEventListener('load', () => {
+            responsiveUtilities.equalizeChildrenHeightInContainer(formSignIn);
+        });
+
 
     };
 
