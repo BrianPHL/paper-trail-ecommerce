@@ -1,5 +1,6 @@
 import * as themeUtilities from "../utils/theme.js";
 import * as inputUtilities from "../utils/input.js";
+import * as responsiveUtilities from "../utils/responsive.js";
 
 
 const initializeSignUpPage = () => {
@@ -66,6 +67,7 @@ const initializeSignUpPage = () => {
     const initializeFormHandling = () => {
 
         const form = document.querySelector('form');
+        const formSignUp = document.querySelector('.sign_up');
         const formStepsProgressBar = document.querySelector('.sign_up-form-progress_bar-level');
         const formCtasContainers = form.querySelectorAll('.sign_up-form-group-ctas-container');
         const formCtasContainersArray = Array.from(formCtasContainers);
@@ -204,6 +206,13 @@ const initializeSignUpPage = () => {
         }));
 
         formReturnBtn.addEventListener('click', showFirstStep);
+
+        responsiveUtilities.equalizeChildrenHeightInContainer(formSignUp);
+
+        window.addEventListener("resize", () => {
+            responsiveUtilities.equalizeChildrenHeightInContainer(formSignUp);
+            
+        });
 
     };
 
