@@ -13,3 +13,29 @@ export const equalizeChildrenHeightInContainer = (container) => {
     containerChildren.forEach(containerChild => containerChild.style.height = `${ referenceHeight }px`)
 
 };
+
+export const equalizeHeaderAndHeroSpacing = (header, hero) => {
+
+    const viewportHeight = window.innerHeight;
+    const viewportWidth = window.innerWidth;
+    const headerHeight = header.offsetHeight;
+    const heroHeight = hero.offsetHeight;
+
+    console.log("Viewport height (in px): ", viewportHeight);
+    console.log("Header height (in px): ", headerHeight);
+    console.log("Hero height (in px): ", heroHeight);
+
+    console.log(viewportHeight - headerHeight);
+
+    header.style.height = `${ headerHeight }px`;
+    hero.style.marginTop = `${ headerHeight }px`;
+    
+    if (viewportWidth <= 600) {
+        header.style.height = 'auto';
+        hero.style.height = 'auto';
+        return;
+    };
+
+    hero.style.height = `${ (viewportHeight - headerHeight) - (viewportHeight - headerHeight) * 0.10  }px`
+
+};
