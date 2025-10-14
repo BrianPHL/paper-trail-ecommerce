@@ -1,5 +1,5 @@
-import * as utilities from "../utils/theme.js";
-
+import * as themeUtilities from "../utils/theme.js";
+import * as responsiveUtilities from "../utils/responsive.js";
 
 const initializeLandingPage = () => {
 
@@ -14,9 +14,9 @@ const initializeLandingPage = () => {
 
         const mediaQuery = window.matchMedia('(max-width: 1500px');
 
-        utilities.getTheme((theme) => {
+        themeUtilities.getTheme((theme) => {
 
-            utilities.setTheme(theme);
+            themeUtilities.setTheme(theme);
 
             logos.forEach(logo => logo.src = `/static/shop/images/logo-${ theme }.png`)
 
@@ -37,9 +37,31 @@ const initializeLandingPage = () => {
 
     };
 
+    const initializeHeroHandling = () => {
+
+        window.addEventListener('resize', () => {
+
+            const header = document.querySelector('.header');
+            const hero = document.querySelector('.hero');
+            
+            responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero);
+
+        });
+
+        window.addEventListener('load', () => {
+
+            const header = document.querySelector('.header');
+            const hero = document.querySelector('.hero');
+
+            responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero);
+
+        });
+
+    };
+
     themeSwitchBtns.forEach(themeSwitchBtn => themeSwitchBtn.addEventListener('click', () => {
         
-        utilities.getTheme((callback) => {
+        themeUtilities.getTheme((callback) => {
 
             const alternateTheme =
             (callback === 'light')
@@ -51,7 +73,7 @@ const initializeLandingPage = () => {
                 <i class="fa-solid ${ alternateTheme === 'light' ? 'fa-moon' : 'fa-sun' }"></i>
             `
 
-            utilities.setTheme(alternateTheme);
+            themeUtilities.setTheme(alternateTheme);
             initializePageTheme();
 
         });
@@ -61,6 +83,7 @@ const initializeLandingPage = () => {
     console.log("Initialized landing page logic!");
 
     initializePageTheme();
+    initializeHeroHandling();
 
 };
 
