@@ -2,8 +2,12 @@
     background-color: var(--bg-secondary);
     flex-direction: column;
     border-bottom: 1px solid var(--bg-outline);
+    position: fixed;
     padding: 1rem 16rem;
     display: flex;
+    z-index: 9999;
+    width: 100%;
+    top: 0;
     gap: 1rem;
 }
 
