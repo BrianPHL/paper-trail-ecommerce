@@ -85,50 +85,7 @@
 
             </section>
 
-            <footer class="footer">
-                <div class="footer-top">
-                    <img class="footer-top-logo logo" src="{% static 'shop/images/logo-light.png' %}" alt="PaperTrail logo" />
-                    <div class="footer-top-ctas">
-                        <div class="footer-top-ctas-socials">
-                            <button class="button-icon_outlined">
-                                <i class="fa-brands fa-facebook"></i>
-                            </button>
-                            <button class="button-icon_outlined">
-                                <i class="fa-brands fa-x-twitter"></i>
-                            </button>
-                            <button class="button-icon_outlined">
-                                <i class="fa-brands fa-instagram"></i>
-                            </button>
-                        </div>
-                        <button class="button-icon_outlined theme-switcher-btn">
-                            <i class="fa-solid fa-moon"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="horizontal-divider"></div>
-                <div class="footer-middle">
-                    <nav class="footer-middle-navigation_main">
-                        <a class="anchor-button" href="/">Home</a>
-                        <a class="anchor-button" href="/shop">Our shop</a>
-                        <a class="anchor-button" href="/about-us">About us</a>
-                        <a class="anchor-button" href="/contact-us">Contact us</a>
-                    </nav>
-                    <div class="footer-middle-navigation_other">
-                        <a class="anchor-button" href="/privacy-policy">Privacy Policy</a>
-                        <a class="anchor-button" href="/terms-and-conditions">Terms & Conditions</a>
-                        <a class="anchor-button" href="/faq">Frequently Asked Questions</a>
-                    </div>
-                </div>
-                <div class="horizontal-divider"></div>
-                <div class="footer-bottom">
-                    <h6 class="footer-bottom-copyright">
-                        2025 Paper Trails. All rights reserved.
-                    </h6>
-                    <h6 class="footer-bottom-credits">
-                        Built with <a class="anchor-link" href="https://www.djangoproject.com/">Django Framework</a>.
-                    </h6>
-                </div>
-            </footer>
+            {% include "./components/footer.html" %}
 
         </div>
 
