@@ -15,38 +15,7 @@
 
     <body>
 
-        <header class="header">
-
-            <div class="header-top">
-                <img class="header-top-logo logo" src="{% static 'shop/images/logo-light.png' %}" alt="PaperTrail logo" />
-                <div class="header-top-ctas">
-                    <button class="button-secondary">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        0 items
-                    </button>
-                    <button class="button-secondary" onclick="window.location.href='/sign-in'">
-                        <i class="fa-solid fa-right-to-bracket"></i>
-                        Sign in
-                    </button>
-                    <button class="button-icon_outlined theme-switcher-btn">
-                        <i class="fa-solid fa-moon"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="horizontal-divider"></div>
-            <div class="header-bottom">
-                <div class="header-bottom-breadcrumbs">
-                    <p>Home /</p>
-                </div>
-                <nav class="header-bottom-navigation">
-                    <a class="anchor-button active" href="/">Home</a>
-                    <a class="anchor-button" href="/shop">Our shop</a>
-                    <a class="anchor-button" href="/about-us">About us</a>
-                    <a class="anchor-button" href="/contact-us">Contact us</a>
-                </nav>
-            </div>
-
-        </header>
+        {% include "./components/header.html" %}
 
         <section id="hero" class="hero">
 
