@@ -29,6 +29,6 @@ export const equalizeHeaderAndHeroSpacing = (header, hero) => {
         return;
     };
 
-    hero.style.height = `${ (viewportHeight - headerHeight) - (viewportHeight - headerHeight) * 0.10  }px`
+    hero.style.height = `${ (viewportHeight - headerHeight) - (viewportHeight - headerHeight) * 0.20  }px`
 
 };
