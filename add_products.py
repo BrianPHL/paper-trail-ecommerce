@@ -10,7 +10,7 @@ from shop.models import Product
 from django.core.files import File
 
 # CHANGE THIS PATH to where your images are stored
-IMAGES_FOLDER = r"C:\Users\brian\OneDrive\Desktop\paper-trail-ecommerce\shop\static\shop\images"
+IMAGES_FOLDER = r"C:\Users\brian\OneDrive\Desktop\product_images"
 
 # Your products data
 products = [
