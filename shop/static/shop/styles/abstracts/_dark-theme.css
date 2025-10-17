@@ -8,4 +8,12 @@ html[data-theme="dark"] {
     --tg-primary: #F6DBEC;
     --tg-secondary: #C478AB;
     --tg-disabled: #5D3D52;
+    --success-foreground: #7EF0B1;
+    --success-background: #113E2A;
+    --warn-foreground: #FFD78A;
+    --warn-background: #4A3614;
+    --danger-foreground: #E9204F;
+    --danger-background: #4C1824;
+    --error-foreground: #E9204F;
+    --error-background: #4C1824;
 }
