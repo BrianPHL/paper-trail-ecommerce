@@ -3,3 +3,4 @@ mysqlclient>=2.2.7
 python-dotenv>=1.1.1
 django-browser-reload>=1.21.0
 django-watchfiles>=1.4.0
+pillow>=11.3.0
