@@ -2,8 +2,8 @@
     background-color: var(--bg-secondary);
     flex-direction: column;
     border-radius: 0.5rem;
-    flex-basis: 20rem;
-    max-width: 20rem;
+    max-width: 100%;
+    width: 20rem;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -14,6 +14,7 @@
     background-color: var(--bg-primary);
     height: 12rem;
     width: 100%;
+    object-fit: contain;
 }
 
 .product_card-wrapper {
@@ -29,15 +30,59 @@
     gap: 0.5rem;
 }
 
+.product_card-info-status {
+    color: var(--tg-secondary);
+    font-size: 0.75rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.product_card-info-status span {
+    font-weight: 500;
+    border-radius: 0.25rem;
+    padding: 0.125rem 0.25rem;
+}
+
+.product_card-info-status i {
+    font-size: 0.25rem;
+}
+
+.product_card-info-status span.in_stock {
+    background-color: var(--success-background);
+    color: var(--success-foreground);
+}
+
+.product_card-info-status span.low_stock {
+    background-color: var(--warn-background);
+    color: var(--warn-foreground);
+}
+
+.product_card-info-status span.out_of_stock {
+    background-color: var(--danger-background);
+    color: var(--danger-foreground);
+}
+
+.product_card-info-status span.discontinued {
+    background-color: var(--bg-outline);
+    color: var(--tg-secondary);
+}
+
 .product_card-info-label {
-    font-weight: 600;
-    font-size: 0.875rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 700;
+    font-size: 1rem;
+    overflow: hidden;
     color: var(--tg-primary);
 }
 
 .product_card-info-description {
-    font-weight: 400;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 500;
     font-size: 0.875rem;
+    overflow: hidden;
     color: var(--tg-secondary);
 }
 
