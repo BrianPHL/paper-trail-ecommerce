@@ -32,7 +32,5 @@
 
     .header-top-ctas, .header-bottom-navigation {
         justify-content: center;
-        flex-wrap: wrap;
-        display: flex;
     }
 }
