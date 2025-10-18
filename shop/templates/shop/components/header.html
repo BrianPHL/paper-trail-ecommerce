@@ -27,7 +27,7 @@
                         {% if crumb.url %}
                             <a class="anchor-link" href="{{ crumb.url }}">{{ crumb.name }}</a>
                         {% else %}
-                            <p>{{ crumb.name }}</p>
+                            <span>{{ crumb.name }}</span>
                         {% endif %}
                         {% if not forloop.last %} / {% endif %}
                     {% endfor %}
