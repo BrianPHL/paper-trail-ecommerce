@@ -5,15 +5,15 @@ html[data-theme="dark"] {
     --bg-outline: #3A2A36;
     --bg-hovered: #8B336D;
     --bg-disabled: #33222F;
+    --bg-success: #113E2A;
+    --bg-warn: #4A3614;
+    --bg-danger: #4C1824;
+    --bg-error: #4C1824;
     --tg-primary: #F6DBEC;
     --tg-secondary: #C478AB;
     --tg-disabled: #5D3D52;
-    --success-foreground: #7EF0B1;
-    --success-background: #113E2A;
-    --warn-foreground: #FFD78A;
-    --warn-background: #4A3614;
-    --danger-foreground: #E9204F;
-    --danger-background: #4C1824;
-    --error-foreground: #E9204F;
-    --error-background: #4C1824;
+    --tg-success: #7EF0B1;
+    --tg-warn: #FFD78A;
+    --tg-danger: #E9204F;
+    --tg-error: #E9204F;
 }
