@@ -12,7 +12,7 @@ class UserAdmin(BaseUserAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'category', 'price', 'stock_quantity', 'stock_status_display', 'is_active', 'image_preview', 'created_at')
+    list_display = ('image_preview', 'name', 'category', 'price', 'stock_quantity', 'stock_status_display', 'is_active', 'created_at')
     list_filter = ('category', 'is_active', 'created_at')
     search_fields = ('name', 'description')
     readonly_fields = ('created_at', 'modified_at', 'image_preview', 'stock_status_display')
@@ -34,8 +34,7 @@ class ProductAdmin(admin.ModelAdmin):
             'description': 'Upload a product image'
         }),
         ('Timestamps', {
-            'fields': ('created_at', 'modified_at'),
-            'classes': ('collapse',)
+            'fields': ('created_at', 'modified_at')
         })
     )
     
@@ -44,10 +43,10 @@ class ProductAdmin(admin.ModelAdmin):
         """Show image preview in admin"""
         if obj.image:
             return format_html(
-                '<img src="{}" width="100" height="100" style="object-fit: cover; border-radius: 4px;" />',
+                '<img src="{}" width="128" height="128" style="object-fit: cover; border-radius: 4px;" />',
                 obj.image.url
             )
-        return format_html('<div style="width:100px;height:100px;background:#f0f0f0;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#666;">No image</div>')
+        return format_html('<div style="width:128px;height:128px;background:#f0f0f0;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#666;">No image</div>')
     
     @admin.display(description="Stock Status")
     def stock_status_display(self, obj):
