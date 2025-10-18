@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
+from django.utils.text import slugify
 import os
 
 def product_image_upload_path(instance, filename):
@@ -31,7 +32,7 @@ class Product(models.Model):
         ('papers', 'Papers'),
         ('other', 'Other')
     ]
-
+    slug = models.SlugField(max_length=250, unique=False, blank=True, null=True, help_text="URL-friendly version of the product name (auto-generated)")
     name = models.CharField(max_length=200)
     description = models.TextField()
     image = models.ImageField(
@@ -67,13 +68,29 @@ class Product(models.Model):
     def __str__(self):
         return f"{ self.name } - PHP { self.price }"
     
+    def save(self, *args, **kwargs):
+        """Override save to auto-generate slug"""
+        if not self.slug:
+            base_slug = slugify(self.name)
+            slug = base_slug
+            counter = 1
+            
+            # Ensure slug is unique
+            while Product.objects.filter(slug=slug).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            
+            self.slug = slug
+        
+        super().save(*args, **kwargs)
+    
     def get_category_display_name(self):
         """Getter function for category name"""
         return dict(self.CATEGORIES_CHOICES).get(self.category, self.category)
     
     def get_absolute_url(self):
         """Get the URL for this product's detail page"""
-        return reverse('pdp', kwargs={'product_id': self.pk})
+        return reverse('pdp', kwargs={'slug': self.slug})
 
     @property
     def image_url(self):
