@@ -23,12 +23,12 @@ export const equalizeHeaderAndHeroSpacing = (header, hero) => {
     header.style.height = `${ headerHeight }px`;
     hero.style.marginTop = `${ headerHeight }px`;
     
-    if (viewportWidth <= 600) {
+    if (viewportWidth <= 800 || viewportHeight <= 900) {
         header.style.height = 'auto';
         hero.style.height = 'auto';
         return;
     };
 
-    hero.style.height = `${ (viewportHeight - headerHeight) - (viewportHeight - headerHeight) * 0.20  }px`
+    hero.style.height = `${ (viewportHeight - headerHeight) - (viewportHeight - headerHeight) * 0.20 }px`
 
 };
