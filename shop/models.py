@@ -34,13 +34,25 @@ class Product(models.Model):
 
     name = models.CharField(max_length=200)
     description = models.TextField()
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    category = models.CharField(max_length=50, choices=CATEGORIES_CHOICES, default='other')
     image = models.ImageField(
         upload_to=product_image_upload_path, 
         blank=True, 
         null=True,
         help_text="Upload a product image (optional)"
+    )
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    category = models.CharField(max_length=50, choices=CATEGORIES_CHOICES, default='other')
+    weight = models.DecimalField(
+        max_digits=8, 
+        decimal_places=2, 
+        blank=True, 
+        null=True,
+        help_text="Weight in grams (g)"
+    )
+    dimensions = models.CharField(
+        max_length=100, 
+        blank=True,
+        help_text="Product dimensions (e.g., '21cm x 14.8cm' or '15cm L x 10cm W x 2cm H')"
     )
     stock_quantity = models.PositiveIntegerField(default=0, help_text="Number of items in stock")
     is_active = models.BooleanField(default=True, help_text="Whether this product is available for purchase")
@@ -61,7 +73,7 @@ class Product(models.Model):
     
     def get_absolute_url(self):
         """Get the URL for this product's detail page"""
-        return reverse('product_detail', kwargs={'product_id': self.pk})
+        return reverse('pdp', kwargs={'product_id': self.pk})
 
     @property
     def image_url(self):

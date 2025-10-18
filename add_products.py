@@ -21,7 +21,9 @@ products = [
         'price': 45.00,
         'category': 'notebooks',
         'stock_quantity': 50,
-        'image_name': 'classicspiralnb.png'
+        'image_name': 'classicspiralnb.png',
+        'weight': 180.00,
+        'dimensions': '21cm x 14.8cm'
     },
     {
         'name': 'Composition Notebook',
@@ -29,7 +31,9 @@ products = [
         'price': 55.00,
         'category': 'notebooks',
         'stock_quantity': 40,
-        'image_name': 'compositionnb.png'
+        'image_name': 'compositionnb.png',
+        'weight': 200.00,
+        'dimensions': '24cm x 19cm'
     },
     {
         'name': 'Dot Grid Notebook (A5)',
@@ -37,7 +41,9 @@ products = [
         'price': 60.00,
         'category': 'notebooks',
         'stock_quantity': 35,
-        'image_name': 'dotgridjournalnb.png'
+        'image_name': 'dotgridjournalnb.png',
+        'weight': 175.00,
+        'dimensions': '21cm x 14.8cm'
     },
     {
         'name': 'Grid Notebook (A5)',
@@ -45,7 +51,9 @@ products = [
         'price': 50.00,
         'category': 'notebooks',
         'stock_quantity': 45,
-        'image_name': 'gridnb.png'
+        'image_name': 'gridnb.png',
+        'weight': 170.00,
+        'dimensions': '21cm x 14.8cm'
     },
     {
         'name': 'Hardbound Journal (A6)',
@@ -53,7 +61,9 @@ products = [
         'price': 85.00,
         'category': 'notebooks',
         'stock_quantity': 25,
-        'image_name': 'hardboundjournalnb.png'
+        'image_name': 'hardboundjournalnb.png',
+        'weight': 220.00,
+        'dimensions': '14.8cm x 10.5cm'
     },
     {
         'name': 'Mini Pocket Notebook',
@@ -61,7 +71,9 @@ products = [
         'price': 30.00,
         'category': 'notebooks',
         'stock_quantity': 60,
-        'image_name': 'minipocketnb.png'
+        'image_name': 'minipocketnb.png',
+        'weight': 50.00,
+        'dimensions': '9cm x 14cm'
     },
 
     # PENS
@@ -71,7 +83,9 @@ products = [
         'price': 180.00,
         'category': 'pens',
         'stock_quantity': 20,
-        'image_name': 'callibrushsetpen.png'
+        'image_name': 'callibrushsetpen.png',
+        'weight': 120.00,
+        'dimensions': '18cm x 12cm x 3cm (box)'
     },
     {
         'name': 'Fine Liner Pen (Black, 0.4mm)',
@@ -79,7 +93,9 @@ products = [
         'price': 45.00,
         'category': 'pens',
         'stock_quantity': 75,
-        'image_name': 'finelinerpen.png'
+        'image_name': 'finelinerpen.png',
+        'weight': 8.00,
+        'dimensions': '14cm L'
     },
     {
         'name': 'Multicolor 4-in-1 Pen',
@@ -87,7 +103,9 @@ products = [
         'price': 60.00,
         'category': 'pens',
         'stock_quantity': 50,
-        'image_name': 'multicolorpen.png'
+        'image_name': 'multicolorpen.png',
+        'weight': 15.00,
+        'dimensions': '14.5cm L'
     },
     {
         'name': 'Retractable Ballpoint Pen (Blue, 1.0mm)',
@@ -95,7 +113,9 @@ products = [
         'price': 25.00,
         'category': 'pens',
         'stock_quantity': 100,
-        'image_name': 'retballpointpen.png'
+        'image_name': 'retballpointpen.png',
+        'weight': 6.00,
+        'dimensions': '13.5cm L'
     },
     {
         'name': 'Rollerball Pen (Blue, 0.7mm)',
@@ -103,7 +123,9 @@ products = [
         'price': 40.00,
         'category': 'pens',
         'stock_quantity': 80,
-        'image_name': 'rollerballpen.png'
+        'image_name': 'rollerballpen.png',
+        'weight': 10.00,
+        'dimensions': '14cm L'
     },
     {
         'name': 'Smooth Gel Pen (Black, 0.5mm)',
@@ -111,7 +133,9 @@ products = [
         'price': 25.00,
         'category': 'pens',
         'stock_quantity': 120,
-        'image_name': 'smoothgelpen.png'
+        'image_name': 'smoothgelpen.png',
+        'weight': 7.00,
+        'dimensions': '13.8cm L'
     },
 
     # PENCILS
@@ -121,7 +145,9 @@ products = [
         'price': 150.00,
         'category': 'pencils',
         'stock_quantity': 30,
-        'image_name': 'charcoalpencilset.png'
+        'image_name': 'charcoalpencilset.png',
+        'weight': 90.00,
+        'dimensions': '20cm x 8cm x 2cm (box)'
     },
     {
         'name': 'Colored Pencil Set (12 Colors)',
@@ -129,7 +155,9 @@ products = [
         'price': 120.00,
         'category': 'pencils',
         'stock_quantity': 40,
-        'image_name': 'coloredpencils.png'
+        'image_name': 'coloredpencils.png',
+        'weight': 85.00,
+        'dimensions': '19cm x 10cm x 1.5cm (box)'
     },
     {
         'name': 'Eco Recycled Pencil',
@@ -137,7 +165,9 @@ products = [
         'price': 20.00,
         'category': 'pencils',
         'stock_quantity': 150,
-        'image_name': 'ecorecycledpencil.png'
+        'image_name': 'ecorecycledpencil.png',
+        'weight': 5.00,
+        'dimensions': '19cm L'
     },
     {
         'name': 'Graphite Sketch Pencil Set (6B–4H)',
@@ -145,7 +175,9 @@ products = [
         'price': 130.00,
         'category': 'pencils',
         'stock_quantity': 35,
-        'image_name': 'graphitepencil.png'
+        'image_name': 'graphitepencil.png',
+        'weight': 100.00,
+        'dimensions': '20cm x 12cm x 2cm (box)'
     },
     {
         'name': 'Mechanical Pencil (0.5mm)',
@@ -153,7 +185,9 @@ products = [
         'price': 45.00,
         'category': 'pencils',
         'stock_quantity': 70,
-        'image_name': 'mechpencil.png'
+        'image_name': 'mechpencil.png',
+        'weight': 12.00,
+        'dimensions': '14cm L'
     },
     {
         'name': 'Wooden Pencil (Classic)',
@@ -161,7 +195,9 @@ products = [
         'price': 10.00,
         'category': 'pencils',
         'stock_quantity': 200,
-        'image_name': 'woodenpencil.png'
+        'image_name': 'woodenpencil.png',
+        'weight': 4.00,
+        'dimensions': '19cm L'
     },
 
     # ART MATERIALS
@@ -171,7 +207,9 @@ products = [
         'price': 220.00,
         'category': 'art_materials',
         'stock_quantity': 25,
-        'image_name': 'acrylicpainttubes.png'
+        'image_name': 'acrylicpainttubes.png',
+        'weight': 480.00,
+        'dimensions': '25cm x 15cm x 5cm (box)'
     },
     {
         'name': 'Artist Marker Set (24 Colors)',
@@ -179,7 +217,9 @@ products = [
         'price': 350.00,
         'category': 'art_materials',
         'stock_quantity': 15,
-        'image_name': 'artistmarkerset.png'
+        'image_name': 'artistmarkerset.png',
+        'weight': 350.00,
+        'dimensions': '28cm x 20cm x 3cm (box)'
     },
     {
         'name': 'Craft Scissors (Decorative Edge)',
@@ -187,7 +227,9 @@ products = [
         'price': 85.00,
         'category': 'art_materials',
         'stock_quantity': 30,
-        'image_name': 'craftscissor.png'
+        'image_name': 'craftscissor.png',
+        'weight': 65.00,
+        'dimensions': '18cm L'
     },
     {
         'name': 'Glue Stick (Large)',
@@ -195,7 +237,9 @@ products = [
         'price': 35.00,
         'category': 'art_materials',
         'stock_quantity': 80,
-        'image_name': 'gluestick.png'
+        'image_name': 'gluestick.png',
+        'weight': 40.00,
+        'dimensions': '10cm L x 3cm diameter'
     },
     {
         'name': 'Oil Pastel Set (36 Colors)',
@@ -203,7 +247,9 @@ products = [
         'price': 180.00,
         'category': 'art_materials',
         'stock_quantity': 20,
-        'image_name': 'oilpastelset.png'
+        'image_name': 'oilpastelset.png',
+        'weight': 320.00,
+        'dimensions': '30cm x 18cm x 3cm (box)'
     },
     {
         'name': 'Paintbrush Set (10 pcs)',
@@ -211,7 +257,9 @@ products = [
         'price': 120.00,
         'category': 'art_materials',
         'stock_quantity': 35,
-        'image_name': 'paintbrushset.png'
+        'image_name': 'paintbrushset.png',
+        'weight': 95.00,
+        'dimensions': '30cm x 8cm x 2cm (box)'
     },
     {
         'name': 'Palette Mixing Tray',
@@ -219,7 +267,9 @@ products = [
         'price': 40.00,
         'category': 'art_materials',
         'stock_quantity': 50,
-        'image_name': 'palettetray.png'
+        'image_name': 'palettetray.png',
+        'weight': 120.00,
+        'dimensions': '25cm x 18cm x 2cm'
     },
     {
         'name': 'Sketch Pad (A4)',
@@ -227,7 +277,9 @@ products = [
         'price': 90.00,
         'category': 'art_materials',
         'stock_quantity': 40,
-        'image_name': 'sketchpad.png'
+        'image_name': 'sketchpad.png',
+        'weight': 250.00,
+        'dimensions': '29.7cm x 21cm'
     },
     {
         'name': 'Watercolor Paint Set (24 Colors)',
@@ -235,7 +287,9 @@ products = [
         'price': 220.00,
         'category': 'art_materials',
         'stock_quantity': 25,
-        'image_name': 'watercolorpaintset.png'
+        'image_name': 'watercolorpaintset.png',
+        'weight': 280.00,
+        'dimensions': '22cm x 12cm x 3cm (box)'
     },
 
     # PAPERS
@@ -245,7 +299,9 @@ products = [
         'price': 70.00,
         'category': 'papers',
         'stock_quantity': 60,
-        'image_name': 'coloredpaperset.png'
+        'image_name': 'coloredpaperset.png',
+        'weight': 500.00,
+        'dimensions': '29.7cm x 21cm'
     },
     {
         'name': 'Graph Paper (A4)',
@@ -253,7 +309,9 @@ products = [
         'price': 30.00,
         'category': 'papers',
         'stock_quantity': 100,
-        'image_name': 'graphpaper.png'
+        'image_name': 'graphpaper.png',
+        'weight': 80.00,
+        'dimensions': '29.7cm x 21cm (100 sheets)'
     },
     {
         'name': 'Long Bond Paper (500 Sheets)',
@@ -261,7 +319,9 @@ products = [
         'price': 180.00,
         'category': 'papers',
         'stock_quantity': 80,
-        'image_name': 'longbondpapers.png'
+        'image_name': 'longbondpapers.png',
+        'weight': 2500.00,
+        'dimensions': '21.6cm x 33cm'
     },
     {
         'name': 'Origami Paper (Double-Sided)',
@@ -269,7 +329,9 @@ products = [
         'price': 90.00,
         'category': 'papers',
         'stock_quantity': 45,
-        'image_name': 'origamipaper.png'
+        'image_name': 'origamipaper.png',
+        'weight': 150.00,
+        'dimensions': '15cm x 15cm (100 sheets)'
     },
     {
         'name': 'Photo Paper (Glossy A4)',
@@ -277,7 +339,9 @@ products = [
         'price': 150.00,
         'category': 'papers',
         'stock_quantity': 30,
-        'image_name': 'photopaper.png'
+        'image_name': 'photopaper.png',
+        'weight': 300.00,
+        'dimensions': '29.7cm x 21cm (50 sheets)'
     },
     {
         'name': 'Sticky Notes (Assorted Colors)',
@@ -285,7 +349,9 @@ products = [
         'price': 50.00,
         'category': 'papers',
         'stock_quantity': 90,
-        'image_name': 'stickynotes.png'
+        'image_name': 'stickynotes.png',
+        'weight': 80.00,
+        'dimensions': '7.6cm x 7.6cm (pack of 6)'
     },
 ]
 
@@ -309,7 +375,9 @@ for item in products:
             description=item['description'],
             price=Decimal(str(item['price'])),
             category=item['category'],
-            stock_quantity=item['stock_quantity']
+            stock_quantity=item['stock_quantity'],
+            weight=Decimal(str(item.get('weight', 0))) if item.get('weight') else None,
+            dimensions=item.get('dimensions', '')
         )
         
         # Add image if exists

@@ -26,10 +26,9 @@ class ProductAdmin(admin.ModelAdmin):
         ('Stock & Availability', {
             'fields': ('stock_quantity', 'is_active', 'stock_status_display')
         }),
-        # ('Product Details', {
-        #     'fields': ('weight', 'dimensions'),
-        #     'classes': ('collapse',)
-        # }),
+        ('Product Details', {
+            'fields': ('weight', 'dimensions')
+        }),
         ('Image', {
             'fields': ('image', 'image_preview'),
             'description': 'Upload a product image'
