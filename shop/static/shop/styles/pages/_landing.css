@@ -1,6 +1,7 @@
 .hero {
     background-color: var(--bg-primary);
     flex-direction: row;
+    align-items: center;
     padding: 4rem 16rem;
     display: flex;
     gap: 4rem;
