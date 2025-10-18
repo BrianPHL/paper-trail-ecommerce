@@ -64,8 +64,8 @@
 }
 
 .product_card-info-status span.discontinued {
-    background-color: var(--bg-outline);
-    color: var(--tg-secondary);
+    background-color: var(--bg-disabled);
+    color: var(--tg-disabled);
 }
 
 .product_card-info-label {
