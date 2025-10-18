@@ -1,4 +1,4 @@
-.wrapper {
+.sign_in-wrapper {
     flex-direction: column;
     min-height: 100vh;
     display: flex;
@@ -17,7 +17,6 @@
 
 .sign_in-img {
     border-radius: 0.5rem;
-    /* align-self: stretch; */
     object-fit: cover;
     display: flex;
     height: auto;
