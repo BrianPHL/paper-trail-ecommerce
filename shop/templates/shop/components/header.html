@@ -21,7 +21,20 @@
     <div class="horizontal-divider"></div>
     <div class="header-bottom">
         <div class="header-bottom-breadcrumbs">
-            <p>Home /</p>
+            {% if breadcrumbs %}
+                <p>
+                    {% for crumb in breadcrumbs %}
+                        {% if crumb.url %}
+                            <a class="anchor-link" href="{{ crumb.url }}">{{ crumb.name }}</a>
+                        {% else %}
+                            <p>{{ crumb.name }}</p>
+                        {% endif %}
+                        {% if not forloop.last %} / {% endif %}
+                    {% endfor %}
+                </p>
+            {% else %}
+                <p>Home /</p>
+            {% endif %}
         </div>
         <nav class="header-bottom-navigation">
             <a class="anchor-button active" href="/">Home</a>
