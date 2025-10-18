@@ -53,6 +53,25 @@ def landing(request):
     
     return render(request, 'shop/landing.html', context)
 
+def pdp(request, slug):
+    """View for individual product details"""
+    product = get_object_or_404(Product, slug=slug)
+    related_products = Product.objects.filter(category=product.category)
+    
+    # Build breadcrumb trail
+    breadcrumb_items = [
+        {'name': 'Home', 'url': '/'},
+        {'name': product.get_category_display_name(), 'url': f'/?categories={product.category}'},
+        {'name': product.name, 'url': None}
+    ]
+    
+    context = {
+        'product': product,
+        'related_products': related_products,
+        'breadcrumb_items': breadcrumb_items,
+    }
+    
+    return render(request, 'shop/pdp.html', context)
 
 def sign_in(request):
     return render(request, 'shop/sign-in.html')

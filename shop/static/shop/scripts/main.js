@@ -1,6 +1,7 @@
 import initializeLandingPage from "./pages/landing.js";
 import initializeSignInPage from "./pages/sign-in.js";
 import initializeSignUpPage from "./pages/sign-up.js";
+import initializeProductDetailPage from "./pages/pdp.js";
 import initializeModalComponent from "./components/modal.js";
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -11,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeLandingPage();
     initializeSignInPage();
     initializeSignUpPage();
+    initializeProductDetailPage();
 
     // Components JavaScript Logic
     initializeModalComponent();

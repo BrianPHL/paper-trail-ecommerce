@@ -1,0 +1,141 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html data-theme="light" lang="en">
+
+    <head>
+    
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ product.name }} | Paper Trails</title>
+        <link rel="stylesheet" href="{% static 'shop/styles/main.css' %}">
+    
+    </head>
+
+    <body>
+
+        {% with breadcrumbs=breadcrumb_items %}
+            {% include "./components/header.html" %}
+        {% endwith %}
+
+        <div class="pdp-wrapper">
+            <section class="pdp">
+            
+                <div class="pdp-image">
+                    <img src="{{ product.image_url }}" alt="{{ product.name }}" />
+                </div>
+                    
+                <div class="pdp-info">
+
+                    <div class="pdp-info-header">
+                        <h1 class="pdp-info-title">{{ product.name }}</h1>
+                        <p>{{ product.description }}</p>
+                    </div>
+
+                    <h2 class="pdp-info-price">PHP {{ product.price }}</h2>
+                    
+                    <small class="pdp-info-stocks">
+                        <span class="pdp-info-stocks-status {% if not product.is_active %}discontinued{% elif product.stock_quantity == 0 %}out_of_stock{% elif product.stock_quantity <= 5 %}low_stock{% else %}in_stock{% endif %}">
+                            {{ product.stock_status }}
+                        </span>
+                        <i class="fa-solid fa-circle"></i>
+                        {% if product.is_active and product.stock_quantity > 0 %}
+                            <p class="pdp-info-stocks-available">{{ product.stock_quantity }} item{{ product.stock_quantity|pluralize }} available</p>
+                        {% endif %}
+                    </small>
+                    
+                    {% if product.weight or product.dimensions %}
+                    <div class="pdp-info-specifications">
+                        <h4 class="pdp-info-specifications-header">Product Specifications</h4>
+                        <div class="pdp-info-specifications-list">
+                            <p class="pdp-info-specifications-list-item"><strong>- Category:</strong> <a class="anchor-link" href="{% url 'landing' %}?categories={{ product.category }}">{{ product.get_category_display }}</a></p>
+                            {% if product.weight %}
+                            <p class="pdp-info-specifications-list-item"><strong>- Weight:</strong> {{ product.weight }}g</p>
+                            {% endif %}
+                            {% if product.dimensions %}
+                            <p class="pdp-info-specifications-list-item"><strong>- Dimensions:</strong> {{ product.dimensions }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="pdp-info-meta">
+                        <h4 class="pdp-info-meta-header">Other Product Details</h4>
+                        <div class="pdp-info-meta-list">
+                            <p class="pdp-info-meta-list-item"><strong>- ID:</strong> #{{ product.id }}</p>
+                            <p class="pdp-info-meta-list-item"><strong>- Added:</strong> {{ product.created_at|date:"F d, Y" }}</p>
+                            {% if product.modified_at != product.created_at %}
+                            <p class="pdp-info-meta-list-item"><strong>- Last Updated:</strong> {{ product.modified_at|date:"F d, Y" }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="pdp-info-actions">
+                        {% if product.is_in_stock and product.stock_quantity > 5 %}
+                            <button class="button-primary pdp-info-actions-btn">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                Add to Cart
+                            </button>
+                        {% elif product.stock_quantity > 0 and product.stock_quantity <= 5 %}
+                            <button class="button-primary pdp-info-actions-btn">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                Add to Cart
+                            </button>
+                        {% else %}
+                            <button class="button-primary pdp-info-actions-btn" disabled style="opacity: 0.5; cursor: not-allowed;">
+                                <i class="fa-solid fa-exclamation-triangle"></i>
+                                {{ product.stock_status }}
+                            </button>
+                        {% endif %}
+                        
+                        <button class="button-secondary pdp-info-actions-btn">
+                            <i class="fa-solid fa-heart"></i>
+                            Add to Wishlist
+                        </button>
+                        
+                        <button class="button-icon_outlined pdp-info-actions-btn">
+                            <i class="fa-solid fa-share"></i>
+                        </button>
+                    </div>
+                    
+                </div>
+            
+            </section>
+
+            {% if related_products %}
+            <section class="related_products">
+                <div class="related_products-header">
+                    <h3>More Products under {{ product.get_category_display }}</h3>
+                    <button class="button-primary related_products-header-btn">
+                        Browse {{ product.get_category_display }}
+                        <i class="fa-solid fa-arrow-right-long"></i>
+                    </button>
+                </div>
+                <div class="related_products-container">
+                    <div class="related_products-list">
+                        {% for product in related_products %}
+                            {% include "./components/product_card.html" %}
+                        {% endfor %}
+                    </div>
+                    <div class="related_products-pagination">
+                        <button class="button-icon_outlined related_products-pagination-prev">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <button class="button-icon_outlined related_products-pagination-next">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+            {% endif %}
+
+        </div>
+
+        {% include "./components/footer.html" %}
+
+        <script type="module" src="{% static 'shop/scripts/main.js' %}"></script>
+    
+    </body>
+
+</html>
