@@ -103,5 +103,6 @@
 }
 
 .product_card-ctas-btn:first-child {
+    flex-shrink: 1;
     width: 100%;
 }

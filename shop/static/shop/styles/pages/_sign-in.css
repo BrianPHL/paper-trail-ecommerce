@@ -135,6 +135,7 @@
 
 .sign_in-form-group-ctas-btn[type="submit"] {
     border-radius: 0.25rem;
+    flex-shrink: 1;
     width: 100%;
 }
 

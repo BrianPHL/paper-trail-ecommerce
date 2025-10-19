@@ -147,6 +147,7 @@
 }
 
 .sign_up-form-group-ctas-btn[type="submit"] {
+    flex-shrink: 1;
     width: 100%;
 }
 
