@@ -106,7 +106,7 @@
             <section class="related_products">
                 <div class="related_products-header">
                     <h3>More Products under {{ product.get_category_display }}</h3>
-                    <a href="{% url 'shop' %}?categories={{ product.category }}" class="button-primary related_products-header-btn">
+                    <a href="{% url 'shop' %}?categories={{ product.category }}" class="button-secondary related_products-header-btn">
                         Browse {{ product.get_category_display }}
                         <i class="fa-solid fa-arrow-right-long"></i>
                     </a>
