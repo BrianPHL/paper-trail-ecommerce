@@ -147,10 +147,6 @@
     color: var(--tg-primary);
 }
 
-.related_products-header-btn {
-    flex-shrink: 0;
-}
-
 .related_products-container {
     flex-direction: column;
     display: flex;

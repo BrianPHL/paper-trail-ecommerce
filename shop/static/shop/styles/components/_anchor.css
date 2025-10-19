@@ -4,6 +4,7 @@
     border-radius: 0.5rem;
     align-items: center;
     font-weight: 600;
+    flex-shrink: 0;
     transition: 0.25s ease all;
     font-size: 0.875rem;
     padding: 0 0.75rem;

@@ -138,11 +138,6 @@
     width: 100%;
 }
 
-.sign_in-form-group-ctas-btn[type="reset"] {
-    border-radius: 0.25rem;
-    flex-shrink: 0;
-}
-
 .sign_in-form-group-ctas-helper {
     font-weight: 400;
     font-size: 0.875rem;

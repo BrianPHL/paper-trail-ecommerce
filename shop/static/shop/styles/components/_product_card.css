@@ -105,7 +105,3 @@
 .product_card-ctas-btn:first-child {
     width: 100%;
 }
-
-.product_card-ctas-btn:last-child {
-    flex-shrink: 0;
-}
