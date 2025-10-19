@@ -44,7 +44,7 @@ const initializeLandingPage = () => {
             const header = document.querySelector('.header');
             const hero = document.querySelector('.hero');
             
-            responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero);
+            responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero, true);
 
         });
 
@@ -53,7 +53,7 @@ const initializeLandingPage = () => {
             const header = document.querySelector('.header');
             const hero = document.querySelector('.hero');
 
-            responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero);
+            responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero, true);
 
         });
 

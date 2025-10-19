@@ -14,7 +14,7 @@ export const equalizeChildrenHeightInContainer = (container) => {
 
 };
 
-export const equalizeHeaderAndHeroSpacing = (header, hero) => {
+export const equalizeHeaderAndHeroSpacing = (header, hero, isLandingPage = false) => {
 
     const viewportHeight = window.innerHeight;
     const viewportWidth = window.innerWidth;
@@ -23,7 +23,7 @@ export const equalizeHeaderAndHeroSpacing = (header, hero) => {
     header.style.height = `${ headerHeight }px`;
     hero.style.marginTop = `${ headerHeight }px`;
     
-    if (viewportWidth <= 800 || viewportHeight <= 900) {
+    if (viewportWidth <= 800 || viewportHeight <= 900 || !isLandingPage) {
         header.style.height = 'auto';
         hero.style.height = 'auto';
         return;
