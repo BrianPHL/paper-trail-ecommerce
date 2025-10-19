@@ -25,6 +25,7 @@
 @import url('pages/_sign-in.css');
 @import url('pages/_sign-up.css');
 @import url('pages/_pdp.css');
+@import url('pages/_shop.css');
 
 /* LAYOUT - Layout-related styles */
 @import url('layout/_header.css');
@@ -34,3 +35,4 @@
 @import url('layout/_sign-up.css');
 @import url('layout/_modal.css');
 @import url('layout/_pdp.css');
+@import url('layout/_shop.css');

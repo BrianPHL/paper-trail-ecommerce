@@ -1,5 +1,5 @@
 @media only screen and (max-width: 1680px) {
-    .hero, .shop {
+    .hero  {
         padding: 4rem 8rem;
     }
 }
@@ -18,9 +18,6 @@
         background-size: cover;
         padding: 2rem 4rem;
     }
-    .shop {
-        padding: 2rem 4rem;
-    }
     .hero-details {
         width: 80%;
         gap: 4rem;
@@ -36,41 +33,8 @@
     }
 }
 
-@media only screen and (max-width: 1400px) {
-    .shop-sidebar {
-        width: 18rem;
-    }
-}
-
-@media only screen and (max-width: 1200px) {
-    .shop-sidebar {
-        width: 16rem;
-    }
-}
-
-@media only screen and (max-width: 1120px) {
-    .shop-sidebar {
-        display: none;
-    }
-    .shop-list-header-filters {
-        display: flex;
-    }
-}
-
-@media only screen and (max-width: 900px) {
-    .shop-list-wrapper {
-        grid-template-columns: repeat(2, minmax(12rem, 1fr));
-        & > :nth-child(1n) {
-            justify-self: end;
-        }
-        & > :nth-child(2n) {
-            justify-self: start;
-        }
-    }
-}
-
 @media only screen and (max-width: 720px) {
-    .hero, .shop {
+    .hero {
         padding: 1rem 2rem;
     }
 }
@@ -78,14 +42,5 @@
 @media only screen and (max-width: 550px) {
     .hero-details {
         width: 100%;
-    }
-}
-
-@media only screen and (max-width: 530px) {
-    .shop-list-wrapper {
-        grid-template-columns: minmax(12rem, 1fr);
-        & > :nth-child(1n) {
-            justify-self: center;
-        }
     }
 }
