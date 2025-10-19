@@ -80,10 +80,10 @@ const initializeLandingPage = () => {
 
     }))
 
-    console.log("Initialized landing page logic!");
-
     initializePageTheme();
     initializeHeroHandling();
+
+    console.log("Initialized landing page logic!");
 
 };
 

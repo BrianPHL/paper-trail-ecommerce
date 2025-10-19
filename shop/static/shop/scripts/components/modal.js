@@ -1,4 +1,4 @@
-export const initializeModalComponent = () => {
+const initializeModalComponent = () => {
     
     document.querySelectorAll('[data-modal-trigger]').forEach(trigger => {
         trigger.addEventListener('click', () => {
