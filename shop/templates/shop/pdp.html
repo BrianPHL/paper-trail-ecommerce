@@ -15,13 +15,12 @@
 
     <body>
 
-        {% with breadcrumbs=breadcrumb_items %}
-            {% include "./components/header.html" %}
-        {% endwith %}
+        {% include "./components/header.html" %}
 
         <div class="pdp-wrapper">
+
             <section class="pdp">
-            
+
                 <div class="pdp-image">
                     <img src="{{ product.image_url }}" alt="{{ product.name }}" />
                 </div>
@@ -107,10 +106,10 @@
             <section class="related_products">
                 <div class="related_products-header">
                     <h3>More Products under {{ product.get_category_display }}</h3>
-                    <button class="button-primary related_products-header-btn">
+                    <a href="{% url 'shop' %}?categories={{ product.category }}" class="button-primary related_products-header-btn">
                         Browse {{ product.get_category_display }}
                         <i class="fa-solid fa-arrow-right-long"></i>
-                    </button>
+                    </a>
                 </div>
                 <div class="related_products-container">
                     <div class="related_products-list">

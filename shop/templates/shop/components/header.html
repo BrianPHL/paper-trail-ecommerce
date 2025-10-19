@@ -21,9 +21,9 @@
     <div class="horizontal-divider"></div>
     <div class="header-bottom">
         <div class="header-bottom-breadcrumbs">
-            {% if breadcrumbs %}
+            {% if breadcrumb_items %}
                 <p>
-                    {% for crumb in breadcrumbs %}
+                    {% for crumb in breadcrumb_items %}
                         {% if crumb.url %}
                             <a class="anchor-link" href="{{ crumb.url }}">{{ crumb.name }}</a>
                         {% else %}

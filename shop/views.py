@@ -20,11 +20,16 @@ def landing(request):
         created_at__gte=thirty_days_ago
     ).order_by('-created_at')[:8]
     
+    # Breadcrumb for homepage (just "Home")
+    breadcrumb_items = [
+        {'name': 'Home', 'url': None}
+    ]
     
     context = {
         'featured_products': featured_products,
         'bestsellers': bestsellers,
         'new_arrivals': new_arrivals,
+        'breadcrumb_items': breadcrumb_items,
     }
     
     return render(request, 'shop/landing.html', context)
@@ -91,12 +96,16 @@ def shop(request):
 def pdp(request, slug):
     """View for individual product details"""
     product = get_object_or_404(Product, slug=slug)
-    related_products = Product.objects.filter(category=product.category)
+    related_products = Product.objects.filter(
+        category=product.category, 
+        is_active=True
+    ).exclude(slug=slug)[:4]
     
     # Build breadcrumb trail
     breadcrumb_items = [
         {'name': 'Home', 'url': '/'},
-        {'name': product.get_category_display_name(), 'url': f'/?categories={product.category}'},
+        {'name': 'Shop', 'url': '/shop/'},
+        {'name': product.get_category_display_name(), 'url': f'/shop/?categories={product.category}'},
         {'name': product.name, 'url': None}
     ]
     
@@ -109,7 +118,27 @@ def pdp(request, slug):
     return render(request, 'shop/pdp.html', context)
 
 def sign_in(request):
-    return render(request, 'shop/sign-in.html')
+    # Breadcrumb for sign-in page
+    breadcrumb_items = [
+        {'name': 'Home', 'url': '/'},
+        {'name': 'Sign In', 'url': None}
+    ]
+    
+    context = {
+        'breadcrumb_items': breadcrumb_items,
+    }
+    
+    return render(request, 'shop/sign-in.html', context)
 
 def sign_up(request):
-    return render(request, 'shop/sign-up.html')
+    # Breadcrumb for sign-up page
+    breadcrumb_items = [
+        {'name': 'Home', 'url': '/'},
+        {'name': 'Sign Up', 'url': None}
+    ]
+    
+    context = {
+        'breadcrumb_items': breadcrumb_items,
+    }
+    
+    return render(request, 'shop/sign-up.html', context)
