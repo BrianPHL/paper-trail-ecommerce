@@ -12,8 +12,10 @@
 }
 
 .pdp-image {
+    background-color: var(--bg-secondary);
     border-radius: 0.5rem;
     align-self: flex-start;
+    padding: 2rem;
     display: flex;
     border: 1px solid var(--bg-outline);
 }
@@ -27,7 +29,7 @@
 .pdp-info {
     flex-direction: column;
     display: flex;
-    gap: 1rem;
+    gap: 2rem;
 }
 
 .pdp-info-header {
