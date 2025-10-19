@@ -3,6 +3,7 @@ import initializeSignInPage from "./pages/sign-in.js";
 import initializeSignUpPage from "./pages/sign-up.js";
 import initializeProductDetailPage from "./pages/pdp.js";
 import initializeModalComponent from "./components/modal.js";
+import initializeHeaderComponent from "./components/header.js";
 import initializeFooterComponent from "./components/footer.js";
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -17,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Components JavaScript Logic
     initializeModalComponent();
+    initializeHeaderComponent();
     initializeFooterComponent();
 
     console.log("Main JavaScript entry file successfully initialized!");
