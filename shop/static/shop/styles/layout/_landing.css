@@ -1,5 +1,5 @@
 @media only screen and (max-width: 1680px) {
-    .hero  {
+    .landing-wrapper  {
         padding: 4rem 8rem;
     }
 }
@@ -11,12 +11,15 @@
 }
 
 @media only screen and (max-width: 1500px) {
+    .landing-wrapper {
+        padding: 2rem 4rem;
+    }
     .hero {
         background-image: url('../../images/hero-light.jpg');
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-        padding: 2rem 4rem;
+        padding: 2rem;
     }
     .hero-details {
         width: 80%;
@@ -34,7 +37,7 @@
 }
 
 @media only screen and (max-width: 720px) {
-    .hero {
+    .landing-wrapper {
         padding: 1rem 2rem;
     }
 }

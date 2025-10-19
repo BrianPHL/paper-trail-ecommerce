@@ -17,17 +17,36 @@
 
         {% include "./components/header.html" %}
 
-        <section id="hero" class="hero">
+        <div class="landing-wrapper">
 
-            <div class="hero-details">
+            <section id="hero" class="hero">
+            
+                <div class="hero-details">
+                
+                    <div class="hero-details-info">
+                        <h1>
+                            Your Everyday Stationery, Just a Click Away.
+                        </h1>
+                        <h2>
+                            Find notebooks, pens, and all your study or office essentials in one place. Delivered fast, with a touch of style.
+                        </h2>
+                    </div>
+                    <div class="hero-details-ctas">
+                        <button class="button-primary" onclick="window.location.href=`{% url 'shop' %}`">
+                            Shop now
+                            <i class="fa-solid fa-circle-arrow-right"></i>
+                        </button>
+                        <button class="button-secondary">
+                            <i class="fa-solid fa-phone"></i>
+                            Contact us
+                        </button>
+                    </div>
+                
+                </div>
+                <img class="hero-image" src="{% static 'shop/images/hero.jpg' %}" alt="PaperTrail Landing Hero Banner" />
+            
+            </section>
 
-                <div class="hero-details-info">
-                    <h1>
-                        Your Everyday Stationery, Just a Click Away.
-                    </h1>
-                    <h2>
-                        Find notebooks, pens, and all your study or office essentials in one place. Delivered fast, with a touch of style.
-                    </h2>
                 </div>
                 <div class="hero-details-ctas">
                     <button class="button-primary" onclick="window.location.href='{% url 'shop' %}'">
@@ -95,6 +114,7 @@
             </div>
         </section>
         {% endif %}
+        </div>
 
         {% include "./components/footer.html" %}
 
