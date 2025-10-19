@@ -32,8 +32,9 @@ class Product(models.Model):
         ('papers', 'Papers'),
         ('other', 'Other')
     ]
-    slug = models.SlugField(max_length=250, unique=False, blank=True, null=True, help_text="URL-friendly version of the product name (auto-generated)")
+
     name = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=250, unique=True, blank=True, help_text="URL-friendly version of the product name (auto-generated)")
     description = models.TextField()
     image = models.ImageField(
         upload_to=product_image_upload_path, 
@@ -79,7 +80,7 @@ class Product(models.Model):
             counter = 1
             
             # Ensure slug is unique
-            while Product.objects.filter(slug=slug).exists():
+            while Product.objects.filter(slug=slug).exclude(pk=self.pk).exists():
                 slug = f"{base_slug}-{counter}"
                 counter += 1
             

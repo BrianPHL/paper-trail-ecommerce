@@ -17,8 +17,7 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ('name', 'description', 'slug')
     readonly_fields = ('slug', 'created_at', 'modified_at', 'image_preview', 'stock_status_display')
     list_per_page = 25
-    list_editable = ('price', 'stock_quantity', 'is_active')
-    prepopulated_fields = {'slug': ('name',)}  # Auto-populate slug from name in admin
+    list_editable = ('price', 'stock_quantity', 'is_active', 'is_featured', 'is_bestseller')
     
     fieldsets = (
         ('Basic Information', {
