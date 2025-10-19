@@ -17,7 +17,6 @@
 }
 
 @media only screen and (max-width: 550px) {
-
     .header-top {
         flex-direction: column;
         align-items: center;
@@ -28,6 +27,10 @@
         flex-direction: column-reverse;
         align-items: center;
         gap: 1rem;
+    }
+
+    .header-bottom-breadcrumbs {
+        text-align: center;
     }
 
     .header-top-ctas, .header-bottom-navigation {
