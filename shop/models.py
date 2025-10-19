@@ -57,6 +57,9 @@ class Product(models.Model):
     )
     stock_quantity = models.PositiveIntegerField(default=0, help_text="Number of items in stock")
     is_active = models.BooleanField(default=True, help_text="Whether this product is available for purchase")
+    is_featured = models.BooleanField(default=False, help_text="Mark as featured product (shown on homepage)")
+    is_bestseller = models.BooleanField(default=False, help_text="Mark as bestseller")
+    
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
@@ -115,3 +118,10 @@ class Product(models.Model):
             return "Low Stock"
         else:
             return "In Stock"
+    
+    @property
+    def is_new_arrival(self):
+        """Check if product is a new arrival (added within last 30 days)"""
+        from django.utils import timezone
+        from datetime import timedelta
+        return self.created_at >= timezone.now() - timedelta(days=30)

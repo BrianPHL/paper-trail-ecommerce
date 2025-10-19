@@ -3,10 +3,31 @@ from django.db.models import Q
 from .models import Product
 
 def landing(request):
-    # Get all products
-    products = Product.objects.all()
+    """Homepage with featured products, bestsellers, and new arrivals"""
     
-    # Get unique categories that actually have products - simplified approach
+    # Get featured products (limit to 8)
+    featured_products = Product.objects.filter(is_active=True, is_featured=True)[:8]
+    
+    # Get bestsellers (limit to 8)
+    bestsellers = Product.objects.filter(is_active=True, is_bestseller=True)[:8]
+    
+    # Get new arrivals (products from last 30 days, limit to 8)
+    from django.utils import timezone
+    from datetime import timedelta
+    thirty_days_ago = timezone.now() - timedelta(days=30)
+    new_arrivals = Product.objects.filter(
+        is_active=True, 
+        created_at__gte=thirty_days_ago
+    ).order_by('-created_at')[:8]
+    
+    
+    context = {
+        'featured_products': featured_products,
+        'bestsellers': bestsellers,
+        'new_arrivals': new_arrivals,
+    }
+    
+    return render(request, 'shop/landing.html', context)
 
 def shop(request):
     """Shop page with all products and filtering"""

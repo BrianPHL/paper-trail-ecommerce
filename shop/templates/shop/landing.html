@@ -30,8 +30,8 @@
                     </h2>
                 </div>
                 <div class="hero-details-ctas">
-                    <button class="button-primary">
-                        Show now
+                    <button class="button-primary" onclick="window.location.href='{% url 'shop' %}'">
+                        Shop now
                         <i class="fa-solid fa-circle-arrow-right"></i>
                     </button>
                     <button class="button-secondary">
@@ -45,185 +45,58 @@
 
         </section>
 
-        <section class="shop">
-
-            <h3 class="shop-header">
-                Shop Stationery
-            </h3>
-
-            <div class="shop-container">
-
-                <div class="shop-sidebar">
-
-                    <h3 class="shop-sidebar-header">
-                        Filters
-                    </h3>
-
-                    <form method="GET" action="{% url 'landing' %}">
-                        <div class="shop-sidebar-sort_by">
-                            <h3 class="shop-sidebar-sort_by-header">
-                                Sort by
-                            </h3>
-                            <div class="shop-sidebar-sort_by-options">
-                                <label class="input-radio">
-                                    <input type="radio" id="sort_by-a-to-z" name="sort_by" value="a-to-z" {% if sort_by == 'a-to-z' or not sort_by %}checked{% endif %}>
-                                    A to Z
-                                </label>
-                                <label class="input-radio">
-                                    <input type="radio" id="sort_by-z-to-a" name="sort_by" value="z-to-a" {% if sort_by == 'z-to-a' %}checked{% endif %}>
-                                    Z to A
-                                </label>
-                                <label class="input-radio">
-                                    <input type="radio" id="sort_by-price-lowest-first" name="sort_by" value="price-lowest-first" {% if sort_by == 'price-lowest-first' %}checked{% endif %}>
-                                    Price: Lowest First
-                                </label>
-                                <label class="input-radio">
-                                    <input type="radio" id="sort_by-price-highest-first" name="sort_by" value="price-highest-first" {% if sort_by == 'price-highest-first' %}checked{% endif %}>
-                                    Price: Highest First
-                                </label>
-                                <label class="input-radio">
-                                    <input type="radio" id="sort_by-recently-added" name="sort_by" value="recently-added" {% if sort_by == 'recently-added' %}checked{% endif %}>
-                                    Recently Added
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="shop-sidebar-categories">
-                            <h3 class="shop-sidebar-categories-header">
-                                Categories
-                            </h3>
-                            <div class="shop-sidebar-categories-options">
-                                {% for category_key, category_name in category_choices %}
-                                <label class="input-checkbox">
-                                    <input type="checkbox" id="categories-{{ category_key }}" name="categories" value="{{ category_key }}" 
-                                           {% if category_key in selected_categories %}checked{% endif %}>
-                                    {{ category_name }}
-                                </label>
-                                {% endfor %}
-                            </div>
-                        </div>
-
-                        <input type="hidden" name="search" value="{{ search_query }}">
-                        <button type="submit" class="button-primary" style="margin-top: 1rem; width: 100%;">Apply Filters</button>
-                    </form>
-
-                </div>
-                <div class="shop-list">
-
-                    <div class="shop-list-header">
-
-                        <form method="GET" action="{% url 'landing' %}" class="search shop-list-header-search">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                            <input class="input-nested" type="text" name="search" placeholder="Search here..." value="{{ search_query }}">
-                            {% for category in selected_categories %}
-                                <input type="hidden" name="categories" value="{{ category }}">
-                            {% endfor %}
-                            <input type="hidden" name="sort_by" value="{{ sort_by }}">
-                        </form>
-
-                        <button class="button-secondary shop-list-header-filters" data-modal-trigger="shop-filters-modal">
-                            <i class="fa-solid fa-sliders"></i>
-                            Filters
-                        </button>
-                        
-                    </div>
-
-                    <div class="shop-list-wrapper">
-
-                        {% if products %}
-                            {% for product in products %}
-                                {% include "./components/product_card.html" %}
-                            {% endfor %}
-                        {% else %}
-                            <div class="shop-list-placeholder">
-                                <h3>No products found</h3>
-                                <p>Try adjusting your search or filter criteria.</p>
-                            </div>
-                        {% endif %}
-                        
-                    </div>
-
-                </div>
-
+        {% if featured_products %}
+        <section class="featured-products">
+            <div class="featured-products-header">
+                <h3>Featured Products</h3>
+                <a href="{% url 'shop' %}" class="button-secondary">
+                    View All
+                    <i class="fa-solid fa-arrow-right-long"></i>
+                </a>
             </div>
-
+            <div class="featured-products-grid">
+                {% for product in featured_products %}
+                    {% include "./components/product_card.html" %}
+                {% endfor %}
+            </div>
         </section>
+        {% endif %}
+
+        {% if bestsellers %}
+        <section class="bestsellers">
+            <div class="bestsellers-header">
+                <h3>Best Sellers</h3>
+                <a href="{% url 'shop' %}" class="button-secondary">
+                    View All
+                    <i class="fa-solid fa-arrow-right-long"></i>
+                </a>
+            </div>
+            <div class="bestsellers-grid">
+                {% for product in bestsellers %}
+                    {% include "./components/product_card.html" %}
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        {% if new_arrivals %}
+        <section class="new-arrivals">
+            <div class="new-arrivals-header">
+                <h3>New Arrivals</h3>
+                <a href="{% url 'shop' %}" class="button-secondary">
+                    View All
+                    <i class="fa-solid fa-arrow-right-long"></i>
+                </a>
+            </div>
+            <div class="new-arrivals-grid">
+                {% for product in new_arrivals %}
+                    {% include "./components/product_card.html" %}
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
 
         {% include "./components/footer.html" %}
-
-        <div class="modal-wrapper">
-
-            <div class="modal" data-modal="shop-filters-modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-description">
-
-                <div class="modal-header">
-                    <h2 class="modal-header-title">Filters</h2>
-                    <button class="button-icon modal-header-exit" data-modal-close aria-label="Close modal">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-
-                <p class="modal-description">
-                    Select one or more filters below to refine the products shown in the shop. You can sort items, choose categories, and combine options to find exactly what you need.
-                </p>
-
-                <form method="GET" action="{% url 'landing' %}">
-                    <div class="modal-body">
-
-                        <div class="modal-filters-sort_by">
-                            <h3 class="modal-filters-sort_by-header">
-                                Sort by
-                            </h3>
-                            <div class="modal-filters-sort_by-options">
-                                <label class="input-radio">
-                                    <input type="radio" id="modal-sort_by-a-to-z" name="sort_by" value="a-to-z" {% if sort_by == 'a-to-z' or not sort_by %}checked{% endif %}>
-                                    A to Z
-                                </label>
-                                <label class="input-radio">
-                                    <input type="radio" id="modal-sort_by-z-to-a" name="sort_by" value="z-to-a" {% if sort_by == 'z-to-a' %}checked{% endif %}>
-                                    Z to A
-                                </label>
-                                <label class="input-radio">
-                                    <input type="radio" id="modal-sort_by-price-lowest-first" name="sort_by" value="price-lowest-first" {% if sort_by == 'price-lowest-first' %}checked{% endif %}>
-                                    Price: Lowest First
-                                </label>
-                                <label class="input-radio">
-                                    <input type="radio" id="modal-sort_by-price-highest-first" name="sort_by" value="price-highest-first" {% if sort_by == 'price-highest-first' %}checked{% endif %}>
-                                    Price: Highest First
-                                </label>
-                                <label class="input-radio">
-                                    <input type="radio" id="modal-sort_by-recently-added" name="sort_by" value="recently-added" {% if sort_by == 'recently-added' %}checked{% endif %}>
-                                    Recently Added
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="modal-filters-categories">
-                            <h3 class="modal-filters-categories-header">
-                                Categories
-                            </h3>
-                            <div class="modal-filters-categories-options">
-                                {% for category_key, category_name in category_choices %}
-                                <label class="input-checkbox">
-                                    <input type="checkbox" id="modal-categories-{{ category_key }}" name="categories" value="{{ category_key }}" 
-                                           {% if category_key in selected_categories %}checked{% endif %}>
-                                    {{ category_name }}
-                                </label>
-                                {% endfor %}
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <input type="hidden" name="search" value="{{ search_query }}">
-                    <div class="modal-ctas">
-                        <button type="button" class="button-secondary modal-ctas-btn" data-modal-close>Cancel</button>
-                        <button type="submit" class="button-primary modal-ctas-btn">Apply Filters</button>
-                    </div>
-                </form>
-
-            </div>
-        
-        </div>
 
         <script type="module" src="{% static 'shop/scripts/main.js' %}"></script>
     

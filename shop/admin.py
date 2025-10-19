@@ -12,8 +12,8 @@ class UserAdmin(BaseUserAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug', 'category', 'price', 'stock_quantity', 'stock_status_display', 'is_active', 'image_preview', 'created_at')
-    list_filter = ('category', 'is_active', 'created_at')
+    list_display = ('name', 'slug', 'category', 'price', 'stock_quantity', 'is_featured', 'is_bestseller', 'stock_status_display', 'is_active', 'image_preview', 'created_at')
+    list_filter = ('category', 'is_active', 'is_featured', 'is_bestseller', 'created_at')
     search_fields = ('name', 'description', 'slug')
     readonly_fields = ('slug', 'created_at', 'modified_at', 'image_preview', 'stock_status_display')
     list_per_page = 25
@@ -26,6 +26,10 @@ class ProductAdmin(admin.ModelAdmin):
         }),
         ('Stock & Availability', {
             'fields': ('stock_quantity', 'is_active', 'stock_status_display')
+        }),
+        ('Marketing & Display', {
+            'fields': ('is_featured', 'is_bestseller'),
+            'description': 'Control how this product appears on the homepage'
         }),
         ('Product Details', {
             'fields': ('weight', 'dimensions'),
