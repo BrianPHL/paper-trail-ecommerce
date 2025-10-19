@@ -1,4 +1,5 @@
 import * as themeUtilities from "../utils/theme.js";
+import * as paginationUtilities from "../utils/pagination.js";
 import * as responsiveUtilities from "../utils/responsive.js";
 
 const initializeLandingPage = () => {
@@ -59,6 +60,25 @@ const initializeLandingPage = () => {
 
     };
 
+    const initializeSectionsPaginationHandling = () => {
+
+        const featured = document.querySelector('.featured_products-container');
+        const bestsellers = document.querySelector('.bestsellers-container');
+        const newArrivals = document.querySelector('.new_arrivals-container');
+
+        console.log(featured, bestsellers, newArrivals);
+
+        if (featured)
+            paginationUtilities.handleHorizontalPagination(featured);
+
+        if (bestsellers)
+            paginationUtilities.handleHorizontalPagination(bestsellers);
+
+        if (newArrivals)
+            paginationUtilities.handleHorizontalPagination(newArrivals);
+
+    };
+
     themeSwitchBtns.forEach(themeSwitchBtn => themeSwitchBtn.addEventListener('click', () => {
         
         themeUtilities.getTheme((callback) => {
@@ -82,6 +102,7 @@ const initializeLandingPage = () => {
 
     initializePageTheme();
     initializeHeroHandling();
+    initializeSectionsPaginationHandling();
 
     console.log("Initialized landing page logic!");
 

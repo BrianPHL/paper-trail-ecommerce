@@ -47,73 +47,86 @@
             
             </section>
 
+            {% if featured_products %}
+            <section class="featured_products">
+                <div class="featured_products-header">
+                    <h3>Featured Products</h3>
+                    <a href="{% url 'shop' %}" class="button-secondary">
+                        View All
+                        <i class="fa-solid fa-arrow-right-long"></i>
+                    </a>
                 </div>
-                <div class="hero-details-ctas">
-                    <button class="button-primary" onclick="window.location.href='{% url 'shop' %}'">
-                        Shop now
-                        <i class="fa-solid fa-circle-arrow-right"></i>
-                    </button>
-                    <button class="button-secondary">
-                        <i class="fa-solid fa-phone"></i>
-                        Contact us
-                    </button>
+                <div class="featured_products-container">
+                    <div class="featured_products-list">
+                        {% for product in featured_products %}
+                            {% include "./components/product_card.html" %}
+                        {% endfor %}
+                    </div>
+                    <div class="featured_products-pagination">
+                        <button class="button-icon_outlined featured_products-pagination-prev">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <button class="button-icon_outlined featured_products-pagination-next">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
                 </div>
+            </section>
+            {% endif %}
 
-            </div>
-            <img class="hero-image" src="{% static 'shop/images/hero.jpg' %}" alt="PaperTrail Landing Hero Banner" />
+            {% if bestsellers %}
+            <section class="bestsellers">
+                <div class="bestsellers-header">
+                    <h3>Best Sellers</h3>
+                    <a href="{% url 'shop' %}" class="button-secondary">
+                        View All
+                        <i class="fa-solid fa-arrow-right-long"></i>
+                    </a>
+                </div>
+                <div class="bestsellers-container">
+                    <div class="bestsellers-list">
+                        {% for product in featured_products %}
+                            {% include "./components/product_card.html" %}
+                        {% endfor %}
+                    </div>
+                    <div class="bestsellers-pagination">
+                        <button class="button-icon_outlined bestsellers-pagination-prev">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <button class="button-icon_outlined bestsellers-pagination-next">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+            {% endif %}
 
-        </section>
-
-        {% if featured_products %}
-        <section class="featured-products">
-            <div class="featured-products-header">
-                <h3>Featured Products</h3>
-                <a href="{% url 'shop' %}" class="button-secondary">
-                    View All
-                    <i class="fa-solid fa-arrow-right-long"></i>
-                </a>
-            </div>
-            <div class="featured-products-grid">
-                {% for product in featured_products %}
-                    {% include "./components/product_card.html" %}
-                {% endfor %}
-            </div>
-        </section>
-        {% endif %}
-
-        {% if bestsellers %}
-        <section class="bestsellers">
-            <div class="bestsellers-header">
-                <h3>Best Sellers</h3>
-                <a href="{% url 'shop' %}" class="button-secondary">
-                    View All
-                    <i class="fa-solid fa-arrow-right-long"></i>
-                </a>
-            </div>
-            <div class="bestsellers-grid">
-                {% for product in bestsellers %}
-                    {% include "./components/product_card.html" %}
-                {% endfor %}
-            </div>
-        </section>
-        {% endif %}
-
-        {% if new_arrivals %}
-        <section class="new-arrivals">
-            <div class="new-arrivals-header">
-                <h3>New Arrivals</h3>
-                <a href="{% url 'shop' %}" class="button-secondary">
-                    View All
-                    <i class="fa-solid fa-arrow-right-long"></i>
-                </a>
-            </div>
-            <div class="new-arrivals-grid">
-                {% for product in new_arrivals %}
-                    {% include "./components/product_card.html" %}
-                {% endfor %}
-            </div>
-        </section>
-        {% endif %}
+            {% if new_arrivals %}
+            <section class="new_arrivals">
+                <div class="new_arrivals-header">
+                    <h3>New Arrivals</h3>
+                    <a href="{% url 'shop' %}?sort_by=recently-added" class="button-secondary">
+                        View All
+                        <i class="fa-solid fa-arrow-right-long"></i>
+                    </a>
+                </div>
+                <div class="new_arrivals-container">
+                    <div class="new_arrivals-list">
+                        {% for product in new_arrivals %}
+                            {% include "./components/product_card.html" %}
+                        {% endfor %}
+                    </div>
+                    <div class="new_arrivals-pagination">
+                        <button class="button-icon_outlined new_arrivals-pagination-prev">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <button class="button-icon_outlined new_arrivals-pagination-next">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+            {% endif %}
         </div>
 
         {% include "./components/footer.html" %}

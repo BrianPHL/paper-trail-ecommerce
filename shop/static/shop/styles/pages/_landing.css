@@ -50,3 +50,52 @@
     display: flex;
     gap: 1rem;
 }
+
+.featured_products, .bestsellers, .new_arrivals {
+    flex-direction: column;
+    display: flex;
+    gap: 2rem;
+}
+
+.featured_products-header, .bestsellers-header, .new_arrivals-header {
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    display: flex;
+    gap: 1rem;
+}
+
+.featured_products-header h3, .bestsellers-header h3, .new_arrivals-header h3 {
+    font-weight: 700;
+    font-size: 2rem;
+    color: var(--tg-primary);
+}
+
+.featured_products-container, .bestsellers-container, .new_arrivals-container {
+    flex-direction: column;
+    display: flex;
+    gap: 1rem;
+}
+
+.featured_products-list, .bestsellers-list, .new_arrivals-list {
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: flex;
+    gap: 1rem;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+.featured_products-list .product_card, .bestsellers-list .product_card, .new_arrivals-list .product_card {
+    flex-shrink: 0;
+    scroll-snap-align: start;
+}
+
+.featured_products-list-pagination, .bestsellers-list-pagination, .new_arrivals-pagination {
+    align-items: center;
+    align-self: flex-end;
+    display: flex;
+    gap: 0.5rem;
+}
+
