@@ -7,6 +7,13 @@ def landing(request):
     products = Product.objects.all()
     
     # Get unique categories that actually have products - simplified approach
+
+def shop(request):
+    """Shop page with all products and filtering"""
+    # Get all active products
+    products = Product.objects.filter(is_active=True)
+    
+    # Get unique categories that actually have products
     existing_categories = set(Product.objects.exclude(category='').values_list('category', flat=True))
     category_choices = [
         (cat, dict(Product.CATEGORIES_CHOICES).get(cat, cat)) 
@@ -43,15 +50,22 @@ def landing(request):
     else:
         products = products.order_by('name')
     
+    # Build breadcrumb trail for shop page
+    breadcrumb_items = [
+        {'name': 'Home', 'url': '/'},
+        {'name': 'Shop', 'url': None}
+    ]
+    
     context = {
         'products': products,
         'category_choices': category_choices,
         'search_query': search_query,
         'selected_categories': selected_categories,
         'sort_by': sort_by,
+        'breadcrumb_items': breadcrumb_items,
     }
     
-    return render(request, 'shop/landing.html', context)
+    return render(request, 'shop/shop.html', context)
 
 def pdp(request, slug):
     """View for individual product details"""
