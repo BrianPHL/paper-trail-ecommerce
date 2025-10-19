@@ -2,6 +2,9 @@ const initializeHeaderComponent = () => {
 
     const navigationMain = document.querySelector('.header-bottom-navigation');
     const navigationOther = document.querySelector('.header-top-ctas');
+
+    if (!navigationMain || !navigationOther) return;
+
     const navigationMainAnchors = navigationMain.querySelectorAll('.anchor-button');
     const navigationOtherAnchors = navigationOther.querySelectorAll('.button-secondary');
     const navigationAnchors = [ ...navigationMainAnchors, ...navigationOtherAnchors ];
