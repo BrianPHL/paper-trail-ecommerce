@@ -27,9 +27,34 @@
     gap: 1rem;
 }
 
-.footer-middle-navigation_main, .footer-middle-navigation_other {
+.footer-middle {
+    align-items: center;
+    display: flex;
+    gap: 2rem;
+}
+
+.footer-middle-navigation {
+    flex-wrap: wrap;
     display: flex;
     gap: 1rem;
+}
+
+.footer-middle-newsletter {
+    flex-shrink: 0;
+    flex-direction: column;
+    text-align: end;
+    display: flex;
+    gap: 1rem;
+}
+
+.footer-middle-newsletter-header h4 {
+    font-size: 0.875rem;
+    color: var(--tg-primary);
+}
+
+.footer-middle-newsletter-header p {
+    font-size: 0.875rem;
+    color: var(--tg-secondary);
 }
 
 .footer-bottom-copyright, .footer-bottom-credits {

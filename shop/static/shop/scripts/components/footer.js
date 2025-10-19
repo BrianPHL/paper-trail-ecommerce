@@ -1,10 +1,8 @@
 const initializeFooterComponent = () => {
 
-    const navigationMain = document.querySelector('.footer-middle-navigation_main');
-    const navigationOther = document.querySelector('.footer-middle-navigation_other');
-    const navigationMainAnchors = navigationMain.querySelectorAll('.anchor-button');
-    const navigationOtherAnchors = navigationOther.querySelectorAll('.anchor-button');
-    const navigationAnchors = [ ...navigationMainAnchors, ...navigationOtherAnchors ];
+    const navigationMain = document.querySelector('.footer-middle-navigation');
+    const navigationAnchors = navigationMain.querySelectorAll('.anchor-button');
+
     const currentPage = window.location.pathname.replaceAll('/', '');
 
     navigationAnchors.forEach((navigationAnchor) => {

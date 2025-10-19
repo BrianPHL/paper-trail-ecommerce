@@ -14,15 +14,21 @@
     .footer {
         padding: 1rem 4rem;
     }
+}
+
+@media only screen and (max-width: 960px) {
     .footer-middle {
-        justify-content: start;
+        justify-content: center;
         justify-items: center;
         flex-wrap: wrap;
-        gap: 1rem;
+        gap: 2rem;
     }
-    .footer-middle-navigation_main, .footer-middle-navigation_other {
+    .footer-middle-navigation {
         justify-content: center;
         flex-wrap: wrap;
+    }
+    .footer-middle-newsletter {
+        text-align: center;
     }
 }
 
