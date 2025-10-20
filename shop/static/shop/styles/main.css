@@ -19,6 +19,7 @@
 @import url('components/_input.css');
 @import url('components/_modal.css');
 @import url('components/_product_card.css');
+@import url('components/_counter.css');
 
 /* PAGES - Page-specific styles */
 @import url('pages/_landing.css');
