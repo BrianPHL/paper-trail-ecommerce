@@ -76,7 +76,6 @@
 .input-radio {
     border-radius: 0.5rem;
     align-items: center;
-    align-self: flex-start;
     transition: 0.25s ease all;
     display: flex;
     padding: 0.25rem 0.5rem;
@@ -131,7 +130,6 @@
 .input-checkbox {
     border-radius: 0.5rem;
     align-items: center;
-    align-self: flex-start;
     transition: 0.25s ease all;
     display: flex;
     padding: 0.25rem 0.5rem;
