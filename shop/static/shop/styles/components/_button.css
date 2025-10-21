@@ -40,6 +40,9 @@
     height: 3rem;
     color: var(--tg-primary);
     gap: 0.5rem;
+    &.active {
+        background-color: var(--bg-outline);
+    }
     &:hover {
         background-color: var(--bg-outline);
         cursor: pointer;
@@ -64,6 +67,9 @@
     display: flex;
     color: var(--tg-secondary);
     gap: 0.25rem;
+    &.active {
+        background-color: var(--bg-outline);
+    }
     &:hover {
         color: var(--tg-primary);
         cursor: pointer;
@@ -85,6 +91,9 @@
     height: 2rem;
     width: 2rem;
     color: var(--tg-primary);
+    &.active {
+        background-color: var(--bg-outline);
+    }
     &:hover {
         background-color: var(--bg-outline);
         cursor: pointer;
@@ -107,6 +116,9 @@
     height: 3rem;
     width: 3rem;
     color: var(--tg-primary);
+    &.active {
+        background-color: var(--bg-outline);
+    }
     &:hover {
         background-color: var(--bg-outline);
         cursor: pointer;
