@@ -1,0 +1,140 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html data-theme="light" lang="en">
+
+    <head>
+    
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My Cart | Paper Trails</title>
+        <link rel="stylesheet" href="{% static 'shop/styles/main.css' %}">
+    
+    </head>
+
+    <body>
+
+        {% include "./components/header.html" %}
+
+        <div class="cart">
+
+            <div class="cart-header">
+
+            </div>
+
+            <div class="cart-container">
+
+                <div class="cart-list">
+
+                    <div class="cart-list-header">
+
+                        <label class="input-checkbox cart-list-header-select_all">
+                            <input type="checkbox" id="cart-select_all" name="select_all" value="select_all">
+                            Select all
+                        </label>
+
+                        <button class="button-icon_outlined cart-list-header-remove">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+
+                    </div>
+
+                    <div class="cart-list-container">
+
+                        <div class="cart-list-item">
+
+                            <div class="cart-list-item-left_container">
+                                
+                                <label class="input-checkbox cart-list-item-select">
+                                    <input type="checkbox" name="cart-select" value="cart-select">
+                                </label>
+
+                                <div class="cart-list-item-image">
+                                    <img src="../../../media/products/acrylic_paint_tubes_12_pcs_188.png" alt="Cart list item image">
+                                </div>
+
+                                <div class="cart-list-item-info">
+                                    <h3 class="cart-list-item-info-name">Artist Graphite Set (6B–2H)</h3>
+                                    <p class="cart-list-item-info-description">A professional-grade graphite pencil set with soft to hard leads for shading and detailed drawings.</p>
+                                </div>
+
+                            </div>
+
+                            <div class="cart-list-item-right_container">
+
+                                <div class="cart-list-item-actions">
+
+                                    <button class="button-icon_outlined cart-list-item-actions-remove">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+
+                                    <button class="button-icon_outlined cart-list-item-actions-view">
+                                        <i class="fa-solid fa-square-arrow-up-right"></i>
+                                    </button>
+
+                                    <div class="counter cart-list-item-actions-counter">
+                                        <button class="button-icon counter-btn" data-action="decrement">
+                                            <i class="fa-solid fa-minus"></i>
+                                        </button>
+                                        <input class="counter-input input-nested" name="quantity" type="number" min="1" max="99" value="1">
+                                        <button class="button-icon counter-btn" data-action="increment">
+                                            <i class="fa-solid fa-plus"></i>
+                                        </button>
+                                    </div>
+
+                                </div>
+
+                                <h4 class="cart-list-item-price">PHP 0.00</h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="cart-summary">
+
+                    <h2 class="cart-summary-header">Summary</h2>
+                    
+                    <div class="cart-summary-list">
+
+                        <div class="cart-summary-list-item">
+                            <label>Subtotal</label>
+                            <h3>PHP 200.00</h3>
+                        </div>
+
+                        <div class="cart-summary-list-item">
+                            <label>Shipping fee</label>
+                            <h3>PHP 50.00</h3>
+                        </div>
+
+                        <div class="horizontal-divider"></div>
+
+                        <div class="cart-summary-list-item">
+                            <label>Total</label>
+                            <h3>PHP 250.00</h3>
+                        </div>
+
+                    </div>
+
+                    <button class="button-primary cart-summary-proceed_to_checkout" type="submit" disabled>
+                        Proceed to Checkout
+                        <i class="fa-solid fa-circle-arrow-right"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% include "./components/footer.html" %}
+
+        <script type="module" src="{% static 'shop/scripts/main.js' %}"></script>
+    
+    </body>
+
+</html>

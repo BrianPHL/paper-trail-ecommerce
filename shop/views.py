@@ -142,3 +142,16 @@ def sign_up(request):
     }
     
     return render(request, 'shop/sign-up.html', context)
+
+def cart(request):
+
+    breadcrumb_items = [
+        {'name': 'Home', 'url': '/'},
+        {'name': 'My Cart', 'url': None}
+    ]
+    
+    context = {
+        'breadcrumb_items': breadcrumb_items,
+    }
+
+    return render(request, 'shop/cart.html', context)
