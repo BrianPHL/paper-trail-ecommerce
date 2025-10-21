@@ -1,0 +1,80 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>About us — Paper Trails</title>
+    <link rel="stylesheet" href="{% static 'shop/styles/main.css' %}" />
+    <link rel="stylesheet" href="{% static 'shop/styles/pages/_about.css' %}" />
+  </head>
+  <body>
+
+    {% include "./components/header.html" %}
+
+    <main class="about-page container">
+
+      <div class="about-breadcrumb">
+        {% if breadcrumb_items %}
+          <p>
+            {% for crumb in breadcrumb_items %}
+              {% if crumb.url %}
+                <a class="anchor-link" href="{{ crumb.url }}">{{ crumb.name }}</a>
+              {% else %}
+                <span>{{ crumb.name }}</span>
+              {% endif %}
+              {% if not forloop.last %} / {% endif %}
+            {% endfor %}
+          </p>
+        {% endif %}
+      </div>
+
+      <section class="about-hero">
+        <h1>About us</h1>
+        <p class="lead">Your trusted stationery partner for creativity and productivity.</p>
+      </section>
+
+      <section class="about-grid">
+        <div class="about-left">
+          <h3>Our Story</h3>
+          <p>
+            We started with a passion for stationery in which we believe that the quality notebooks, pens, and art supplies can inspire creativity and productivity. Our mission is to make affordable yet stylish stationery accessible to students, professionals, and artists alike.
+          </p>
+
+          <h3>Mission & Values</h3>
+          <p class="muted">Our Mission</p>
+          <p>
+            Our mission is to provide high-quality, affordable stationery products that empower students, professionals, and creatives to do their best work.
+          </p>
+
+          <div class="values-list">
+            <div class="value-item"><span class="value-index">1</span> Quality You Can Trust</div>
+            <div class="value-item"><span class="value-index">2</span> Affordability & Accessibility</div>
+            <div class="value-item"><span class="value-index">3</span> Customer-Centered Service</div>
+            <div class="value-item"><span class="value-index">4</span> Creativity & Inspiration</div>
+            <div class="value-item"><span class="value-index">5</span> Sustainability</div>
+          </div>
+        </div>
+
+        <aside class="about-right">
+          <h4>Meet the Team</h4>
+          <div class="team-grid">
+            {% for i in "123456" %}
+            <div class="team-member">
+              <div class="team-avatar"></div>
+              <div class="team-name">Member {{ forloop.counter }}</div>
+              <div class="team-role">Developer</div>
+            </div>
+            {% endfor %}
+          </div>
+        </aside>
+      </section>
+
+    </main>
+
+    {% include "./components/footer.html" %}
+
+    <script type="module" src="{% static 'shop/scripts/main.js' %}"></script>
+  </body>
+</html>

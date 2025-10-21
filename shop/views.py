@@ -155,3 +155,17 @@ def cart(request):
     }
 
     return render(request, 'shop/cart.html', context)
+
+
+def about(request):
+    """About Us page rendering a prototype-style layout"""
+    breadcrumb_items = [
+        {'name': 'Home', 'url': '/'},
+        {'name': 'About us', 'url': None}
+    ]
+
+    context = {
+        'breadcrumb_items': breadcrumb_items,
+    }
+
+    return render(request, 'shop/about.html', context)
