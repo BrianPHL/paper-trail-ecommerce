@@ -1,16 +1,21 @@
 import os
 import django
 from decimal import Decimal
+from pathlib import Path
 
 # Setup Django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'paper_trail_ecommerce_project.settings')
 django.setup()
 
 from shop.models import Product
-from django.core.files import File
+from django.conf import settings
 
-# CHANGE THIS PATH to where your images are stored
-IMAGES_FOLDER = r"C:\Users\brian\OneDrive\Desktop\product_images"
+# Use the media folder from Django settings
+BASE_DIR = Path(__file__).resolve().parent
+MEDIA_ROOT = getattr(settings, 'MEDIA_ROOT', BASE_DIR / 'media')
+IMAGES_FOLDER = MEDIA_ROOT / 'products'
+
+print(f"Looking for images in: { IMAGES_FOLDER }")
 
 # Your products data
 products = [
@@ -21,7 +26,7 @@ products = [
         'price': 45.00,
         'category': 'notebooks',
         'stock_quantity': 50,
-        'image_name': 'classicspiralnb.png',
+        'image_path': 'products/classicspiralnb.png',
         'weight': 180.00,
         'dimensions': '21cm x 14.8cm'
     },
@@ -31,7 +36,7 @@ products = [
         'price': 55.00,
         'category': 'notebooks',
         'stock_quantity': 40,
-        'image_name': 'compositionnb.png',
+        'image_path': 'products/compositionnb.png',
         'weight': 200.00,
         'dimensions': '24cm x 19cm'
     },
@@ -41,7 +46,7 @@ products = [
         'price': 60.00,
         'category': 'notebooks',
         'stock_quantity': 35,
-        'image_name': 'dotgridjournalnb.png',
+        'image_path': 'products/dotgridjournalnb.png',
         'weight': 175.00,
         'dimensions': '21cm x 14.8cm'
     },
@@ -51,7 +56,7 @@ products = [
         'price': 50.00,
         'category': 'notebooks',
         'stock_quantity': 45,
-        'image_name': 'gridnb.png',
+        'image_path': 'products/gridnb.png',
         'weight': 170.00,
         'dimensions': '21cm x 14.8cm'
     },
@@ -61,7 +66,7 @@ products = [
         'price': 85.00,
         'category': 'notebooks',
         'stock_quantity': 25,
-        'image_name': 'hardboundjournalnb.png',
+        'image_path': 'products/hardboundjournalnb.png',
         'weight': 220.00,
         'dimensions': '14.8cm x 10.5cm'
     },
@@ -71,7 +76,7 @@ products = [
         'price': 30.00,
         'category': 'notebooks',
         'stock_quantity': 60,
-        'image_name': 'minipocketnb.png',
+        'image_path': 'products/minipocketnb.png',
         'weight': 50.00,
         'dimensions': '9cm x 14cm'
     },
@@ -83,7 +88,7 @@ products = [
         'price': 180.00,
         'category': 'pens',
         'stock_quantity': 20,
-        'image_name': 'callibrushsetpen.png',
+        'image_path': 'products/callibrushsetpen.png',
         'weight': 120.00,
         'dimensions': '18cm x 12cm x 3cm (box)'
     },
@@ -93,7 +98,7 @@ products = [
         'price': 45.00,
         'category': 'pens',
         'stock_quantity': 75,
-        'image_name': 'finelinerpen.png',
+        'image_path': 'products/finelinerpen.png',
         'weight': 8.00,
         'dimensions': '14cm L'
     },
@@ -103,7 +108,7 @@ products = [
         'price': 60.00,
         'category': 'pens',
         'stock_quantity': 50,
-        'image_name': 'multicolorpen.png',
+        'image_path': 'products/multicolorpen.png',
         'weight': 15.00,
         'dimensions': '14.5cm L'
     },
@@ -113,7 +118,7 @@ products = [
         'price': 25.00,
         'category': 'pens',
         'stock_quantity': 100,
-        'image_name': 'retballpointpen.png',
+        'image_path': 'products/retballpointpen.png',
         'weight': 6.00,
         'dimensions': '13.5cm L'
     },
@@ -123,7 +128,7 @@ products = [
         'price': 40.00,
         'category': 'pens',
         'stock_quantity': 80,
-        'image_name': 'rollerballpen.png',
+        'image_path': 'products/rollerballpen.png',
         'weight': 10.00,
         'dimensions': '14cm L'
     },
@@ -133,7 +138,7 @@ products = [
         'price': 25.00,
         'category': 'pens',
         'stock_quantity': 120,
-        'image_name': 'smoothgelpen.png',
+        'image_path': 'products/smoothgelpen.png',
         'weight': 7.00,
         'dimensions': '13.8cm L'
     },
@@ -145,7 +150,7 @@ products = [
         'price': 150.00,
         'category': 'pencils',
         'stock_quantity': 30,
-        'image_name': 'charcoalpencilset.png',
+        'image_path': 'products/charcoalpencilset.png',
         'weight': 90.00,
         'dimensions': '20cm x 8cm x 2cm (box)'
     },
@@ -155,7 +160,7 @@ products = [
         'price': 120.00,
         'category': 'pencils',
         'stock_quantity': 40,
-        'image_name': 'coloredpencils.png',
+        'image_path': 'products/coloredpencils.png',
         'weight': 85.00,
         'dimensions': '19cm x 10cm x 1.5cm (box)'
     },
@@ -165,7 +170,7 @@ products = [
         'price': 20.00,
         'category': 'pencils',
         'stock_quantity': 150,
-        'image_name': 'ecorecycledpencil.png',
+        'image_path': 'products/ecorecycledpencil.png',
         'weight': 5.00,
         'dimensions': '19cm L'
     },
@@ -175,7 +180,7 @@ products = [
         'price': 130.00,
         'category': 'pencils',
         'stock_quantity': 35,
-        'image_name': 'graphitepencil.png',
+        'image_path': 'products/graphitepencil.png',
         'weight': 100.00,
         'dimensions': '20cm x 12cm x 2cm (box)'
     },
@@ -185,7 +190,7 @@ products = [
         'price': 45.00,
         'category': 'pencils',
         'stock_quantity': 70,
-        'image_name': 'mechpencil.png',
+        'image_path': 'products/mechpencil.png',
         'weight': 12.00,
         'dimensions': '14cm L'
     },
@@ -195,7 +200,7 @@ products = [
         'price': 10.00,
         'category': 'pencils',
         'stock_quantity': 200,
-        'image_name': 'woodenpencil.png',
+        'image_path': 'products/woodenpencil.png',
         'weight': 4.00,
         'dimensions': '19cm L'
     },
@@ -207,7 +212,7 @@ products = [
         'price': 220.00,
         'category': 'art_materials',
         'stock_quantity': 25,
-        'image_name': 'acrylicpainttubes.png',
+        'image_path': 'products/acrylicpainttubes.png',
         'weight': 480.00,
         'dimensions': '25cm x 15cm x 5cm (box)'
     },
@@ -217,7 +222,7 @@ products = [
         'price': 350.00,
         'category': 'art_materials',
         'stock_quantity': 15,
-        'image_name': 'artistmarkerset.png',
+        'image_path': 'products/artistmarkerset.png',
         'weight': 350.00,
         'dimensions': '28cm x 20cm x 3cm (box)'
     },
@@ -227,7 +232,7 @@ products = [
         'price': 85.00,
         'category': 'art_materials',
         'stock_quantity': 30,
-        'image_name': 'craftscissor.png',
+        'image_path': 'products/craftscissor.png',
         'weight': 65.00,
         'dimensions': '18cm L'
     },
@@ -237,7 +242,7 @@ products = [
         'price': 35.00,
         'category': 'art_materials',
         'stock_quantity': 80,
-        'image_name': 'gluestick.png',
+        'image_path': 'products/gluestick.png',
         'weight': 40.00,
         'dimensions': '10cm L x 3cm diameter'
     },
@@ -247,7 +252,7 @@ products = [
         'price': 180.00,
         'category': 'art_materials',
         'stock_quantity': 20,
-        'image_name': 'oilpastelset.png',
+        'image_path': 'products/oilpastelset.png',
         'weight': 320.00,
         'dimensions': '30cm x 18cm x 3cm (box)'
     },
@@ -257,7 +262,7 @@ products = [
         'price': 120.00,
         'category': 'art_materials',
         'stock_quantity': 35,
-        'image_name': 'paintbrushset.png',
+        'image_path': 'products/paintbrushset.png',
         'weight': 95.00,
         'dimensions': '30cm x 8cm x 2cm (box)'
     },
@@ -267,7 +272,7 @@ products = [
         'price': 40.00,
         'category': 'art_materials',
         'stock_quantity': 50,
-        'image_name': 'palettetray.png',
+        'image_path': 'products/palettetray.png',
         'weight': 120.00,
         'dimensions': '25cm x 18cm x 2cm'
     },
@@ -277,7 +282,7 @@ products = [
         'price': 90.00,
         'category': 'art_materials',
         'stock_quantity': 40,
-        'image_name': 'sketchpad.png',
+        'image_path': 'products/sketchpad.png',
         'weight': 250.00,
         'dimensions': '29.7cm x 21cm'
     },
@@ -287,7 +292,7 @@ products = [
         'price': 220.00,
         'category': 'art_materials',
         'stock_quantity': 25,
-        'image_name': 'watercolorpaintset.png',
+        'image_path': 'products/watercolorpaintset.png',
         'weight': 280.00,
         'dimensions': '22cm x 12cm x 3cm (box)'
     },
@@ -299,7 +304,7 @@ products = [
         'price': 70.00,
         'category': 'papers',
         'stock_quantity': 60,
-        'image_name': 'coloredpaperset.png',
+        'image_path': 'products/coloredpaperset.png',
         'weight': 500.00,
         'dimensions': '29.7cm x 21cm'
     },
@@ -309,7 +314,7 @@ products = [
         'price': 30.00,
         'category': 'papers',
         'stock_quantity': 100,
-        'image_name': 'graphpaper.png',
+        'image_path': 'products/graphpaper.png',
         'weight': 80.00,
         'dimensions': '29.7cm x 21cm (100 sheets)'
     },
@@ -319,7 +324,7 @@ products = [
         'price': 180.00,
         'category': 'papers',
         'stock_quantity': 80,
-        'image_name': 'longbondpapers.png',
+        'image_path': 'products/longbondpapers.png',
         'weight': 2500.00,
         'dimensions': '21.6cm x 33cm'
     },
@@ -329,7 +334,7 @@ products = [
         'price': 90.00,
         'category': 'papers',
         'stock_quantity': 45,
-        'image_name': 'origamipaper.png',
+        'image_path': 'products/origamipaper.png',
         'weight': 150.00,
         'dimensions': '15cm x 15cm (100 sheets)'
     },
@@ -339,7 +344,7 @@ products = [
         'price': 150.00,
         'category': 'papers',
         'stock_quantity': 30,
-        'image_name': 'photopaper.png',
+        'image_path': 'products/photopaper.png',
         'weight': 300.00,
         'dimensions': '29.7cm x 21cm (50 sheets)'
     },
@@ -349,7 +354,7 @@ products = [
         'price': 50.00,
         'category': 'papers',
         'stock_quantity': 90,
-        'image_name': 'stickynotes.png',
+        'image_path': 'products/stickynotes.png',
         'weight': 80.00,
         'dimensions': '7.6cm x 7.6cm (pack of 6)'
     },
@@ -358,18 +363,23 @@ products = [
 # Create the products
 created_count = 0
 skipped_count = 0
+updated_count = 0
+
 for item in products:
     try:
+        
         # Check if product already exists (by name)
-        if Product.objects.filter(name=item['name']).exists():
-            print(f"⏭️  Skipped '{item['name']}' - already exists")
+        existing_product = Product.objects.filter(name=item['name']).first()
+        
+        if existing_product:
+            print(f"⏭️  Product '{item['name']}' already exists")
             skipped_count += 1
             continue
         
-        # Remove image_name from product data
-        image_name = item.pop('image_name', None)
+        # Get image path from the data
+        image_path = item.pop('image_path', None)
         
-        # Create product
+        # Create product with the image path (relative to MEDIA_ROOT)
         product = Product.objects.create(
             name=item['name'],
             description=item['description'],
@@ -377,18 +387,17 @@ for item in products:
             category=item['category'],
             stock_quantity=item['stock_quantity'],
             weight=Decimal(str(item.get('weight', 0))) if item.get('weight') else None,
-            dimensions=item.get('dimensions', '')
+            dimensions=item.get('dimensions', ''),
+            image=image_path if image_path else ''
         )
         
-        # Add image if exists
-        if image_name:
-            image_path = os.path.join(IMAGES_FOLDER, image_name)
-            if os.path.exists(image_path):
-                with open(image_path, 'rb') as f:
-                    product.image.save(image_name, File(f), save=True)
+        # Check if image file actually exists
+        if image_path:
+            full_image_path = MEDIA_ROOT / image_path
+            if full_image_path.exists():
                 print(f"✅ Created '{product.name}' with image")
             else:
-                print(f"⚠️  Created '{product.name}' but no image found: {image_name}")
+                print(f"⚠️  Created '{product.name}' but image not found at: {full_image_path}")
         else:
             print(f"✅ Created '{product.name}' without image")
         
@@ -397,4 +406,5 @@ for item in products:
     except Exception as e:
         print(f"❌ Error with '{item['name']}': {e}")
 
-print(f"\n🎉 Done! Created {created_count} new products, skipped {skipped_count} existing products.")
+print(f"\n🎉 Done! Created { created_count } new products, skipped { skipped_count } existing products.")
+print(f"\n📁 Make sure your product images are placed in: { IMAGES_FOLDER }")
