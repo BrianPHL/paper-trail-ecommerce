@@ -10,5 +10,6 @@ urlpatterns = [
     path('shop/', views.shop, name='shop'),
     path('cart/', views.cart, name='cart'),
     path('about/', views.about, name='about'),
+    path('contact-us/', views.contact, name='contact-us'),
     path('api/login/', auth.handle_account_authorization, name='api-login'),
 ]

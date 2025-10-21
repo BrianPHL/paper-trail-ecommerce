@@ -169,3 +169,17 @@ def about(request):
     }
 
     return render(request, 'shop/about.html', context)
+
+
+def contact(request):
+    """Contact Us page"""
+    breadcrumb_items = [
+        {'name': 'Home', 'url': '/'},
+        {'name': 'Contact us', 'url': None}
+    ]
+
+    context = {
+        'breadcrumb_items': breadcrumb_items,
+    }
+
+    return render(request, 'shop/contact.html', context)
