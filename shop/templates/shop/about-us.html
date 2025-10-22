@@ -2,18 +2,19 @@
 
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>About us | Paper Trails</title>
-    <link rel="stylesheet" href="{% static 'shop/styles/main.css' %}" />
-    <link rel="stylesheet" href="{% static 'shop/styles/pages/_about.css' %}" />
-  </head>
-  <body>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>About us | Paper Trails</title>
+        <link rel="stylesheet" href="{% static 'shop/styles/main.css' %}" />
+        <link rel="stylesheet" href="{% static 'shop/styles/pages/_about.css' %}" />
+    </head>
 
-    {% include "./components/header.html" %}
+    <body>
 
-    <main class="about-page container">
+        {% include "./components/header.html" %}
+
+        <main class="about_us-wrapper">
 
       <div class="about-breadcrumb">
         {% if breadcrumb_items %}
@@ -69,12 +70,14 @@
             {% endfor %}
           </div>
         </aside>
-      </section>
+        </section>
 
-    </main>
+        </main>
 
-    {% include "./components/footer.html" %}
+        {% include "./components/footer.html" %}
 
-    <script type="module" src="{% static 'shop/scripts/main.js' %}"></script>
-  </body>
+        <script type="module" src="{% static 'shop/scripts/main.js' %}"></script>
+
+    </body>
+
 </html>

@@ -1,4 +1,4 @@
-.pdp-wrapper {
+.pdp-container {
     background-color: var(--bg-primary);
     flex-direction: column;
     padding: 4rem 16rem;
