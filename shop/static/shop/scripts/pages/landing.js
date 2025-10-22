@@ -38,25 +38,13 @@ const initializeLandingPage = () => {
 
     };
 
-    const initializeHeroHandling = () => {
+    const initializePageLayoutHandling = () => {
 
-        window.addEventListener('resize', () => {
+        const header = document.querySelector('.header');
+        const hero = document.querySelector('.landing-container');
 
-            const header = document.querySelector('.header');
-            const hero = document.querySelector('.hero');
-            
-            responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero, true);
-
-        });
-
-        window.addEventListener('load', () => {
-
-            const header = document.querySelector('.header');
-            const hero = document.querySelector('.hero');
-
-            responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero, true);
-
-        });
+        window.addEventListener('resize', () => responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero, true));
+        window.addEventListener('load', () => responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero, true));
 
     };
 
@@ -65,8 +53,6 @@ const initializeLandingPage = () => {
         const featured = document.querySelector('.featured_products-container');
         const bestsellers = document.querySelector('.bestsellers-container');
         const newArrivals = document.querySelector('.new_arrivals-container');
-
-        console.log(featured, bestsellers, newArrivals);
 
         if (featured)
             paginationUtilities.handleHorizontalPagination(featured);
@@ -101,7 +87,7 @@ const initializeLandingPage = () => {
     }))
 
     initializePageTheme();
-    initializeHeroHandling();
+    initializePageLayoutHandling();
     initializeSectionsPaginationHandling();
 
     console.log("Initialized landing page logic!");
