@@ -6,7 +6,6 @@ const initializeLandingPage = () => {
 
     if (window.location.pathname !== '/') return;
 
-    const themeSwitchBtns = document.querySelectorAll('.theme-switcher-btn');
     const logos = document.querySelectorAll('.logo');
     const hero = document.querySelector('#hero');
     const htmlElement = document.querySelector('html');
@@ -38,6 +37,33 @@ const initializeLandingPage = () => {
 
     };
 
+    const initializeThemeHandling = () => {
+        
+        const themeSwitchBtns = document.querySelectorAll('.theme-switcher-btn');
+
+        themeSwitchBtns.forEach(themeSwitchBtn => themeSwitchBtn.addEventListener('click', () => {
+
+            themeUtilities.getTheme((callback) => {
+
+                const alternateTheme =
+                (callback === 'light')
+                ? 'dark'
+                : 'light'
+
+                themeSwitchBtn.innerHTML=
+                `
+                    <i class="fa-solid ${ alternateTheme === 'light' ? 'fa-moon' : 'fa-sun' }"></i>
+                `
+
+                themeUtilities.setTheme(alternateTheme);
+                initializePageTheme();
+
+            });
+
+        }));
+
+    };
+
     const initializePageLayoutHandling = () => {
 
         const header = document.querySelector('.header');
@@ -65,28 +91,8 @@ const initializeLandingPage = () => {
 
     };
 
-    themeSwitchBtns.forEach(themeSwitchBtn => themeSwitchBtn.addEventListener('click', () => {
-        
-        themeUtilities.getTheme((callback) => {
-
-            const alternateTheme =
-            (callback === 'light')
-            ? 'dark'
-            : 'light'
-
-            themeSwitchBtn.innerHTML=
-            `
-                <i class="fa-solid ${ alternateTheme === 'light' ? 'fa-moon' : 'fa-sun' }"></i>
-            `
-
-            themeUtilities.setTheme(alternateTheme);
-            initializePageTheme();
-
-        });
-
-    }))
-
     initializePageTheme();
+    initializeThemeHandling();
     initializePageLayoutHandling();
     initializeSectionsPaginationHandling();
 
