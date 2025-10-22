@@ -1,11 +1,11 @@
 @media only screen and (max-width: 1680px) {
-    .shop {
+    .shop-wrapper {
         padding: 4rem 8rem;
     }
 }
 
 @media only screen and (max-width: 1500px) {
-    .shop {
+    .shop-wrapper {
         padding: 2rem 4rem;
     }
 }
@@ -44,7 +44,7 @@
 }
 
 @media only screen and (max-width: 720px) {
-    .shop {
+    .shop-wrapper {
         padding: 1rem 2rem;
     }
 }
