@@ -24,10 +24,10 @@ const initializeCartPage = () => {
 
     };
 
-    const initializeHeroHandling = () => {
+    const initializePageLayoutHandling = () => {
 
         const header = document.querySelector('.header');
-        const hero = document.querySelector('.cart');
+        const hero = document.querySelector('.cart-wrapper');
 
         window.addEventListener('resize', () => responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero, true));
         window.addEventListener('load', () => responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero, true));
@@ -56,7 +56,7 @@ const initializeCartPage = () => {
     }))
 
     initializePageTheme();
-    initializeHeroHandling();
+    initializePageLayoutHandling();
 
     console.log("Initialized cart page logic!");
 
