@@ -50,25 +50,13 @@ const initializeProductDetailPage = () => {
 
     };
 
-    const initializeHeroHandling = () => {
+    const initializePageLayoutHandling = () => {
 
-        window.addEventListener('resize', () => {
+        const header = document.querySelector('.header');
+        const hero = document.querySelector('.pdp-container');
 
-            const header = document.querySelector('.header');
-            const hero = document.querySelector('.pdp');
-            
-            responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero, false);
-
-        });
-
-        window.addEventListener('load', () => {
-
-            const header = document.querySelector('.header');
-            const hero = document.querySelector('.pdp');
-
-            responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero, false);
-
-        });
+        window.addEventListener('resize', () =>  responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero, false));
+        window.addEventListener('load', () =>  responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero, false));
 
     };
 
@@ -82,7 +70,7 @@ const initializeProductDetailPage = () => {
 
     initializeTheme();
     initializeThemeHandling();
-    initializeHeroHandling();
+    initializePageLayoutHandling();
     initializeRelatedProductsPaginationHandling();
 
     console.log("Initialized product detail page page logic!");
