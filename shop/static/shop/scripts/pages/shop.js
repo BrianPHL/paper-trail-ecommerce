@@ -23,25 +23,13 @@ const initializeShopPage = () => {
 
     };
 
-    const initializeHeroHandling = () => {
+    const initializePageLayoutHandling = () => {
 
-        window.addEventListener('resize', () => {
+        const header = document.querySelector('.header');
+        const hero = document.querySelector('.shop-wrapper');
 
-            const header = document.querySelector('.header');
-            const hero = document.querySelector('.shop');
-            
-            responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero, false);
-
-        });
-
-        window.addEventListener('load', () => {
-
-            const header = document.querySelector('.header');
-            const hero = document.querySelector('.shop');
-
-            responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero, false);
-
-        });
+        window.addEventListener('resize', () =>  responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero, false));
+        window.addEventListener('load', () =>  responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero, false));
 
     };
 
@@ -67,7 +55,7 @@ const initializeShopPage = () => {
     }))
 
     initializePageTheme();
-    initializeHeroHandling();
+    initializePageLayoutHandling();
 
     console.log("Initialized shop page logic!");
 
