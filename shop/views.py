@@ -157,7 +157,7 @@ def cart(request):
     return render(request, 'shop/cart.html', context)
 
 
-def about(request):
+def about_us(request):
     """About Us page rendering a prototype-style layout"""
     breadcrumb_items = [
         {'name': 'Home', 'url': '/'},
@@ -168,10 +168,10 @@ def about(request):
         'breadcrumb_items': breadcrumb_items,
     }
 
-    return render(request, 'shop/about.html', context)
+    return render(request, 'shop/about-us.html', context)
 
 
-def contact(request):
+def contact_us(request):
     """Contact Us page"""
     breadcrumb_items = [
         {'name': 'Home', 'url': '/'},
@@ -182,4 +182,4 @@ def contact(request):
         'breadcrumb_items': breadcrumb_items,
     }
 
-    return render(request, 'shop/contact.html', context)
+    return render(request, 'shop/contact-us.html', context)

@@ -9,7 +9,7 @@ urlpatterns = [
     path('sign-up/', views.sign_up, name='sign-up'),
     path('shop/', views.shop, name='shop'),
     path('cart/', views.cart, name='cart'),
-    path('about-us/', views.about, name='about-us'),
-    path('contact-us/', views.contact, name='contact-us'),
+    path('about-us/', views.about_us, name='about-us'),
+    path('contact-us/', views.contact_us, name='contact-us'),
     path('api/login/', auth.handle_account_authorization, name='api-login'),
 ]
