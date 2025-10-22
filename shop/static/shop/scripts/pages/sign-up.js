@@ -7,7 +7,7 @@ const initializeSignUpPage = () => {
 
     if (window.location.pathname !== '/sign-up/') return;
 
-    const initializeTheme = () => {
+    const initializePageTheme = () => {
 
         const htmlElement = document.querySelector('html');
         const main = document.querySelector('.sign_up');
@@ -37,7 +37,7 @@ const initializeSignUpPage = () => {
 
     };
 
-    const initializeThemeHandling = () => {
+    const initializePageThemeHandling = () => {
         
         const themeSwitchBtns = document.querySelectorAll('.theme-switcher-btn');
 
@@ -56,7 +56,7 @@ const initializeSignUpPage = () => {
                 `
 
                 themeUtilities.setTheme(alternateTheme);
-                initializeTheme();
+                initializePageTheme();
 
             });
 
@@ -218,9 +218,9 @@ const initializeSignUpPage = () => {
     };
 
     initializePageLayoutHandling();
-    initializeThemeHandling();
+    initializePageTheme();
+    initializePageThemeHandling();
     initializeFormHandling();
-    initializeTheme();
 
     console.log("Initialized sign in page logic!");
 

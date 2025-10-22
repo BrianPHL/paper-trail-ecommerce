@@ -23,7 +23,7 @@ const initializeCartPage = () => {
 
     };
 
-    const initializeThemeHandling = () => {
+    const initializePageThemeHandling = () => {
         
         const themeSwitchBtns = document.querySelectorAll('.theme-switcher-btn');
 
@@ -62,7 +62,7 @@ const initializeCartPage = () => {
 
     initializePageLayoutHandling();
     initializePageTheme();
-    initializeThemeHandling();
+    initializePageThemeHandling();
 
     console.log("Initialized cart page logic!");
 

@@ -5,7 +5,6 @@ const initializeShopPage = () => {
 
     if (window.location.pathname !== '/shop/') return;
 
-    const themeSwitchBtns = document.querySelectorAll('.theme-switcher-btn');
     const logos = document.querySelectorAll('.logo');
     const htmlElement = document.querySelector('html');
 
@@ -23,6 +22,33 @@ const initializeShopPage = () => {
 
     };
 
+    const initializePageThemeHandling = () => {
+        
+        const themeSwitchBtns = document.querySelectorAll('.theme-switcher-btn');
+
+        themeSwitchBtns.forEach(themeSwitchBtn => themeSwitchBtn.addEventListener('click', () => {
+
+            themeUtilities.getTheme((callback) => {
+
+                const alternateTheme =
+                (callback === 'light')
+                ? 'dark'
+                : 'light'
+
+                themeSwitchBtn.innerHTML=
+                `
+                    <i class="fa-solid ${ alternateTheme === 'light' ? 'fa-moon' : 'fa-sun' }"></i>
+                `
+
+                themeUtilities.setTheme(alternateTheme);
+                initializePageTheme();
+
+            });
+
+        }));
+
+    };
+
     const initializePageLayoutHandling = () => {
 
         const header = document.querySelector('.header');
@@ -33,29 +59,9 @@ const initializeShopPage = () => {
 
     };
 
-    themeSwitchBtns.forEach(themeSwitchBtn => themeSwitchBtn.addEventListener('click', () => {
-        
-        themeUtilities.getTheme((callback) => {
-
-            const alternateTheme =
-            (callback === 'light')
-            ? 'dark'
-            : 'light'
-
-            themeSwitchBtn.innerHTML=
-            `
-                <i class="fa-solid ${ alternateTheme === 'light' ? 'fa-moon' : 'fa-sun' }"></i>
-            `
-
-            themeUtilities.setTheme(alternateTheme);
-            initializePageTheme();
-
-        });
-
-    }))
-
-    initializePageTheme();
     initializePageLayoutHandling();
+    initializePageTheme();
+    initializePageThemeHandling();
 
     console.log("Initialized shop page logic!");
 

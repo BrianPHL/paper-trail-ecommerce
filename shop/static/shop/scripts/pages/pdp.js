@@ -6,7 +6,7 @@ const initializeProductDetailPage = () => {
 
     if (!window.location.pathname.startsWith('/product/')) return;
 
-    const initializeTheme = () => {
+    const initializePageTheme = () => {
 
         const htmlElement = document.querySelector('html');
         const logos = document.querySelectorAll('.logo');
@@ -23,7 +23,7 @@ const initializeProductDetailPage = () => {
 
     };
 
-    const initializeThemeHandling = () => {
+    const initializePageThemeHandling = () => {
         
         const themeSwitchBtns = document.querySelectorAll('.theme-switcher-btn');
 
@@ -42,7 +42,7 @@ const initializeProductDetailPage = () => {
                 `
 
                 themeUtilities.setTheme(alternateTheme);
-                initializeTheme();
+                initializePageTheme();
 
             });
 
@@ -68,9 +68,9 @@ const initializeProductDetailPage = () => {
 
     };
 
-    initializeTheme();
-    initializeThemeHandling();
     initializePageLayoutHandling();
+    initializePageTheme();
+    initializePageThemeHandling();
     initializeRelatedProductsPaginationHandling();
 
     console.log("Initialized product detail page page logic!");

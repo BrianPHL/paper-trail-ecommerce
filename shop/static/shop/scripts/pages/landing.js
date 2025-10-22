@@ -37,7 +37,7 @@ const initializeLandingPage = () => {
 
     };
 
-    const initializeThemeHandling = () => {
+    const initializePageThemeHandling = () => {
         
         const themeSwitchBtns = document.querySelectorAll('.theme-switcher-btn');
 
@@ -91,9 +91,9 @@ const initializeLandingPage = () => {
 
     };
 
-    initializePageTheme();
-    initializeThemeHandling();
     initializePageLayoutHandling();
+    initializePageTheme();
+    initializePageThemeHandling();
     initializeSectionsPaginationHandling();
 
     console.log("Initialized landing page logic!");
