@@ -67,7 +67,6 @@ const initializeSignInPage = () => {
     const initializeFormHandling = () => {
 
         const form = document.querySelector('form');
-        const formSignIn = document.querySelector('.sign_in');
         const formError = document.querySelector('.sign_in-form-error');
         const formErrorText = document.querySelector('.sign_in-form-error-text');
 
@@ -157,21 +156,21 @@ const initializeSignInPage = () => {
 
         });
 
-        window.addEventListener("resize", () => {
-            responsiveUtilities.equalizeChildrenHeightInContainer(formSignIn);
-            
-        });
+    };
 
-        window.addEventListener('load', () => {
-            responsiveUtilities.equalizeChildrenHeightInContainer(formSignIn);
-        });
+    const initializePageLayoutHandling = () => {
 
+        const formSignIn = document.querySelector('.sign_in');
+
+        window.addEventListener("resize", () => responsiveUtilities.equalizeChildrenHeightInContainer(formSignIn));
+        window.addEventListener("load", () => responsiveUtilities.equalizeChildrenHeightInContainer(formSignIn));
 
     };
 
+    initializePageLayoutHandling();
+    initializeTheme();
     initializeThemeHandling();
     initializeFormHandling();
-    initializeTheme();
 
     console.log("Initialized sign in page logic!");
 
