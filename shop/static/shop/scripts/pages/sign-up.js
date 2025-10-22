@@ -67,7 +67,6 @@ const initializeSignUpPage = () => {
     const initializeFormHandling = () => {
 
         const form = document.querySelector('form');
-        const formSignUp = document.querySelector('.sign_up');
         const formStepsProgressBar = document.querySelector('.sign_up-form-progress_bar-level');
         const formCtasContainers = form.querySelectorAll('.sign_up-form-group-ctas-container');
         const formCtasContainersArray = Array.from(formCtasContainers);
@@ -207,17 +206,18 @@ const initializeSignUpPage = () => {
 
         formReturnBtn.addEventListener('click', showFirstStep);
 
-        window.addEventListener("resize", () => {
-            responsiveUtilities.equalizeChildrenHeightInContainer(formSignUp);
-            
-        });
+    };
 
-        window.addEventListener('load', () => {
-            responsiveUtilities.equalizeChildrenHeightInContainer(formSignUp);
-        });
+    const initializePageLayoutHandling = () => {
+
+        const formSignUp = document.querySelector('.sign_up');
+
+        window.addEventListener("resize", () => responsiveUtilities.equalizeChildrenHeightInContainer(formSignUp));
+        window.addEventListener("load", () => responsiveUtilities.equalizeChildrenHeightInContainer(formSignUp));
 
     };
 
+    initializePageLayoutHandling();
     initializeThemeHandling();
     initializeFormHandling();
     initializeTheme();
