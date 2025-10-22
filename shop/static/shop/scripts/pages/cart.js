@@ -6,7 +6,6 @@ const initializeCartPage = () => {
 
     if (window.location.pathname !== '/cart/') return;
 
-    const themeSwitchBtns = document.querySelectorAll('.theme-switcher-btn');
     const logos = document.querySelectorAll('.logo');
     const htmlElement = document.querySelector('html');
 
@@ -24,6 +23,33 @@ const initializeCartPage = () => {
 
     };
 
+    const initializeThemeHandling = () => {
+        
+        const themeSwitchBtns = document.querySelectorAll('.theme-switcher-btn');
+
+        themeSwitchBtns.forEach(themeSwitchBtn => themeSwitchBtn.addEventListener('click', () => {
+
+            themeUtilities.getTheme((callback) => {
+
+                const alternateTheme =
+                (callback === 'light')
+                ? 'dark'
+                : 'light'
+
+                themeSwitchBtn.innerHTML=
+                `
+                    <i class="fa-solid ${ alternateTheme === 'light' ? 'fa-moon' : 'fa-sun' }"></i>
+                `
+
+                themeUtilities.setTheme(alternateTheme);
+                initializePageTheme();
+
+            });
+
+        }));
+
+    };
+
     const initializePageLayoutHandling = () => {
 
         const header = document.querySelector('.header');
@@ -34,29 +60,9 @@ const initializeCartPage = () => {
 
     };
 
-    themeSwitchBtns.forEach(themeSwitchBtn => themeSwitchBtn.addEventListener('click', () => {
-        
-        themeUtilities.getTheme((callback) => {
-
-            const alternateTheme =
-            (callback === 'light')
-            ? 'dark'
-            : 'light'
-
-            themeSwitchBtn.innerHTML=
-            `
-                <i class="fa-solid ${ alternateTheme === 'light' ? 'fa-moon' : 'fa-sun' }"></i>
-            `
-
-            themeUtilities.setTheme(alternateTheme);
-            initializePageTheme();
-
-        });
-
-    }))
-
-    initializePageTheme();
     initializePageLayoutHandling();
+    initializePageTheme();
+    initializeThemeHandling();
 
     console.log("Initialized cart page logic!");
 
