@@ -16,21 +16,6 @@
 
         <main class="about_us-wrapper">
 
-      <div class="about-breadcrumb">
-        {% if breadcrumb_items %}
-          <p>
-            {% for crumb in breadcrumb_items %}
-              {% if crumb.url %}
-                <a class="anchor-link" href="{{ crumb.url }}">{{ crumb.name }}</a>
-              {% else %}
-                <span>{{ crumb.name }}</span>
-              {% endif %}
-              {% if not forloop.last %} / {% endif %}
-            {% endfor %}
-          </p>
-        {% endif %}
-      </div>
-
       <section class="about-hero">
         <h1>About us</h1>
         <p class="lead">Your trusted stationery partner for creativity and productivity.</p>

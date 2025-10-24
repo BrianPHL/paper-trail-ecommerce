@@ -1,9 +1,9 @@
 import * as themeUtilities from "../utils/theme.js";
 import * as responsiveUtilities from "../utils/responsive.js";
 
-const initializeCartPage = () => {
+const initializeAboutUsPage = () => {
 
-    if (window.location.pathname !== '/cart/') return;
+    if (window.location.pathname !== '/about-us/') return;
 
     const logos = document.querySelectorAll('.logo');
     const htmlElement = document.querySelector('html');
@@ -52,7 +52,7 @@ const initializeCartPage = () => {
     const initializePageLayoutHandling = () => {
 
         const header = document.querySelector('.header');
-        const hero = document.querySelector('.cart-wrapper');
+        const hero = document.querySelector('.about_us-wrapper');
 
         window.addEventListener('resize', () => responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero, true));
         window.addEventListener('load', () => responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero, true));
@@ -63,8 +63,8 @@ const initializeCartPage = () => {
     initializePageTheme();
     initializePageThemeHandling();
 
-    console.log("Initialized cart page logic!");
+    console.log("Initialized about us page logic!");
 
 };
 
-export default initializeCartPage;
+export default initializeAboutUsPage;
