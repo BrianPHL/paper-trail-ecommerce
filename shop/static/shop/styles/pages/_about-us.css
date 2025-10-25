@@ -1,35 +1,176 @@
-  /* Styles specifically for the About page to match the prototype look */
-
-.about-page { 
-  padding: 32px 24px;
-  max-width: 1100px;
-  margin: 0 auto;
-  background: var(--bg-color, #fff);
+.about_us-wrapper {
+    background-color: var(--bg-primary);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 4rem 16rem;
+    display: flex;
+    gap: 4rem;
 }
 
-.about-breadcrumb p { color: var(--muted, #9b9b9b); margin-bottom: 16px; }
+.about_us-header {
+    flex-direction: column;
+    display: flex;
+    gap: 2rem;
+}
 
-.about-hero { margin: 24px 0 32px; }
-.about-hero h1 { font-size: 48px; color: var(--accent, #6b2135); margin-bottom: 8px; }
-.about-hero .lead { font-size: 18px; color: var(--muted, #a78a9e); }
+.about_us-header h1 {
+    font-weight: 700;
+    font-size: 4rem;
+    color: var(--tg-primary);
+}
 
-.about-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; align-items: start; }
+.about_us-header h2 {
+    font-weight: 500;
+    font-size: 2rem;
+    color: var(--tg-secondary);
+}
 
-.about-left h3 { font-size: 20px; margin-top: 12px; color: var(--accent-dark, #3b1a27); }
-.about-left p { color: #5b4b53; line-height: 1.6; }
+.about_us-container {
+    flex-direction: column;
+    display: flex;
+    gap: 8rem;
+}
 
-.values-list { margin-top: 12px; display: grid; grid-template-columns: 1fr; gap: 10px; }
-.value-item { background: #fff3f6; border-radius: 8px; padding: 10px 12px; display: flex; gap: 12px; align-items: center; }
-.value-index { background: #ffdfe8; color: #6b2135; border-radius: 6px; width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; }
+.about_us-our_story,
+.about_us-mission_and_values,
+.about_us-meet_the_team {
+    display: flex;
+    gap: 2rem;
+}
 
-.about-right h4 { font-size: 18px; margin-bottom: 12px; }
-.team-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-.team-member { background: #fff8fb; padding: 12px; border-radius: 8px; text-align: left; }
-.team-avatar { width: 100%; height: 90px; background: repeating-linear-gradient(45deg,#ffeef6 0 10px, transparent 10px 20px); border-radius: 6px; margin-bottom: 8px; }
-.team-name { font-weight: 700; color: #6b2135; }
-.team-role { color: #8b7a85; font-size: 12px; }
+.about_us-our_story h3,
+.about_us-mission_and_values h3,
+.about_us-meet_the_team h3 {
+    flex-shrink: 0;
+    font-weight: 700;
+    font-size: 2rem;
+    width: 16rem;
+    color: var(--tg-primary);
+}
 
-@media (max-width: 900px) {
-  .about-grid { grid-template-columns: 1fr; }
-  .team-grid { grid-template-columns: repeat(3, 1fr); }
+.about_us-our_story-description,
+.about_us-mission_and_values-our_mission-description {
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: var(--tg-secondary);
+}
+
+.about_us-mission_and_values-container {
+	flex-direction: column;
+	display: flex;
+	gap: 1rem;
+}
+
+.about_us-mission_and_values-our_mission {
+	flex-direction: column;
+	display: flex;
+	gap: 1rem;
+}
+
+.about_us-mission_and_values-our_mission-header,
+.about_us-mission_and_values-our_core_values-header {
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: var(--tg-primary);
+}
+
+.about_us-mission_and_values-our_core_values {
+	flex-direction: column;
+	display: flex;
+	gap: 1rem;
+}
+
+.about_us-mission_and_values-our_core_values-list {
+	flex-direction: column;
+	display: flex;
+	gap: 1rem;
+}
+
+.about_us-mission_and_values-our_core_values-list-item {
+	display: flex;
+	gap: 0.5rem;
+}
+
+.about_us-mission_and_values-our_core_values-list-item-count {
+    background-color: var(--bg-secondary);
+    place-content: center;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    flex-shrink: 0;
+    display: grid;
+    height: 3rem;
+    border: 1px solid var(--bg-outline);
+    color: var(--tg-primary);
+    width: 3rem;
+}
+
+.about_us-mission_and_values-our_core_values-list-item-info {
+	flex-direction: column;
+	display: flex;
+	gap: 0.25rem;
+}
+
+.about_us-mission_and_values-our_core_values-list-item-info-header {
+    background-color: var(--accent);
+    border-radius: 0.5rem;
+    font-weight: 600;
+    align-self: flex-start;
+    font-size: 0.875rem;
+    padding: 0.25rem 0.5rem;
+    color: var(--tg-primary);
+}
+
+.about_us-mission_and_values-our_core_values-list-item-info-description {
+    font-weight: 400;
+    font-size: 0.875rem;
+    color: var(--tg-secondary);
+}
+
+.about_us-meet_the_team-members {
+	flex-wrap: wrap;
+	display: flex;
+	width: 100%;
+	gap: 2rem;
+}
+
+.about_us-meet_the_team-member {
+    background-color: var(--bg-secondary);
+    flex-direction: column;
+    border-radius: 0.5rem;
+    max-width: 100%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    border: 1px solid var(--bg-outline);
+    width: 16rem;
+}
+
+.about_us-meet_the_team-member-img-container {
+    justify-content: center;
+    padding: 1rem;
+    display: flex;
+    height: 12rem;
+}
+
+.about_us-meet_the_team-member-img {
+    object-fit: contain;
+    color: var(--tg-secondary);
+    height: 100%;
+}
+
+.about_us-meet_the_team-member-info {
+	border-top: 1px solid var(--bg-outline);
+	padding: 0.5rem;
+}
+
+.about_us-meet_the_team-member-info-name {
+	font-weight: 500;
+	font-size: 0.875rem;
+	color: var(--tg-primary);
+}
+
+.about_us-meet_the_team-member-info-role {
+	font-weight: 400;
+	font-size: 0.875rem;
+	color: var(--tg-secondary);
 }

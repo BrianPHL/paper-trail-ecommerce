@@ -54,8 +54,8 @@ const initializeAboutUsPage = () => {
         const header = document.querySelector('.header');
         const hero = document.querySelector('.about_us-wrapper');
 
-        window.addEventListener('resize', () => responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero, true));
-        window.addEventListener('load', () => responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero, true));
+        window.addEventListener('resize', () => responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero, false));
+        window.addEventListener('load', () => responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero, false));
 
     };
 
