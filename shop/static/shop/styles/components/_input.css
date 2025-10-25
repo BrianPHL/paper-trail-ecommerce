@@ -1,6 +1,7 @@
 .input-nested {
     background-color: transparent;
     font-weight: 500;
+    font-size: 0.875rem;
     outline: none;
     border: none;
     height: 100%;
@@ -13,6 +14,7 @@
     border-radius: 0.5rem;
     font-weight: 500;
     transition: 0.25s ease all;
+    font-size: 0.875rem;
     outline: none;
     padding: 0 1rem;
     border: 2px solid var(--bg-outline);
