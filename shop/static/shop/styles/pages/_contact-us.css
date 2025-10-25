@@ -1,0 +1,80 @@
+.contact_us-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 4rem 16rem;
+    display: flex;
+    gap: 4rem;
+}
+
+.contact_us-header {
+    flex-direction: column;
+    display: flex;
+    gap: 2rem;
+}
+
+.contact_us-header h1 {
+    font-weight: 700;
+    font-size: 4rem;
+    color: var(--tg-primary);
+}
+
+.contact_us-header h2 {
+    font-weight: 500;
+    font-size: 2rem;
+    color: var(--tg-secondary);
+}
+
+.contact_us-container {
+    flex-direction: column;
+    display: flex;
+    gap: 8rem;
+}
+
+.contact_us-contact_information,
+.contact_us-contact_form,
+.contact_us-our_promise {
+    display: flex;
+    gap: 2rem;
+}
+
+.contact_us-contact_information h3,
+.contact_us-contact_form h3,
+.contact_us-our_promise h3 {
+    font-weight: 700;
+    font-size: 2rem;
+    width: 16rem;
+    color: var(--tg-primary);
+}
+
+.contact_us-contact_information-customer_support {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.contact_us-contact_information-customer_support-count {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--bg-outline);
+    border-radius: 0.5rem;
+    height: 3rem;
+    place-content: center;
+    display: grid;
+    width: 3rem;
+}
+
+.contact_us-contact_information-customer_support-container {
+    flex-direction: column;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.contact_us-contact_information-customer_support-header,
+.contact_us-contact_information-contact_form-header,
+.contact_us-contact_information-our_promise-header {
+    background-color: var(--accent);
+    border-radius: 0.5rem;
+    font-weight: 600;
+    align-self: flex-start;
+    font-size: 0.875rem;
+    padding: 0.25rem 0.5rem;
+    color: var(--tg-primary);
+}
