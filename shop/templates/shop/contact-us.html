@@ -1,58 +1,181 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Contact us | Paper Trails</title>
-    <link rel="stylesheet" href="{% static 'shop/styles/main.css' %}" />
-    <link rel="stylesheet" href="{% static 'shop/styles/pages/_contact.css' %}" />
-  </head>
-  <body>
 
-    {% include "./components/header.html" %}
+<html data-theme="light" lang="en">
 
-    <main class="contact-page container">
+    <head>
+    
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Contact Us | Paper Trails</title>
+        <link rel="stylesheet" href="{% static 'shop/styles/main.css' %}">
+    
+    </head>
 
-      <div class="about-breadcrumb">
-        {% if breadcrumb_items %}
-          <p>
-            {% for crumb in breadcrumb_items %}
-              {% if crumb.url %}
-                <a class="anchor-link" href="{{ crumb.url }}">{{ crumb.name }}</a>
-              {% else %}
-                <span>{{ crumb.name }}</span>
-              {% endif %}
-              {% if not forloop.last %} / {% endif %}
-            {% endfor %}
-          </p>
-        {% endif %}
-      </div>
+    <body>
 
-      <section class="contact-hero">
-        <h1>Contact us</h1>
-        <p class="lead">We'd love to hear from you.</p>
-      </section>
+        {% include "./components/header.html" %}
 
-      <section class="contact-grid">
-        <div class="contact-left">
-          <h3>Contact Information</h3>
-          <p class="muted">-</p>
+        <div class="contact_us-wrapper">
 
-          <h3>Contact Form</h3>
-          <p class="muted">-</p>
+            <div class="contact_us-header">
+                <h1>Contact Us</h1>
+                <h2>We'd love to hear from you.</h2>
+            </div>
+
+            <div class="contact_us-container">
+
+                <div class="contact_us-contact_info">
+
+                    <h3 class="contact_us-contact_info-header">Contact Information</h3>
+
+                    <div class="contact_us-contact_info-container">
+                        <div class="contact_us-contact_info-customer_support">
+                        
+                            <span class="contact_us-contact_info-customer_support-count">1</span>
+                            <div class="contact_us-contact_info-customer_support-container">
+                            
+                                <h4 class="contact_us-contact_info-customer_support-header">Customer Support</h4>
+                            
+                                <p class="contact_us-contact_info-customer_support-telephone_number">
+                                    <strong>Telephone number:</strong>
+                                    +63 912 345 6789
+                                </p>
+                            
+                                <p class="contact_us-contact_info-customer_support-email_address">
+                                    <strong>Email address:</strong>
+                                    <a class="anchor-link" href="">support@papertrails.com</a>
+                                </p>
+                            
+                                <p class="contact_us-contact_info-customer_support-open_hours">
+                                    <strong>Open hours:</strong>
+                                    Monday - Friday, 9:00 AM - 6:00 PM (PH Time)
+                                </p>
+                            
+                            </div>
+                        
+                        </div>
+                    
+                        <div class="contact_us-contact_info-address">
+                        
+                            <span class="contact_us-contact_info-address-count">2</span>
+                            <div class="contact_us-contact_info-address-container">
+
+                                <h4 class="contact_us-contact_info-address-header">Address</h4>
+                                <div class="contact_us-contact_info-address-info">
+                                
+                                    <strong>Paper Trails HQ</strong>
+                                    <p>1234 Inkwell Street, Quezon City, Metro Manila</p>
+
+                                </div>
+
+                            </div>
+                        
+                        </div>
+                    
+                        <div class="contact_us-contact_info-social_media">
+                            
+                            <span class="contact_us-contact_info-social_media-count">3</span>
+                            <div class="contact_us-contact_info-social_media-container">
+
+                                <h4 class="contact_us-contact_info-social_media-header">Social Media</h4>
+                                <div class="contact_us-contact_info-social_media-info">
+                                
+                                    <p>Stay connected with us for updates, product launches, and creative inspiration:</p>
+
+                                    <div class="contact_us-contact_info-social_media-ctas">
+                                    
+                                        <button class="button-secondary contact_us-contact_info-social_media-ctas-btn">
+                                            <i class="fa-brands fa-facebook"></i>
+                                            Facebook
+                                        </button>
+                                    
+                                        <button class="button-secondary contact_us-contact_info-social_media-ctas-btn">
+                                            <i class="fa-brands fa-x-twitter"></i>
+                                            Twitter
+                                        </button>
+                                    
+                                        <button class="button-secondary contact_us-contact_info-social_media-ctas-btn">
+                                            <i class="fa-brands fa-instagram"></i>
+                                            Instagram
+                                        </button>
+                                    
+                                    </div>
+                                
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="contact_us-contact_form">
+
+                    <h3 class="contact_us-contact_form-header">Contact Form</h3>
+
+                    <div class="contact_us-contact_form-form">
+                    
+                        <div class="contact_us-contact_form-form-info">
+                            <h4 class="contact_us-contact_form-form-info-header">
+                                Got something specific to ask?
+                            </h4>
+                            <h5 class="contact_us-contact_form-form-info-subheader">
+                                Fill out the form below, and we'll get back to you within 1-2 working days.
+                            </h5>
+                        </div>
+                    
+                        <form class="contact_us-contact_form-form-form_group">
+                        
+                            {% csrf_token %}
+                        
+                            <div class="contact_us-contact_form-form-form_group-container">
+                                
+                                <div class="contact_us-contact_form-form-form_group-input">
+                                    <label for="email_address">Email address</label>
+                                    <input class="input-unnested" name="email_address" placeholder="johndoe@email.com" type="email" required>
+                                </div>
+                                <div class="contact_us-contact_form-form-form_group-input">
+                                    <label for="subject">Subject</label>
+                                    <input class="input-unnested" name="subject" placeholder="What is this about?" type="text" required>
+                                </div>
+                                <div class="contact_us-contact_form-form-form_group-input">
+                                    <label for="message">Message</label>
+                                    <textarea class="input-textarea" name="message" placeholder="What is it you'd like to ask or want us to know about?" type="text" required></textarea>
+                                </div>
+                            
+                            </div>
+                        
+                            <div class="contact_us-contact_form-form-form_group-ctas">
+                                  <button class="button-icon_outlined contact_us-contact_form-form-form_group-ctas-btn" type="reset">
+                                    <i class="fa-solid fa-arrow-rotate-left"></i>
+                                </button>
+                                <button class="button-primary contact_us-contact_form-form-form_group-ctas-btn" type="submit" disabled>
+                                    Send the message
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        
+                        </form>
+                    
+                    </div>
+                            
+                </div>
+
+                <div class="contact_us-our_promise">
+                    <h3 class="contact_us-our_promise-header">Our Promise</h3>
+                    <p class="contact_us-our_promise-description">At Paper Trails, every message matters. Whether it's a question, compliment, or concern, we read every note and use your feedback to make your experience better — from your first click to your last page.</p>
+                </div>
+
+            </div>
+
         </div>
 
-        <aside class="contact-right">
-          <!-- reserved for future widgets, map or form -->
-        </aside>
-      </section>
+        {% include "./components/footer.html" %}
 
-    </main>
+        <script type="module" src="{% static 'shop/scripts/main.js' %}"></script>
+    
+    </body>
 
-    {% include "./components/footer.html" %}
-
-    <script type="module" src="{% static 'shop/scripts/main.js' %}"></script>
-  </body>
 </html>

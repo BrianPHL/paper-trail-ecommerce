@@ -1,83 +1,206 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+
+<html data-theme="light" lang="en">
+
     <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>About us | Paper Trails</title>
-        <link rel="stylesheet" href="{% static 'shop/styles/main.css' %}" />
-        <link rel="stylesheet" href="{% static 'shop/styles/pages/_about.css' %}" />
+    
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>About Us | Paper Trails</title>
+        <link rel="stylesheet" href="{% static 'shop/styles/main.css' %}">
+    
     </head>
 
     <body>
 
         {% include "./components/header.html" %}
 
-        <main class="about_us-wrapper">
+        <div class="about_us-wrapper">
 
-      <div class="about-breadcrumb">
-        {% if breadcrumb_items %}
-          <p>
-            {% for crumb in breadcrumb_items %}
-              {% if crumb.url %}
-                <a class="anchor-link" href="{{ crumb.url }}">{{ crumb.name }}</a>
-              {% else %}
-                <span>{{ crumb.name }}</span>
-              {% endif %}
-              {% if not forloop.last %} / {% endif %}
-            {% endfor %}
-          </p>
-        {% endif %}
-      </div>
-
-      <section class="about-hero">
-        <h1>About us</h1>
-        <p class="lead">Your trusted stationery partner for creativity and productivity.</p>
-      </section>
-
-      <section class="about-grid">
-        <div class="about-left">
-          <h3>Our Story</h3>
-          <p>
-            We started with a passion for stationery in which we believe that the quality notebooks, pens, and art supplies can inspire creativity and productivity. Our mission is to make affordable yet stylish stationery accessible to students, professionals, and artists alike.
-          </p>
-
-          <h3>Mission & Values</h3>
-          <p class="muted">Our Mission</p>
-          <p>
-            Our mission is to provide high-quality, affordable stationery products that empower students, professionals, and creatives to do their best work.
-          </p>
-
-          <div class="values-list">
-            <div class="value-item"><span class="value-index">1</span> Quality You Can Trust</div>
-            <div class="value-item"><span class="value-index">2</span> Affordability & Accessibility</div>
-            <div class="value-item"><span class="value-index">3</span> Customer-Centered Service</div>
-            <div class="value-item"><span class="value-index">4</span> Creativity & Inspiration</div>
-            <div class="value-item"><span class="value-index">5</span> Sustainability</div>
-          </div>
-        </div>
-
-        <aside class="about-right">
-          <h4>Meet the Team</h4>
-          <div class="team-grid">
-            {% for i in "123456" %}
-            <div class="team-member">
-              <div class="team-avatar"></div>
-              <div class="team-name">Member {{ forloop.counter }}</div>
-              <div class="team-role">Developer</div>
+            <div class="about_us-header">
+                <h1>About Us</h1>
+                <h2>Your trusted stationery partner for creativity and productivity.</h2>
             </div>
-            {% endfor %}
-          </div>
-        </aside>
-        </section>
 
-        </main>
+            <div class="about_us-container">
+
+                <div class="about_us-our_story">
+
+                    <h3 class="about_us-our_story-header">Our Story</h3>
+                    <p class="about_us-our_story-description">We started with a passion for stationery in which we believe that the quality notebooks, pens, and art supplies can inspire creativity and productivity. Our mission is to make affordable yet stylish stationery accessible to students, professionals, and artists alike.</p>
+
+                </div>
+
+                <div class="about_us-mission_and_values">
+
+                    <h3 class="about_us-mission_and_values-header">Mission & Core Values</h3>
+
+					<div class="about_us-mission_and_values-container">
+
+						<div class="about_us-mission_and_values-our_mission">
+
+							<h4 class="about_us-mission_and_values-our_mission-header">Our Mission</h4>
+							<p class="about_us-mission_and_values-our_mission-description">Our mission is to provide high-quality, affordable stationery products that empower students, professionals, and creatives to do their best work. We believe that the right tools—whether a simple pen or a premium sketchpad—can spark productivity, fuel imagination, and make everyday tasks more enjoyable.</p>
+
+						</div>
+
+						<div class="about_us-mission_and_values-our_core_values">
+
+							<h4 class="about_us-mission_and_values-our_core_values-header">Our Core Values</h4>
+							<div class="about_us-mission_and_values-our_core_values-list">
+
+								<div class="about_us-mission_and_values-our_core_values-list-item">
+
+									<span class="about_us-mission_and_values-our_core_values-list-item-count">1</span>
+
+									<div class="about_us-mission_and_values-our_core_values-list-item-info">
+
+										<h5 class="about_us-mission_and_values-our_core_values-list-item-info-header">Quality You Can Trust</h5>
+										<p class="about_us-mission_and_values-our_core_values-list-item-info-description">We carefully select and provide stationery that meets high standards, ensuring durability and reliability for every user.</p>
+
+									</div>
+
+								</div>
+
+								<div class="about_us-mission_and_values-our_core_values-list-item">
+
+									<span class="about_us-mission_and_values-our_core_values-list-item-count">2</span>
+
+									<div class="about_us-mission_and_values-our_core_values-list-item-info">
+
+										<h5 class="about_us-mission_and_values-our_core_values-list-item-info-header">Affordability & Accessibility</h5>
+										<p class="about_us-mission_and_values-our_core_values-list-item-info-description">Great stationery shouldn't come at a high cost. We strive to keep our products budget-friendly so everyone has access to the tools they need.</p>
+
+									</div>
+
+								</div>
+
+								<div class="about_us-mission_and_values-our_core_values-list-item">
+
+									<span class="about_us-mission_and_values-our_core_values-list-item-count">3</span>
+
+									<div class="about_us-mission_and_values-our_core_values-list-item-info">
+
+										<h5 class="about_us-mission_and_values-our_core_values-list-item-info-header">Customer-Centered Service</h5>
+										<p class="about_us-mission_and_values-our_core_values-list-item-info-description">Our customers come first. We aim to provide a smooth shopping experience—from browsing to checkout—paired with responsive support.</p>
+
+									</div>
+
+								</div>
+
+								<div class="about_us-mission_and_values-our_core_values-list-item">
+
+									<span class="about_us-mission_and_values-our_core_values-list-item-count">4</span>
+
+									<div class="about_us-mission_and_values-our_core_values-list-item-info">
+
+										<h5 class="about_us-mission_and_values-our_core_values-list-item-info-header">Creativity & Inspiration</h5>
+										<p class="about_us-mission_and_values-our_core_values-list-item-info-description">Stationery is more than just supplies—it's a gateway to creativity. Our products are chosen to inspire self-expression, learning, and innovation.</p>
+
+									</div>
+
+								</div>
+
+								<div class="about_us-mission_and_values-our_core_values-list-item">
+
+									<span class="about_us-mission_and_values-our_core_values-list-item-count">5</span>
+
+									<div class="about_us-mission_and_values-our_core_values-list-item-info">
+
+										<h5 class="about_us-mission_and_values-our_core_values-list-item-info-header">Sustainability</h5>
+										<p class="about_us-mission_and_values-our_core_values-list-item-info-description">We value mindful choices. Whenever possible, we promote eco-friendly products that are better for both people and the planet.</p>
+
+									</div>
+
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+                </div>
+
+                <div class="about_us-meet_the_team">
+
+                    <h3 class="about_us-meet_the_team-header">Meet the Team</h3>
+					<div class="about_us-meet_the_team-members">
+
+						<div class="about_us-meet_the_team-member">
+						
+							<div class="about_us-meet_the_team-member-img-container">
+								<img class="about_us-meet_the_team-member-img" src="" alt="">
+							</div>
+							<div class="about_us-meet_the_team-member-info">
+								<h5 class="about_us-meet_the_team-member-info-name">Member 1</h5>
+								<p class="about_us-meet_the_team-member-info-role">Member role</p>
+							</div>
+						
+						</div>
+
+						<div class="about_us-meet_the_team-member">
+						
+							<div class="about_us-meet_the_team-member-img-container">
+								<img class="about_us-meet_the_team-member-img" src="" alt="">
+							</div>
+							<div class="about_us-meet_the_team-member-info">
+								<h5 class="about_us-meet_the_team-member-info-name">Member 2</h5>
+								<p class="about_us-meet_the_team-member-info-role">Member role</p>
+							</div>
+						
+						</div>
+
+						<div class="about_us-meet_the_team-member">
+						
+							<div class="about_us-meet_the_team-member-img-container">
+								<img class="about_us-meet_the_team-member-img" src="" alt="">
+							</div>
+							<div class="about_us-meet_the_team-member-info">
+								<h5 class="about_us-meet_the_team-member-info-name">Member 3</h5>
+								<p class="about_us-meet_the_team-member-info-role">Member role</p>
+							</div>
+						
+						</div>
+
+						<div class="about_us-meet_the_team-member">
+						
+							<div class="about_us-meet_the_team-member-img-container">
+								<img class="about_us-meet_the_team-member-img" src="" alt="">
+							</div>
+							<div class="about_us-meet_the_team-member-info">
+								<h5 class="about_us-meet_the_team-member-info-name">Member 4</h5>
+								<p class="about_us-meet_the_team-member-info-role">Member role</p>
+							</div>
+						
+						</div>
+
+						<div class="about_us-meet_the_team-member">
+						
+							<div class="about_us-meet_the_team-member-img-container">
+								<img class="about_us-meet_the_team-member-img" src="" alt="">
+							</div>
+							<div class="about_us-meet_the_team-member-info">
+								<h5 class="about_us-meet_the_team-member-info-name">Member 5</h5>
+								<p class="about_us-meet_the_team-member-info-role">Member role</p>
+							</div>
+						
+						</div>
+
+					</div>
+
+                </div>
+
+            </div>
+
+        </div>
 
         {% include "./components/footer.html" %}
 
         <script type="module" src="{% static 'shop/scripts/main.js' %}"></script>
-
+    
     </body>
 
 </html>
