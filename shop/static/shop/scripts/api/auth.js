@@ -42,3 +42,32 @@ export const loginUser = async (data) => {
 
 };
 
+export const createUser = async (data) => {
+
+    try {
+
+        const response = await fetch('/api/register/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCSRFToken()
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (!response.ok)
+            throw new Error(result.err || 'Failed to create user.');
+        
+        return result;
+
+    } catch (err) {
+
+        console.error('api/auth script createUser function error: ', err);
+        throw err;
+
+    }
+
+};
+

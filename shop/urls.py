@@ -12,4 +12,5 @@ urlpatterns = [
     path('about-us/', views.about_us, name='about-us'),
     path('contact-us/', views.contact_us, name='contact-us'),
     path('api/login/', auth.handle_account_authorization, name='api-login'),
+    path('api/register/', auth.handle_account_registration, name='api-register'),
 ]

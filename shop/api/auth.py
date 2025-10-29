@@ -26,3 +26,20 @@ def handle_account_authorization(request):
     login(request, user)
     return JsonResponse({'success': True, 'redirect': '/'})
 
+def handle_account_registration(request):
+    """Handle user registration"""
+    data = json.loads(request.body)
+    first_name = data.get('first_name')
+    last_name = data.get('last_name')
+    email = data.get('email_address')
+    password = data.get('password')
+
+    if User.objects.filter(email=email).exists():
+        return JsonResponse({'success': False, 'err': 'An account with this email already exists.'}, status=400)
+
+    # Create new user
+    user = User.objects.create_user(username=email, email=email, password=password, first_name=first_name, last_name=last_name)
+    UserProfile.objects.create(user=user)  # Create associated user profile
+
+    login(request, user)
+    return JsonResponse({'success': True, 'redirect': '/'})

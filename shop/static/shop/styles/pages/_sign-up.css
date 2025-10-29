@@ -45,6 +45,27 @@
     gap: 2rem;
 }
 
+.sign_up-form-error {
+    background-color: var(--bg-outline);
+    border-radius: 0.25rem;
+    align-items: center;
+    padding: 0.5rem 0.5rem;
+    border: 1px solid var(--accent);
+    display: flex;
+    width: 100%;
+    gap: 0.5rem;
+}
+
+.sign_up-form-error-icon {
+    color: var(--tg-primary);
+}
+
+.sign_up-form-error-text {
+    font-weight: 500;
+    font-size: 0.75rem;
+    color: var(--tg-primary);
+}
+
 .sign_up-form-info {
     flex-direction: column;
     display: flex;

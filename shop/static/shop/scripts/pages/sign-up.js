@@ -1,7 +1,7 @@
 import * as themeUtilities from "../utils/theme.js";
 import * as inputUtilities from "../utils/input.js";
 import * as responsiveUtilities from "../utils/responsive.js";
-
+import { createUser } from "../api/auth.js";
 
 const initializeSignUpPage = () => {
 
@@ -78,7 +78,9 @@ const initializeSignUpPage = () => {
         const formSubmitBtnsArray = Array.from(formSubmitBtns);
         const formResetBtns = form.querySelectorAll('.sign_up-form-group-ctas-btn[type="reset"]');
         const formResetBtnsArray = Array.from(formResetBtns);
-        const formReturnBtn = form.querySelector('.sign_up-form-group-ctas-btn[type="button"');
+        const formReturnBtn = document.querySelector('.sign_up-form-group-ctas-btn[type="button"');
+        const formError = document.querySelector('.sign_up-form-error');
+        const formErrorText = formError.querySelector('.sign_up-form-error-text');
 
         let currentFormStep = "1";
         let segregatedFormInputs = formInputsArray.filter(formInput => formInput.closest('.sign_up-form-group-container[data-step="1"]'));
@@ -145,9 +147,35 @@ const initializeSignUpPage = () => {
 
         };
 
-        const handleAccountCreation = () => {
+        const handleAccountCreation = async () => {
 
             const formData = new FormData(form);
+
+            try {
+
+                if (formData.get('password') !== formData.get('confirm_password'))
+                    throw new Error('Passwords do not match!');
+            
+                const result = await createUser({
+                    first_name: formData.get('first_name'),
+                    last_name: formData.get('last_name'),
+                    house_address: formData.get('house_address'),
+                    contact_number: formData.get('contact_number'),
+                    email_address: formData.get('email_address'),
+                    password: formData.get('password')
+                });
+
+                if (!result.success)
+                    throw new Error(result.err || 'Failed to create user!');
+
+                window.location.href = '/sign-in';
+
+            } catch (err) {
+
+                formError.style.display = 'flex';
+                formErrorText.innerHTML = err.message;
+
+            }
 
             // first_name
             // last_name
