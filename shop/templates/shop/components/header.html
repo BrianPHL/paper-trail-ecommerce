@@ -1,7 +1,6 @@
 {% load static %}
 
 <header class="header">
-
     <div class="header-top">
         <img class="header-top-logo logo" src="{% static 'shop/images/logo-light.png' %}" alt="PaperTrail logo" />
         <div class="header-top-ctas">
@@ -9,10 +8,35 @@
                 <i class="fa-solid fa-cart-shopping"></i>
                 0 items
             </a>
-            <a class="button-secondary" href="/sign-in">
-                <i class="fa-solid fa-right-to-bracket"></i>
-                Sign in
-            </a>
+            
+            {% if user.is_authenticated %}
+                <div class="user-dropdown">
+                    <button class="button-secondary dropdown-trigger">
+                        <i class="fa-solid fa-user"></i>
+                        {{ user.first_name|default:user.username }}
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu" style="display: none;">
+                        <a href="/profile" class="dropdown-item">
+                            <i class="fa-solid fa-user-circle"></i>
+                            Profile
+                        </a>
+                        <form action="{% url 'logout' %}" method="POST" class="dropdown-item">
+                            {% csrf_token %}
+                            <button type="submit" class="dropdown-button">
+                                <i class="fa-solid fa-sign-out-alt"></i>
+                                Logout
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            {% else %}
+                <a class="button-secondary" href="/sign-in">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    Sign in
+                </a>
+            {% endif %}
+
             <button class="button-icon_outlined theme-switcher-btn">
                 <i class="fa-solid fa-moon"></i>
             </button>
@@ -44,3 +68,23 @@
         </nav>
     </div>
 </header>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const dropdownTrigger = document.querySelector('.dropdown-trigger');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+    
+    if (dropdownTrigger && dropdownMenu) {
+        dropdownTrigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdownMenu.style.display = dropdownMenu.style.display === 'none' ? 'block' : 'none';
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!dropdownMenu.contains(e.target) && !dropdownTrigger.contains(e.target)) {
+                dropdownMenu.style.display = 'none';
+            }
+        });
+    }
+});
+</script>

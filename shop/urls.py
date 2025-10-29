@@ -1,9 +1,12 @@
 from django.urls import path
 from . import views
 from .api import auth
+from django.contrib.auth.views import LogoutView
+
 
 urlpatterns = [
     path('', views.landing, name='landing'),
+        path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
     path('product/<slug:slug>/', views.pdp, name='pdp'),
     path('sign-in/', views.sign_in, name='sign-in'),
     path('sign-up/', views.sign_up, name='sign-up'),
