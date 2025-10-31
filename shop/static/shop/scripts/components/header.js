@@ -1,25 +1,51 @@
 const initializeHeaderComponent = () => {
 
-    const navigationMain = document.querySelector('.header-bottom-navigation');
-    const navigationOther = document.querySelector('.header-top-ctas');
-
-    if (!navigationMain || !navigationOther) return;
-
-    const navigationMainAnchors = navigationMain.querySelectorAll('.anchor-button');
-    const navigationOtherAnchors = navigationOther.querySelectorAll('.button-secondary');
-    const navigationAnchors = [ ...navigationMainAnchors, ...navigationOtherAnchors ];
-    const currentPage = window.location.pathname.replaceAll('/', '');
-
-    navigationAnchors.forEach((navigationAnchor) => {
+    const initializeNavigationModule = () => {
         
-        const anchorPage = navigationAnchor.href.split('/').at(-1);
+        const navigationMain = document.querySelector('.header-bottom-navigation');
+        const navigationOther = document.querySelector('.header-top-ctas');
 
-        navigationAnchor.classList.remove('active');
+        if (!navigationMain || !navigationOther) return;
+
+        const navigationMainAnchors = navigationMain.querySelectorAll('.anchor-button');
+        const navigationOtherAnchors = navigationOther.querySelectorAll('.button-secondary');
+        const navigationAnchors = [ ...navigationMainAnchors, ...navigationOtherAnchors ];
+        const currentPage = window.location.pathname.replaceAll('/', '');
+
+        navigationAnchors.forEach((navigationAnchor) => {
+
+            const anchorPage = navigationAnchor.href.split('/').at(-1);
+
+            navigationAnchor.classList.remove('active');
+
+            if (anchorPage === currentPage)
+                navigationAnchor.classList.add('active');
+
+        });
+
+    };
+
+    const initializeDropdownModule = () => {
+
+        const dropdownTrigger = document.querySelector('.dropdown-trigger');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
         
-        if (anchorPage === currentPage)
-            navigationAnchor.classList.add('active');
+        if (dropdownTrigger && dropdownMenu) {
+            dropdownTrigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                dropdownMenu.style.display = dropdownMenu.style.display === 'none' ? 'block' : 'none';
+            });
 
-    });
+            document.addEventListener('click', (e) => {
+                if (!dropdownMenu.contains(e.target) && !dropdownTrigger.contains(e.target)) {
+                    dropdownMenu.style.display = 'none';
+                }
+            });
+        };
+    };
+
+    initializeNavigationModule();
+    initializeDropdownModule();
 
 };
 
