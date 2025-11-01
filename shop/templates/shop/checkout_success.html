@@ -1,0 +1,60 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html data-theme="light" lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Order Placed | Paper Trails</title>
+    <link rel="stylesheet" href="{% static 'shop/styles/main.css' %}">
+</head>
+<body>
+
+    {% include "./components/header.html" %}
+
+    <main class="checkout-success-wrapper" style="padding: 2rem 0; min-height: 70vh;">
+        <div class="checkout-success-container" style="max-width: 600px; margin: 0 auto; background: var(--bg-secondary); border-radius: 1rem; box-shadow: 0 2px 16px rgba(0,0,0,0.04); padding: 2rem; text-align: center;">
+            <h1 style="font-size: 2rem; font-weight: 700; color: var(--tg-primary); margin-bottom: 1rem;">
+                Thank you for your order!
+            </h1>
+            <p style="font-size: 1.1rem; margin-bottom: 2rem;">
+                Your order has been placed successfully.<br>
+                We will process your order and deliver it to your address soon.
+            </p>
+            <div style="margin-bottom: 2rem;">
+                <h2 style="font-size: 1.15rem; font-weight: 600; margin-bottom: 1rem;">Order Details</h2>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    {% for item in order.items.all %}
+                    <li style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                        <div style="text-align: left;">
+                            <strong>{{ item.product.name }}</strong> × {{ item.quantity }}
+                        </div>
+                        <div style="font-weight: 600; color: var(--tg-primary);">
+                            PHP {{ item.total_price|floatformat:2 }}
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <div class="horizontal-divider" style="margin: 1.5rem 0;"></div>
+                <div style="display: flex; justify-content: space-between; font-size: 1.15rem; font-weight: 700;">
+                    <span>Total Paid</span>
+                    <span>PHP {{ order.total_amount|floatformat:2 }}</span>
+                </div>
+                <div style="margin-top: 1rem; font-size: 1rem;">
+                    <strong>Payment Method:</strong> {{ order.payment_method }}
+                </div>
+                <div style="margin-top: 0.5rem; font-size: 1rem;">
+                    <strong>Delivery Address:</strong> {{ order.address }}
+                </div>
+            </div>
+            <a href="{% url 'shop' %}" class="button-primary" style="margin-top: 2rem;">
+                Back to Shop
+            </a>
+        </div>
+    </main>
+
+    {% include "./components/footer.html" %}
+
+    <script type="module" src="{% static 'shop/scripts/main.js' %}"></script>
+</body>
+</html>

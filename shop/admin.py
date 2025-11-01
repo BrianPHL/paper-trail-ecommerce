@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.html import format_html
-from .models import UserProfile, Product, Cart, CartItem
+from .models import UserProfile, Product, Cart, CartItem, Order, OrderItem
 
 class UserProfileInline(admin.StackedInline):
     model = UserProfile
@@ -87,3 +87,16 @@ class CartItemAdmin(admin.ModelAdmin):
     list_display = ('id', 'cart', 'product', 'quantity', 'price', 'created_at')
     search_fields = ('product__name',)
     readonly_fields = ('created_at', 'updated_at')
+
+# O R D E R S
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('id', 'full_name', 'email', 'address', 'payment_method', 'total_amount', 'placed_at', 'status', 'user')
+    search_fields = ('full_name', 'email', 'address', 'user__username')
+    list_filter = ('status', 'payment_method', 'placed_at')
+    readonly_fields = ('placed_at',)
+
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = ('id', 'order', 'product', 'quantity', 'price')
+    search_fields = ('order__full_name', 'product__name')

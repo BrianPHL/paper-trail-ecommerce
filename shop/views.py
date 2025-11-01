@@ -300,3 +300,49 @@ def remove_cart_item(request, item_id):
     if item.cart_id == cart.id:
         item.delete()
     return redirect('cart_detail')
+
+from django.shortcuts import render, redirect
+from django.views.decorators.http import require_POST
+
+def checkout(request):
+    cart = _get_or_create_cart(request)
+    items = cart.items.select_related('product').all()
+    shipping_fee = 0  # Set your shipping fee logic if needed
+
+    if request.method == "POST":
+        # Get form data
+        full_name = request.POST.get('full_name')
+        email = request.POST.get('email')
+        address = request.POST.get('address')
+        payment_method = request.POST.get('payment_method', 'COD')
+        total_amount = cart.total_price + shipping_fee
+
+        # Create Order
+        order = Order.objects.create(
+            user=request.user if request.user.is_authenticated else None,
+            full_name=full_name,
+            email=email,
+            address=address,
+            payment_method=payment_method,
+            total_amount=total_amount,
+            status='Pending'
+        )
+
+        # Create OrderItems
+        for item in items:
+            OrderItem.objects.create(
+                order=order,
+                product=item.product,
+                quantity=item.quantity,
+                price=item.price
+            )
+
+        # Optionally clear the cart
+        cart.items.all().delete()
+        cart.is_active = False
+        cart.save()
+
+        # Show success page
+        return render(request, "shop/checkout_success.html", {"order": order})
+
+    return render(request, "shop/checkout.html", {"cart": cart, "items": items, "shipping_fee": shipping_fee})
