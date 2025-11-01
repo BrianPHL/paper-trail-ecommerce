@@ -1,140 +1,161 @@
 {% load static %}
-
 <!DOCTYPE html>
-
 <html data-theme="light" lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>My Cart | Paper Trails</title>
+    <link rel="stylesheet" href="{% static 'shop/styles/main.css' %}">
+</head>
+<body>
 
-    <head>
-    
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>My Cart | Paper Trails</title>
-        <link rel="stylesheet" href="{% static 'shop/styles/main.css' %}">
-    
-    </head>
+    {% include "./components/header.html" %}
 
-    <body>
+    <main class="cart-wrapper">
 
-        {% include "./components/header.html" %}
+        <div class="cart-header"></div>
 
-        <main class="cart-wrapper">
+        <div class="cart-container">
 
-            <div class="cart-header">
+            <div class="cart-list">
 
-            </div>
+                <div class="cart-list-header">
+                    <label class="input-checkbox cart-list-header-select_all">
+                        <input type="checkbox" id="cart-select_all" name="select_all" value="select_all">
+                        Select all
+                    </label>
 
-            <div class="cart-container">
+                    <button class="button-icon_outlined cart-list-header-remove" id="remove-selected" title="Remove selected">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </div>
 
-                <div class="cart-list">
-
-                    <div class="cart-list-header">
-
-                        <label class="input-checkbox cart-list-header-select_all">
-                            <input type="checkbox" id="cart-select_all" name="select_all" value="select_all">
-                            Select all
-                        </label>
-
-                        <button class="button-icon_outlined cart-list-header-remove">
-                            <i class="fa-solid fa-trash-can"></i>
-                        </button>
-
-                    </div>
-
-                    <div class="cart-list-container">
-
-                        <div class="cart-list-item">
+                <div class="cart-list-container">
+                    {% if items %}
+                        {% for item in items %}
+                        <div class="cart-list-item" data-item-id="{{ item.id }}">
 
                             <div class="cart-list-item-left_container">
-                                
                                 <label class="input-checkbox cart-list-item-select">
-                                    <input type="checkbox" name="cart-select" value="cart-select">
+                                    <input type="checkbox" name="cart-select" value="{{ item.id }}">
                                 </label>
 
                                 <div class="cart-list-item-image">
-                                    <img src="../../../media/products/acrylic_paint_tubes_12_pcs_188.png" alt="Cart list item image">
+                                    <img src="{% if item.product.image %}{{ item.product.image.url }}{% else %}{% static 'shop/images/placeholder.png' %}{% endif %}"
+                                         alt="{{ item.product.name }}">
                                 </div>
 
                                 <div class="cart-list-item-info">
-                                    <h3 class="cart-list-item-info-name">Artist Graphite Set (6B–2H)</h3>
-                                    <p class="cart-list-item-info-description">A professional-grade graphite pencil set with soft to hard leads for shading and detailed drawings.</p>
+                                    <h3 class="cart-list-item-info-name">
+                                        <a href="{{ item.product.get_absolute_url }}">{{ item.product.name }}</a>
+                                    </h3>
+                                    <p class="cart-list-item-info-description">
+                                        {{ item.product.description|truncatewords:20 }}
+                                    </p>
                                 </div>
-
                             </div>
 
-                            <div class="cart-list-item-right_container">
+                        <div class="cart-list-item-right_container">
+                            <div class="cart-list-item-actions">
+                                    <form method="post" action="{% url 'remove_cart_item' item.id %}" class="remove-item-form" style="display:inline;">
+                                        {% csrf_token %}
+                                        <button class="button-icon_outlined cart-list-item-actions-remove" type="submit" title="Remove">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </button>
+                                    </form>
 
-                                <div class="cart-list-item-actions">
-
-                                    <button class="button-icon_outlined cart-list-item-actions-remove">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                    </button>
-
-                                    <button class="button-icon_outlined cart-list-item-actions-view">
+                                    <!-- View product -->
+                                    <a class="button-icon_outlined cart-list-item-actions-view" href="{{ item.product.get_absolute_url }}" title="View product">
                                         <i class="fa-solid fa-square-arrow-up-right"></i>
-                                    </button>
+                                    </a>
 
-                                    <div class="counter cart-list-item-actions-counter">
-                                        <button class="button-icon counter-btn" data-action="decrement">
-                                            <i class="fa-solid fa-minus"></i>
-                                        </button>
-                                        <input class="counter-input input-nested" name="quantity" type="number" min="1" max="99" value="1">
-                                        <button class="button-icon counter-btn" data-action="increment">
-                                            <i class="fa-solid fa-plus"></i>
-                                        </button>
-                                    </div>
+                                    <!-- Update quantity form -->
+                                    <form method="post" action="{% url 'update_cart_item' item.id %}" class="update-item-form counter" style="display:inline; align-items:center; gap:12px;">
+                                        {% csrf_token %}
+                                        <div class="quantity-control" style="display:flex; align-items:center; gap:8px;">
+                                            <button class="button-icon counter-btn" data-action="decrement" type="button" aria-label="Decrease quantity" style="width:36px; height:36px; display:flex; align-items:center; justify-content:center;">
+                                                <i class="fa-solid fa-minus" aria-hidden="true"></i>
+                                            </button>
 
+                                            <input class="counter-input input-nested" name="quantity" type="number" min="0" max="999" value="{{ item.quantity }}" style="width:64px; text-align:center; padding:6px 8px;" />
+
+                                            <button class="button-icon counter-btn" data-action="increment" type="button" aria-label="Increase quantity" style="width:36px; height:36px; display:flex; align-items:center; justify-content:center;">
+                                                <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+
+                                        <button type="submit" class="sr-only" aria-hidden="true" style="position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;">Update</button>
+                                    </form>
                                 </div>
-
-                                <h4 class="cart-list-item-price">PHP 0.00</h4>
-
                             </div>
-
                         </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="cart-empty">Your cart is empty.</p>
+                    {% endif %}
+                </div>
+            </div>
 
+            <div class="cart-summary">
+                <h2 class="cart-summary-header">Summary</h2>
+                <div class="cart-summary-list">
+
+                    <div class="cart-summary-list-item">
+                        <label>Subtotal</label>
+                        <h3>PHP {{ cart.total_price|floatformat:2 }}</h3>
+                    </div>
+
+                    <div class="cart-summary-list-item">
+                        <label>Shipping fee</label>
+                        <h3>PHP {% if shipping_fee %}{{ shipping_fee|floatformat:2 }}{% else %}0.00{% endif %}</h3>
+                    </div>
+
+                    <div class="horizontal-divider"></div>
+
+                    <div class="cart-summary-list-item">
+                        <label>Total</label>
+                        <h3>
+                            PHP
+                            {% if shipping_fee %}
+                                {{ cart.total_price|add:shipping_fee|floatformat:2 }}
+                            {% else %}
+                                {{ cart.total_price|floatformat:2 }}
+                            {% endif %}
+                        </h3>
                     </div>
 
                 </div>
 
-                <div class="cart-summary">
-
-                    <h2 class="cart-summary-header">Summary</h2>
-                    
-                    <div class="cart-summary-list">
-
-                        <div class="cart-summary-list-item">
-                            <label>Subtotal</label>
-                            <h3>PHP 200.00</h3>
-                        </div>
-
-                        <div class="cart-summary-list-item">
-                            <label>Shipping fee</label>
-                            <h3>PHP 50.00</h3>
-                        </div>
-
-                        <div class="horizontal-divider"></div>
-
-                        <div class="cart-summary-list-item">
-                            <label>Total</label>
-                            <h3>PHP 250.00</h3>
-                        </div>
-
-                    </div>
-
-                    <button class="button-primary cart-summary-proceed_to_checkout" type="submit" disabled>
+                <form method="post" action="{% url 'cart' %}">
+                    {% csrf_token %}
+                    <button class="button-primary cart-summary-proceed_to_checkout" type="submit" {% if not items %}disabled{% endif %}>
                         Proceed to Checkout
                         <i class="fa-solid fa-circle-arrow-right"></i>
                     </button>
-
-                </div>
+                </form>
 
             </div>
 
-        </main>
+        </div>
 
-        {% include "./components/footer.html" %}
+    </main>
 
-        <script type="module" src="{% static 'shop/scripts/main.js' %}"></script>
-    
-    </body>
+    {% include "./components/footer.html" %}
 
+    <script src="{% static 'shop/scripts/cart.js' %}"></script>
+    <script type="module" src="{% static 'shop/scripts/main.js' %}"></script>
+
+    <script>
+    /* small helper used by quantity buttons */
+    function changeQty(btn, delta){
+      const form = btn.closest('form');
+      const input = form && form.querySelector('input[name="quantity"]');
+      if(!input) return;
+      let val = parseInt(input.value || '0', 10) + delta;
+      if(val < 0) val = 0;
+      input.value = val;
+    }
+    </script>
+
+</body>
 </html>

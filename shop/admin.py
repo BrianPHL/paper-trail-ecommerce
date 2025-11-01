@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.html import format_html
-from .models import UserProfile, Product
+from .models import UserProfile, Product, Cart, CartItem
 
 class UserProfileInline(admin.StackedInline):
     model = UserProfile
@@ -10,6 +10,7 @@ class UserProfileInline(admin.StackedInline):
 class UserAdmin(BaseUserAdmin):
     inlines = [UserProfileInline]
 
+# P R O D U C T S
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug', 'category', 'price', 'stock_quantity', 'is_featured', 'is_bestseller', 'stock_status_display', 'is_active', 'image_preview', 'created_at')
@@ -73,3 +74,16 @@ class ProductAdmin(admin.ModelAdmin):
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 admin.site.register(UserProfile)
+
+# C A R T 
+@admin.register(Cart)
+class CartAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'session_key', 'is_active', 'created_at', 'updated_at')
+    search_fields = ('user__username', 'session_key')
+    readonly_fields = ('created_at', 'updated_at')
+
+@admin.register(CartItem)
+class CartItemAdmin(admin.ModelAdmin):
+    list_display = ('id', 'cart', 'product', 'quantity', 'price', 'created_at')
+    search_fields = ('product__name',)
+    readonly_fields = ('created_at', 'updated_at')

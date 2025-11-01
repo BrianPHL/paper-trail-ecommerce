@@ -183,3 +183,120 @@ def contact_us(request):
     }
 
     return render(request, 'shop/contact-us.html', context)
+
+from decimal import Decimal
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views.decorators.http import require_POST
+from django.db import transaction
+
+from .models import Product, Cart, CartItem
+
+# ...existing code...
+def cart(request):
+
+    breadcrumb_items = [
+        {'name': 'Home', 'url': '/'},
+        {'name': 'My Cart', 'url': None}
+    ]
+    
+    context = {
+        'breadcrumb_items': breadcrumb_items,
+    }
+
+    return render(request, 'shop/cart.html', context)
+
+def _get_or_create_cart(request):
+    """Return an active Cart for the current user or session."""
+    session_key = request.session.session_key
+    if not session_key:
+        request.session.create()
+        session_key = request.session.session_key
+
+    if request.user.is_authenticated:
+        cart, created = Cart.objects.get_or_create(user=request.user, is_active=True, defaults={'session_key': session_key})
+        # If there is an anonymous cart for this session, merge it
+        try:
+            anon_cart = Cart.objects.get(session_key=session_key, user__isnull=True, is_active=True)
+            if anon_cart.pk != cart.pk:
+                with transaction.atomic():
+                    for item in anon_cart.items.all():
+                        ci, created = CartItem.objects.get_or_create(
+                            cart=cart,
+                            product=item.product,
+                            defaults={'quantity': item.quantity, 'price': item.price}
+                        )
+                        if not created:
+                            ci.quantity += item.quantity
+                            ci.save()
+                    anon_cart.is_active = False
+                    anon_cart.save()
+        except Cart.DoesNotExist:
+            pass
+    else:
+        cart, created = Cart.objects.get_or_create(session_key=session_key, user=None, is_active=True)
+    return cart
+
+@require_POST
+def add_to_cart(request):
+    """Add product to cart or increment quantity."""
+    product_id = request.POST.get('product_id')
+    qty = int(request.POST.get('quantity', 1))
+    product = get_object_or_404(Product, pk=product_id)
+
+    cart = _get_or_create_cart(request)
+    with transaction.atomic():
+        item, created = CartItem.objects.get_or_create(
+            cart=cart,
+            product=product,
+            defaults={'quantity': qty, 'price': product.price}
+        )
+        if not created:
+            item.quantity += qty
+            item.save()
+    # redirect to the same URL that serves your cart page
+    return redirect('cart')
+    
+def cart_detail(request):
+    """Show cart and line items (alias of cart view)."""
+    cart = _get_or_create_cart(request)
+    items = cart.items.select_related('product').all()
+    return render(request, 'shop/cart.html', {'cart': cart, 'items': items})
+
+# Replace the simple cart view above with this one so /cart/ shows items
+def cart(request):
+    breadcrumb_items = [
+        {'name': 'Home', 'url': '/'},
+        {'name': 'My Cart', 'url': None}
+    ]
+    cart_obj = _get_or_create_cart(request)
+    items = cart_obj.items.select_related('product').all() if cart_obj else []
+    context = {
+        'breadcrumb_items': breadcrumb_items,
+        'cart': cart_obj,
+        'items': items,
+    }
+    return render(request, 'shop/cart.html', context)
+
+@require_POST
+def update_cart_item(request, item_id):
+    """Update quantity for a given cart item (set or remove if 0)."""
+    qty = int(request.POST.get('quantity', 0))
+    item = get_object_or_404(CartItem, pk=item_id)
+    # Ensure item belongs to the current cart
+    cart = _get_or_create_cart(request)
+    if item.cart_id != cart.id:
+        return redirect('cart_detail')
+    if qty <= 0:
+        item.delete()
+    else:
+        item.quantity = qty
+        item.save()
+    return redirect('cart_detail')
+
+@require_POST
+def remove_cart_item(request, item_id):
+    item = get_object_or_404(CartItem, pk=item_id)
+    cart = _get_or_create_cart(request)
+    if item.cart_id == cart.id:
+        item.delete()
+    return redirect('cart_detail')

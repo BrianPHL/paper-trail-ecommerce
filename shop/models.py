@@ -21,6 +21,8 @@ class UserProfile(models.Model):
     def __str__(self):
         return f"{self.user.username}'s profile"
 
+
+# P R O D U C T S
 class Product(models.Model):
     """Product model with category"""
 
@@ -126,3 +128,56 @@ class Product(models.Model):
         from django.utils import timezone
         from datetime import timedelta
         return self.created_at >= timezone.now() - timedelta(days=30)
+
+# C A R T
+class Cart(models.Model):
+    """Cart for a user or anonymous session"""
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='carts')
+    session_key = models.CharField(max_length=40, blank=True, null=True, help_text="Session key for anonymous carts")
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-updated_at']
+
+    def __str__(self):
+        owner = self.user.username if self.user else f"session:{self.session_key}"
+        return f"Cart {self.pk} ({owner})"
+
+    def item_count(self):
+        return sum(item.quantity for item in self.items.all())
+
+    def total_price(self):
+        from decimal import Decimal
+        total = Decimal('0.00')
+        for item in self.items.all():
+            total += item.total_price()
+        return total
+
+
+class CartItem(models.Model):
+    """Line item inside a Cart"""
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items')
+    product = models.ForeignKey('Product', on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+    
+    # store the price 
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ('cart', 'product')
+
+    def __str__(self):
+        return f"{self.quantity} × {self.product.name} (cart {self.cart.pk})"
+
+    def save(self, *args, **kwargs):
+        # default price to current product price if not set
+        if not self.price:
+            self.price = self.product.price
+        super().save(*args, **kwargs)
+
+    def total_price(self):
+        return self.price * self.quantity

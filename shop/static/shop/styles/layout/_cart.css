@@ -1,3 +1,67 @@
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield; 
+  appearance: textfield;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantity-control .counter-input,
+.quantity-control input[type="number"] {
+  width: 56px;
+  padding: 6px 8px;
+  text-align: center;
+  border: 0;
+  background: transparent;
+  font-size: 1rem;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+}
+
+/* Button */
+.quantity-control .counter-btn {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.06);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.quantity-control .counter-btn:hover,
+.quantity-control .counter-btn:focus {
+  background: rgba(0,0,0,0.03);
+  outline: none;
+}
+
+.quantity-control .counter-btn i {
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* Prevent default input spin on mobile webkit */
+@media (hover: none) {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    display: none;
+  }
+}
+
 @media only screen and (max-width: 1680px) {
     .cart-wrapper {
         padding: 4rem 8rem;
