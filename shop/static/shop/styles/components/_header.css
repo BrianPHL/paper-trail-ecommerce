@@ -17,20 +17,36 @@
     display: flex;
 }
 
+
 .header-top-ctas {
     align-self: flex-end;
     display: flex;
     gap: 1rem;
 }
 
+.header-top-ctas .button-secondary,
+.header-top-ctas .user-dropdown .button-secondary {
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 0.5rem 0.8rem;
+    color: var(--tg-primary);
+    font-weight: 600;
+    border-radius: 0.25rem;
+    transition: background 0.2s;
+}
+.header-top-ctas .button-secondary:hover,
+.header-top-ctas .user-dropdown .button-secondary:hover {
+    background: var(--bg-outline);
+}
+
 .header-top-logo {
     width: 8rem;
-}
+} 
 
 .header-bottom {
     justify-content: space-between;
-    display: flex;
-    gap: 1rem;
+    display: flex;        
 }
 
 .header-bottom-breadcrumbs {

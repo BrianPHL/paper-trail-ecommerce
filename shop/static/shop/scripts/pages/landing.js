@@ -67,7 +67,7 @@ const initializeLandingPage = () => {
     const initializePageLayoutHandling = () => {
 
         const header = document.querySelector('.header');
-        const hero = document.querySelector('.landing-container');
+        const hero = document.querySelector('.hero');
 
         window.addEventListener('resize', () => responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero, true));
         window.addEventListener('load', () => responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero, true));
