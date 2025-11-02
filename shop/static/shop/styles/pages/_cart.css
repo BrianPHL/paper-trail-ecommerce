@@ -154,3 +154,8 @@
     font-weight: 700;
     color: var(--tg-primary);
 }
+
+.cart-summary-proceed_to_checkout {
+    flex-shrink: 1;
+    width: 100%;
+}
