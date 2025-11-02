@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html data-theme="light" lang="en">
 <head>
@@ -126,8 +127,7 @@
 
                 </div>
 
-                <form method="post" action="{% url 'cart' %}">
-                    {% csrf_token %}
+               <form method="get" action="{% url 'checkout' %}">
                     <button class="button-primary cart-summary-proceed_to_checkout" type="submit" {% if not items %}disabled{% endif %}>
                         Proceed to Checkout
                         <i class="fa-solid fa-circle-arrow-right"></i>
