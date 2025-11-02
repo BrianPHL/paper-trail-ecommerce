@@ -1,6 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Q
-from .models import Product
+from django.contrib import messages
+from django.http import JsonResponse
+from django.contrib.auth import authenticate, update_session_auth_hash
+from django.contrib.auth.decorators import login_required
+from .models import Product, UserProfile, Address
 
 def landing(request):
     """Homepage with featured products, bestsellers, and new arrivals"""
@@ -183,3 +187,256 @@ def contact_us(request):
     }
 
     return render(request, 'shop/contact-us.html', context)
+
+def profile(request):
+    """Profile page"""
+    breadcrumb_items = [
+        {'name': 'Home', 'url': '/'},
+        {'name': 'Profile', 'url': None}
+    ]
+
+    user_profile = None
+    if request.user.is_authenticated:
+        try:
+            user_profile = request.user.profile
+        except Exception:
+            user_profile = None
+
+        # Handle POST for editing profile information including profile picture
+        if request.method == 'POST' and user_profile:
+            # Handle profile picture upload
+            if 'profile_picture' in request.FILES:
+                # Delete old profile picture if it exists
+                if user_profile.profile_picture:
+                    try:
+                        user_profile.profile_picture.delete(save=False)
+                    except Exception:
+                        pass  # Ignore errors if file doesn't exist
+                
+                user_profile.profile_picture = request.FILES['profile_picture']
+            
+            # Handle personal information updates
+            if 'update_personal_info' in request.POST:
+                # Update User model fields
+                first_name = request.POST.get('first_name', '').strip()
+                last_name = request.POST.get('last_name', '').strip()
+                email = request.POST.get('email', '').strip()
+                
+                if first_name:
+                    request.user.first_name = first_name
+                if last_name:
+                    request.user.last_name = last_name
+                if email:
+                    request.user.email = email
+                
+                request.user.save()
+                
+                # Update UserProfile fields
+                contact_number = request.POST.get('contact_number', '').strip()
+                if contact_number:
+                    user_profile.contact_number = contact_number
+            
+            # Handle settings updates
+            if 'update_settings' in request.POST:
+                preferred_currency = request.POST.get('preferred_currency', '')
+                preferred_payment_method = request.POST.get('preferred_payment_method', '')
+                
+                if preferred_currency:
+                    user_profile.preferred_currency = preferred_currency
+                if preferred_payment_method:
+                    user_profile.preferred_payment_method = preferred_payment_method
+            
+            # Handle address updates (legacy support)
+            address = request.POST.get('house_address', '').strip()
+            if address:
+                user_profile.house_address = address
+            
+            user_profile.save()
+    
+    # Get user addresses
+    user_addresses = []
+    if request.user.is_authenticated:
+        user_addresses = Address.objects.filter(user=request.user).order_by('-is_default', '-created_at')
+
+    context = {
+        'breadcrumb_items': breadcrumb_items,
+        'user': request.user,
+        'user_profile': user_profile,
+        'user_addresses': user_addresses,
+    }
+
+    return render(request, 'shop/profile.html', context)
+
+def add_address(request):
+    """Add a new address"""
+    if not request.user.is_authenticated:
+        return redirect('sign_in')
+    
+    if request.method == 'POST':
+        try:
+            # Get form data
+            label = request.POST.get('label', '').strip()
+            address_type = request.POST.get('address_type', 'home')
+            street_address = request.POST.get('street_address', '').strip()
+            city = request.POST.get('city', '').strip()
+            state_province = request.POST.get('state_province', '').strip()
+            postal_code = request.POST.get('postal_code', '').strip()
+            country = request.POST.get('country', 'Philippines').strip()
+            is_default = request.POST.get('is_default') == 'on'
+            
+            # Validate required fields
+            if not all([label, street_address, city, state_province, postal_code]):
+                messages.error(request, 'Please fill in all required fields.')
+                return redirect('profile')
+            
+            # Create new address
+            Address.objects.create(
+                user=request.user,
+                label=label,
+                address_type=address_type,
+                street_address=street_address,
+                city=city,
+                state_province=state_province,
+                postal_code=postal_code,
+                country=country,
+                is_default=is_default
+            )
+            
+            messages.success(request, 'Address added successfully!')
+            
+        except Exception as e:
+            messages.error(request, f'Error adding address: {str(e)}')
+    
+    return redirect('profile')
+
+def edit_address(request, address_id):
+    """Edit an existing address"""
+    if not request.user.is_authenticated:
+        return redirect('sign_in')
+    
+    address = get_object_or_404(Address, id=address_id, user=request.user)
+    
+    if request.method == 'POST':
+        try:
+            # Update address fields
+            address.label = request.POST.get('label', '').strip()
+            address.address_type = request.POST.get('address_type', 'home')
+            address.street_address = request.POST.get('street_address', '').strip()
+            address.city = request.POST.get('city', '').strip()
+            address.state_province = request.POST.get('state_province', '').strip()
+            address.postal_code = request.POST.get('postal_code', '').strip()
+            address.country = request.POST.get('country', 'Philippines').strip()
+            address.is_default = request.POST.get('is_default') == 'on'
+            
+            # Validate required fields
+            if not all([address.label, address.street_address, address.city, address.state_province, address.postal_code]):
+                messages.error(request, 'Please fill in all required fields.')
+                return redirect('profile')
+            
+            address.save()
+            messages.success(request, 'Address updated successfully!')
+            
+        except Exception as e:
+            messages.error(request, f'Error updating address: {str(e)}')
+    
+    return redirect('profile')
+
+def delete_address(request, address_id):
+    """Delete an address"""
+    if not request.user.is_authenticated:
+        return redirect('sign_in')
+    
+    address = get_object_or_404(Address, id=address_id, user=request.user)
+    
+    if request.method == 'POST':
+        try:
+            address.delete()
+            messages.success(request, 'Address deleted successfully!')
+        except Exception as e:
+            messages.error(request, f'Error deleting address: {str(e)}')
+    
+    return redirect('profile')
+
+def change_password(request):
+    """Change user password"""
+    if not request.user.is_authenticated:
+        return redirect('sign_in')
+    
+    if request.method == 'POST':
+        current_password = request.POST.get('current_password')
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+        
+        # Validate current password
+        if not request.user.check_password(current_password):
+            messages.error(request, 'Current password is incorrect.')
+            return redirect('profile')
+        
+        # Validate new password
+        if new_password != confirm_password:
+            messages.error(request, 'New passwords do not match.')
+            return redirect('profile')
+        
+        if len(new_password) < 8:
+            messages.error(request, 'Password must be at least 8 characters long.')
+            return redirect('profile')
+        
+        try:
+            # Change password
+            request.user.set_password(new_password)
+            request.user.save()
+            
+            # Update session to prevent logout
+            update_session_auth_hash(request, request.user)
+            
+            messages.success(request, 'Password changed successfully!')
+        except Exception as e:
+            messages.error(request, f'Error changing password: {str(e)}')
+    
+    return redirect('profile')
+
+def delete_account(request):
+    """Delete user account with confirmation"""
+    if not request.user.is_authenticated:
+        return redirect('sign_in')
+    
+    if request.method == 'POST':
+        password_confirmation = request.POST.get('password_confirmation')
+        
+        # Verify password
+        if not request.user.check_password(password_confirmation):
+            messages.error(request, 'Incorrect password. Account deletion cancelled.')
+            return redirect('profile')
+        
+        try:
+            # Delete user's related data first
+            user = request.user
+            
+            # Delete user's addresses
+            Address.objects.filter(user=user).delete()
+            
+            # Delete user profile if exists
+            try:
+                if hasattr(user, 'userprofile'):
+                    user.userprofile.delete()
+            except:
+                pass  # Profile might not exist
+            
+            # Store username for farewell message
+            username = user.username
+            
+            # Delete the user account
+            user.delete()
+            
+            # Clear session
+            request.session.flush()
+            
+            # Redirect to landing page with message
+            messages.success(request, f'Account for {username} has been permanently deleted. We\'re sorry to see you go!')
+            return redirect('landing')
+            
+        except Exception as e:
+            messages.error(request, f'Error deleting account: {str(e)}')
+            return redirect('profile')
+    
+    return redirect('profile')

@@ -1,3 +1,4 @@
+
 import initializeLandingPage from "./pages/landing.js";
 import initializeSignInPage from "./pages/sign-in.js";
 import initializeSignUpPage from "./pages/sign-up.js";
@@ -6,12 +7,19 @@ import initializeShopPage from "./pages/shop.js";
 import initializeCartPage from "./pages/cart.js";
 import initializeAboutUsPage from "./pages/about-us.js";
 import initializeContactUsPage from "./pages/contact-us.js";
+import initializeProfilePage from "./pages/profile.js";
 import initializeModalComponent from "./components/modal.js";
 import initializeHeaderComponent from "./components/header.js";
 import initializeFooterComponent from "./components/footer.js";
 
 document.addEventListener('DOMContentLoaded', () => {
-    
+
+    // Load theme from localStorage
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    }
+
     console.log("Initializing main JavaScript entry file!");
 
     // Pages JavaScript Logic
@@ -23,6 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeCartPage();
     initializeAboutUsPage();
     initializeContactUsPage();
+
+    // Profile page logic
+    initializeProfilePage();
 
     // Components JavaScript Logic
     initializeModalComponent();
