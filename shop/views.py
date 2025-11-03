@@ -148,6 +148,12 @@ def sign_up(request):
     return render(request, 'shop/sign-up.html', context)
 
 def cart(request):
+    # Get the user's cart
+    cart = _get_or_create_cart(request)
+    items = cart.items.all() if cart else []
+    
+    # Calculate cart totals
+    cart_item_count = sum(item.quantity for item in items)
 
     breadcrumb_items = [
         {'name': 'Home', 'url': '/'},
@@ -156,9 +162,20 @@ def cart(request):
     
     context = {
         'breadcrumb_items': breadcrumb_items,
+        'cart': cart,
+        'items': items,
+        'cart_item_count': cart_item_count,
     }
 
     return render(request, 'shop/cart.html', context)
+
+def cart_count_api(request):
+    """API endpoint to get current cart count"""
+    cart = _get_or_create_cart(request)
+    items = cart.items.all() if cart else []
+    cart_item_count = sum(item.quantity for item in items)
+    
+    return JsonResponse({'count': cart_item_count})
 
 
 def about_us(request):

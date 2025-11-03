@@ -12,6 +12,44 @@ import initializeModalComponent from "./components/modal.js";
 import initializeHeaderComponent from "./components/header.js";
 import initializeFooterComponent from "./components/footer.js";
 
+// Cart utilities function
+const initializeCartUtils = () => {
+    // Function to update cart count in navbar
+    window.updateCartCount = (count) => {
+        const cartCountElement = document.getElementById('cart-count');
+        if (cartCountElement) {
+            cartCountElement.textContent = count;
+        }
+    };
+
+    // Function to fetch current cart count from server
+    window.refreshCartCount = async () => {
+        try {
+            const response = await fetch('/api/cart-count/', {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                }
+            });
+            if (response.ok) {
+                const data = await response.json();
+                window.updateCartCount(data.count);
+            }
+        } catch (error) {
+            console.log('Could not refresh cart count:', error);
+        }
+    };
+
+    // Listen for cart update events
+    document.addEventListener('cartUpdated', (event) => {
+        if (event.detail && typeof event.detail.count !== 'undefined') {
+            window.updateCartCount(event.detail.count);
+        } else {
+            window.refreshCartCount();
+        }
+    });
+};
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // Load theme from localStorage
@@ -39,6 +77,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeModalComponent();
     initializeHeaderComponent();
     initializeFooterComponent();
+
+    // Cart utilities
+    initializeCartUtils();
 
     console.log("Main JavaScript entry file successfully initialized!");
 

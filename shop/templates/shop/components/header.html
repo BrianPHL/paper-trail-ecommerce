@@ -4,9 +4,9 @@
     <div class="header-top">
         <img class="header-top-logo logo" src="{% static 'shop/images/logo-light.png' %}" alt="PaperTrail logo" />
         <div class="header-top-ctas">
-            <a class="button-secondary" href="/cart">
+            <a class="button-secondary" href="/cart" id="cart-link">
                 <i class="fa-solid fa-cart-shopping"></i>
-                0 items
+                <span id="cart-count">{{ cart_item_count|default:0 }}</span> items
             </a>
             
             {% if user.is_authenticated %}
