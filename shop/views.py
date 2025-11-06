@@ -99,15 +99,18 @@ def shop(request):
 
 def shop_products_api(request):
     """API endpoint to get filtered products without page refresh"""
+    from decimal import Decimal, InvalidOperation
+    
     # Get all active products
     products = Product.objects.filter(is_active=True)
     
-    # Handle search
+    # Handle search - only search by name (title) and price
     search_query = request.GET.get('search', '')
     if search_query:
+        # Search by name or price (convert price to string for partial matching)
         products = products.filter(
             Q(name__icontains=search_query) | 
-            Q(description__icontains=search_query)
+            Q(price__startswith=search_query)
         )
     
     # Handle category filtering
@@ -140,7 +143,7 @@ def shop_products_api(request):
             'price': str(product.price),
             'image_url': product.image_url,
             'category': product.category,
-            'category_display': product.get_category_display(),
+            'category_display': product.get_category_display_name(),
             'stock_quantity': product.stock_quantity,
             'stock_status': product.stock_status,
             'is_active': product.is_active,
@@ -152,7 +155,6 @@ def shop_products_api(request):
         'products': products_data,
         'count': len(products_data)
     })
-
 def pdp(request, slug):
     """View for individual product details"""
     product = get_object_or_404(Product, slug=slug)
