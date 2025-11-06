@@ -59,9 +59,37 @@ const initializeShopPage = () => {
 
     };
 
+    const initializeAutomaticFiltering = () => {
+        const sidebarForm = document.querySelector('.shop-sidebar form');
+        const modalForm = document.querySelector('.modal form');
+
+        const setupAutoSubmit = (form) => {
+            if (!form) return;
+
+            const sortByRadios = form.querySelectorAll('input[name="sort_by"]');
+            const categoryCheckboxes = form.querySelectorAll('input[name="categories"]');
+
+            sortByRadios.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    form.submit();
+                });
+            });
+
+            categoryCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', () => {
+                    form.submit();
+                });
+            });
+        };
+
+        setupAutoSubmit(sidebarForm);
+        setupAutoSubmit(modalForm);
+    };
+
     initializePageLayoutHandling();
     initializePageTheme();
     initializePageThemeHandling();
+    initializeAutomaticFiltering();
 
     console.log("Initialized shop page logic!");
 
