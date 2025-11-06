@@ -176,6 +176,16 @@ const initializeShopPage = () => {
         }
     };
 
+    const debounce = (func, delay) => {
+        let timeoutId;
+        return (...args) => {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                func.apply(this, args);
+            }, delay);
+        };
+    };
+
     const initializeAutomaticFiltering = () => {
 
         const sidebarForm = document.querySelector('.shop-sidebar form');
@@ -214,16 +224,41 @@ const initializeShopPage = () => {
         setupAutoSubmit(modalForm);
 
         const searchForm = document.querySelector('.shop-list-header-search');
-        if (searchForm) {
+        const searchInput = searchForm ? searchForm.querySelector('input[name="search"]') : null;
+
+        if (searchForm && searchInput) {
             searchForm.addEventListener('submit', (e) => {
                 e.preventDefault();
-                const formData = new FormData(searchForm);
-                const urlParams = new URLSearchParams(formData);
+            });
+
+            const debouncedSearch = debounce(() => {
+                const sidebarFormData = sidebarForm ? new FormData(sidebarForm) : new FormData();
+
+                sidebarFormData.set('search', searchInput.value);
+                
+                const urlParams = new URLSearchParams(sidebarFormData);
 
                 const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
                 window.history.pushState({}, '', newUrl);
 
                 fetchAndRenderProducts(urlParams);
+            }, 500);
+
+            searchInput.addEventListener('input', debouncedSearch);
+
+            searchInput.addEventListener('input', () => {
+                if (sidebarForm) {
+                    const sidebarSearchInput = sidebarForm.querySelector('input[name="search"]');
+                    if (sidebarSearchInput) {
+                        sidebarSearchInput.value = searchInput.value;
+                    }
+                }
+                if (modalForm) {
+                    const modalSearchInput = modalForm.querySelector('input[name="search"]');
+                    if (modalSearchInput) {
+                        modalSearchInput.value = searchInput.value;
+                    }
+                }
             });
         }
     };
