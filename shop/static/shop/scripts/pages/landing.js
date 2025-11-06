@@ -81,13 +81,13 @@ const initializeLandingPage = () => {
         const newArrivals = document.querySelector('.new_arrivals-container');
 
         if (featured)
-            paginationUtilities.handleHorizontalPagination(featured);
+            paginationUtilities.handleHorizontalPagination(featured, true);
 
         if (bestsellers)
-            paginationUtilities.handleHorizontalPagination(bestsellers);
+            paginationUtilities.handleHorizontalPagination(bestsellers, true);
 
         if (newArrivals)
-            paginationUtilities.handleHorizontalPagination(newArrivals);
+            paginationUtilities.handleHorizontalPagination(newArrivals, true);
 
     };
 

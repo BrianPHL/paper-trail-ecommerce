@@ -64,7 +64,8 @@ const initializeProductDetailPage = () => {
 
         const relatedProducts = document.querySelector('.related_products-container');
 
-        paginationUtilities.handleHorizontalPagination(relatedProducts);
+        if (relatedProducts)
+            paginationUtilities.handleHorizontalPagination(relatedProducts, true);
 
     };
 
