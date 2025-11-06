@@ -97,6 +97,62 @@ def shop(request):
     
     return render(request, 'shop/shop.html', context)
 
+def shop_products_api(request):
+    """API endpoint to get filtered products without page refresh"""
+    # Get all active products
+    products = Product.objects.filter(is_active=True)
+    
+    # Handle search
+    search_query = request.GET.get('search', '')
+    if search_query:
+        products = products.filter(
+            Q(name__icontains=search_query) | 
+            Q(description__icontains=search_query)
+        )
+    
+    # Handle category filtering
+    selected_categories = request.GET.getlist('categories')
+    if selected_categories:
+        products = products.filter(category__in=selected_categories)
+    
+    # Handle sorting
+    sort_by = request.GET.get('sort_by', 'name')
+    if sort_by == 'a-to-z':
+        products = products.order_by('name')
+    elif sort_by == 'z-to-a':
+        products = products.order_by('-name')
+    elif sort_by == 'price-lowest-first':
+        products = products.order_by('price')
+    elif sort_by == 'price-highest-first':
+        products = products.order_by('-price')
+    elif sort_by == 'recently-added':
+        products = products.order_by('-created_at')
+    else:
+        products = products.order_by('name')
+    
+    # Serialize products to JSON
+    products_data = []
+    for product in products:
+        products_data.append({
+            'id': product.id,
+            'name': product.name,
+            'description': product.description,
+            'price': str(product.price),
+            'image_url': product.image_url,
+            'category': product.category,
+            'category_display': product.get_category_display(),
+            'stock_quantity': product.stock_quantity,
+            'stock_status': product.stock_status,
+            'is_active': product.is_active,
+            'is_in_stock': product.is_in_stock,
+            'url': product.get_absolute_url(),
+        })
+    
+    return JsonResponse({
+        'products': products_data,
+        'count': len(products_data)
+    })
+
 def pdp(request, slug):
     """View for individual product details"""
     product = get_object_or_404(Product, slug=slug)
