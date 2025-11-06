@@ -14,6 +14,9 @@ const initializeHeaderComponent = () => {
 
         navigationAnchors.forEach((navigationAnchor) => {
 
+            if (navigationAnchor.matches('button'))
+                return;
+
             const anchorPage = navigationAnchor.href.split('/').at(-1);
 
             navigationAnchor.classList.remove('active');
