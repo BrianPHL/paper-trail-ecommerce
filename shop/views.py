@@ -180,6 +180,11 @@ def pdp(request, slug):
     return render(request, 'shop/pdp.html', context)
 
 def sign_in(request):
+
+    # Redirect authenticated users to the home page
+    if request.user.is_authenticated:
+        return redirect('landing')
+    
     # Breadcrumb for sign-in page
     breadcrumb_items = [
         {'name': 'Home', 'url': '/'},
@@ -193,6 +198,11 @@ def sign_in(request):
     return render(request, 'shop/sign-in.html', context)
 
 def sign_up(request):
+
+    # Redirect authenticated users to the home page
+    if request.user.is_authenticated:
+        return redirect('landing')
+    
     # Breadcrumb for sign-up page
     breadcrumb_items = [
         {'name': 'Home', 'url': '/'},
