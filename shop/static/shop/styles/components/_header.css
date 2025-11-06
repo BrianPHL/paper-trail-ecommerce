@@ -68,6 +68,14 @@
     margin-top: 4px;
 }
 
+.dropdown-menu[data-open="false"] {
+    display: none;
+}
+
+.dropdown-menu[data-open="true"] {
+    display: block;
+}
+
 .dropdown-item {
     display: flex;
     align-items: center;

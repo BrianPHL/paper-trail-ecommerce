@@ -36,7 +36,10 @@ const initializeHeaderComponent = () => {
         if (dropdownTrigger && dropdownMenu) {
             dropdownTrigger.addEventListener('click', (e) => {
                 e.stopPropagation();
-                dropdownMenu.style.display = dropdownMenu.style.display === 'none' ? 'block' : 'none';
+
+                (dropdownMenu.getAttribute('data-open') === 'false')
+                    ? dropdownMenu.setAttribute('data-open', 'true')
+                    : dropdownMenu.setAttribute('data-open', 'false')
             });
 
             document.addEventListener('click', (e) => {
