@@ -5,6 +5,9 @@
     padding: 1rem 16rem;
     display: flex;
     gap: 1rem;
+    margin-top: auto; /* Push footer to bottom */
+    position: relative; /* Ensure proper positioning */
+    z-index: 10; /* Ensure footer stays above content */
 }
 
 .footer-top, .footer-middle, .footer-bottom {

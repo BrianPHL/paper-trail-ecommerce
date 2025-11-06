@@ -32,18 +32,18 @@
                     {% csrf_token %}
                     <input type="hidden" name="product_id" value="{{ product.id }}">
                     <input type="hidden" name="quantity" value="1">
-                    <button type="submit" class="button-secondary product_card-ctas-btn">
+                    <button type="submit" class="button-secondary product_card-ctas-primary_btn">
                         <i class="fa-solid fa-cart-shopping"></i>
                         Add to cart
                     </button>
                 </form>
             {% else %}
-                <button class="button-secondary product_card-ctas-btn" disabled style="opacity: 0.5; cursor: not-allowed;">
+                <button class="button-secondary product_card-ctas-primary_btn" disabled>
                     <i class="fa-solid fa-exclamation-triangle"></i>
                     {{ product.stock_status }}
                 </button>
             {% endif %}
-            <a href="{{ product.get_absolute_url }}" class="button-icon_outlined product_card-ctas-btn">
+            <a href="{{ product.get_absolute_url }}" class="button-icon_outlined product_card-ctas-secondary_btn">
                 <i class="fa-solid fa-square-up-right"></i>
             </a>
         </div>

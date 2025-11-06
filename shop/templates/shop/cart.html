@@ -8,7 +8,7 @@
     <title>My Cart | Paper Trails</title>
     <link rel="stylesheet" href="{% static 'shop/styles/main.css' %}">
 </head>
-<body>
+<body class="cart-page">
 
     {% include "./components/header.html" %}
 
@@ -53,6 +53,10 @@
                                     <p class="cart-list-item-info-description">
                                         {{ item.product.description|truncatewords:20 }}
                                     </p>
+                                    <div class="cart-list-item-info-price">
+                                        <span class="cart-list-item-price-label">Price:</span>
+                                        <span class="cart-list-item-price-value">PHP {{ item.product.price|floatformat:2 }}</span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -145,17 +149,7 @@
     <script src="{% static 'shop/scripts/cart.js' %}"></script>
     <script type="module" src="{% static 'shop/scripts/main.js' %}"></script>
 
-    <script>
-    /* small helper used by quantity buttons */
-    function changeQty(btn, delta){
-      const form = btn.closest('form');
-      const input = form && form.querySelector('input[name="quantity"]');
-      if(!input) return;
-      let val = parseInt(input.value || '0', 10) + delta;
-      if(val < 0) val = 0;
-      input.value = val;
-    }
-    </script>
+
 
 </body>
 </html>

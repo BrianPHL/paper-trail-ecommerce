@@ -22,6 +22,7 @@ urlpatterns = [
     path('profile/delete-account/', views.delete_account, name='delete_account'),
     path('api/login/', auth.handle_account_authorization, name='api-login'),
     path('api/register/', auth.handle_account_registration, name='api-register'),
+    path('api/cart-count/', views.cart_count_api, name='cart-count-api'),
     path('cart/', views.cart_detail, name='cart_detail'),
     path('cart/add/', views.add_to_cart, name='add_to_cart'),
     path('cart/item/<int:item_id>/update/', views.update_cart_item, name='update_cart_item'),

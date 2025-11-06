@@ -108,7 +108,7 @@
     border-radius: 0.25rem;
 }
 
-.product_card-ctas-btn:first-child {
+.product_card-ctas-primary_btn {
     flex-shrink: 1;
     width: 100%;
 }

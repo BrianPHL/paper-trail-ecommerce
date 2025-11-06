@@ -6,6 +6,29 @@
     margin: 0;
 }
 
+html, body {
+    height: 100%;
+    overflow-x: hidden;
+    scroll-behavior: smooth; /* Smooth scrolling */
+    background-color: var(--bg-primary); /* Ensure proper theme background */
+}
+
+/* Ensure body has proper flex layout for cart page */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative; /* Ensure proper positioning */
+    background-color: var(--bg-primary); /* Ensure consistent background */
+}
+
+/* Make main content area flex to push footer down */
+main {
+    flex: 1;
+    overflow: visible; /* Allow content to be fully visible */
+    position: relative; /* Ensure proper stacking */
+}
+
 a {
     text-decoration: none;
 }
