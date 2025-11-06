@@ -64,6 +64,135 @@ const initializeSignUpPage = () => {
 
     };
 
+    const validateEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
+    const validatePhoneNumber = (phone) => {
+        const phoneRegex = /^(09|\+639)\d{9}$/;
+        return phoneRegex.test(phone.replace(/\s/g, ''));
+    };
+
+    const showInputError = (inputElement, message) => {
+        const inputContainer = inputElement.closest('.sign_up-form-group-input');
+        const errorSpan = inputContainer.querySelector('.form-input-error');
+
+        if (inputElement.classList.contains('input-nested')) {
+            inputElement.closest('.input-with-btn').classList.add('error');
+        } else {
+            inputElement.classList.add('error');
+        }
+
+        errorSpan.textContent = message;
+        errorSpan.style.display = 'block';
+    };
+
+    const clearInputError = (inputElement) => {
+        const inputContainer = inputElement.closest('.sign_up-form-group-input');
+        const errorSpan = inputContainer.querySelector('.form-input-error');
+
+        if (inputElement.classList.contains('input-nested')) {
+            inputElement.closest('.input-with-btn').classList.remove('error');
+        } else {
+            inputElement.classList.remove('error');
+        }
+
+        errorSpan.textContent = '';
+        errorSpan.style.display = 'none';
+    };
+
+    const validateInput = (inputElement, allInputs = null) => {
+        const inputName = inputElement.name;
+        const inputValue = inputElement.value.trim();
+
+        clearInputError(inputElement);
+
+        if (inputElement.required && !inputValue) {
+            showInputError(inputElement, 'This field is required');
+            return false;
+        }
+
+        if (!inputElement.required && !inputValue) {
+            return true;
+        }
+
+        if (inputName === 'first_name' && inputValue) {
+            if (inputValue.length < 2) {
+                showInputError(inputElement, 'First name must be at least 2 characters');
+                return false;
+            }
+            if (!/^[a-zA-Z\s]+$/.test(inputValue)) {
+                showInputError(inputElement, 'First name should only contain letters');
+                return false;
+            }
+        }
+
+        if (inputName === 'last_name' && inputValue) {
+            if (inputValue.length < 2) {
+                showInputError(inputElement, 'Last name must be at least 2 characters');
+                return false;
+            }
+            if (!/^[a-zA-Z\s]+$/.test(inputValue)) {
+                showInputError(inputElement, 'Last name should only contain letters');
+                return false;
+            }
+        }
+
+        if (inputName === 'contact_number' && inputValue) {
+            if (!validatePhoneNumber(inputValue)) {
+                showInputError(inputElement, 'Please enter a valid Philippine phone number (e.g., 09123456789)');
+                return false;
+            }
+        }
+
+        if (inputName === 'email_address' && inputValue) {
+            if (!validateEmail(inputValue)) {
+                showInputError(inputElement, 'Please enter a valid email address');
+                return false;
+            }
+        }
+
+        if (inputName === 'password' && inputValue) {
+            if (inputValue.length < 8) {
+                showInputError(inputElement, 'Password must be at least 8 characters long');
+                return false;
+            }
+            if (!/(?=.*[a-z])/.test(inputValue)) {
+                showInputError(inputElement, 'Password must contain at least one lowercase letter');
+                return false;
+            }
+            if (!/(?=.*[A-Z])/.test(inputValue)) {
+                showInputError(inputElement, 'Password must contain at least one uppercase letter');
+                return false;
+            }
+            if (!/(?=.*\d)/.test(inputValue)) {
+                showInputError(inputElement, 'Password must contain at least one number');
+                return false;
+            }
+        }
+
+        if (inputName === 'confirm_password' && inputValue && allInputs) {
+            const passwordInput = Array.from(allInputs).find(input => input.name === 'password');
+            if (passwordInput && inputValue !== passwordInput.value) {
+                showInputError(inputElement, 'Passwords do not match');
+                return false;
+            }
+        }
+
+        return true;
+    };
+
+    const validateStepInputs = (stepInputs, allInputs) => {
+        let isValid = true;
+        stepInputs.forEach(input => {
+            if (!validateInput(input, allInputs)) {
+                isValid = false;
+            }
+        });
+        return isValid;
+    };
+
     const initializeFormHandling = () => {
 
         const form = document.querySelector('form');
@@ -125,7 +254,11 @@ const initializeSignUpPage = () => {
         };
 
         const showSecondStep = () => {
-            
+
+            if (!validateStepInputs(segregatedFormInputs, formInputsArray)) {
+                return;
+            }
+
             const currentFormGroupContainer = formGroupContainersArray.find(formGroupContainer => formGroupContainer.getAttribute('data-step') === '2');
             const previousFormGroupContainer = formGroupContainersArray.find(formGroupContainer => formGroupContainer.getAttribute('data-step') === '1');
             const currentFormCtasContainer = formCtasContainersArray.find(formCtasContainer => formCtasContainer.getAttribute('data-step') === '2');
@@ -149,7 +282,13 @@ const initializeSignUpPage = () => {
 
         const handleAccountCreation = async () => {
 
+            if (!validateStepInputs(segregatedFormInputs, formInputsArray)) {
+                return;
+            }
+
             const formData = new FormData(form);
+
+            formError.style.display = 'none';
 
             try {
 
@@ -176,16 +315,6 @@ const initializeSignUpPage = () => {
                 formErrorText.innerHTML = err.message;
 
             }
-
-            // first_name
-            // last_name
-            // house_address (optional)
-            // contact_number
-            // email_address
-            // password
-            // confirm_password
-
-            // TODO: setup POST request here to backend.
 
         };
 
@@ -226,7 +355,10 @@ const initializeSignUpPage = () => {
 
             event.preventDefault();
 
-            segregatedFormInputs.forEach(formInput => formInput.value = '');
+            segregatedFormInputs.forEach(formInput => {
+                formInput.value = '';
+                clearInputError(formInput);
+            });
 
             formInputsCheckingHandler(segregatedFormInputs, segregatedFormSubmitBtn);
 

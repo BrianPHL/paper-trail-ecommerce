@@ -216,3 +216,30 @@
         color: var(--tg-disabled);
     }
 }
+
+.form-input-error {
+    color: var(--tg-error);
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-top: 0.25rem;
+    padding-left: 0.5rem;
+}
+
+.input-unnested.error,
+.input-with-btn.error {
+    border-color: var(--tg-error);
+}
+
+.input-unnested.error:focus {
+    border-color: var(--tg-error);
+    background-color: rgba(233, 32, 79, 0.05);
+}
+
+.input-with-btn.error:focus-within {
+    border-color: var(--tg-error);
+    background-color: rgba(233, 32, 79, 0.05);
+}
+
+.input-with-btn.error i {
+    border-color: var(--tg-error);
+}
