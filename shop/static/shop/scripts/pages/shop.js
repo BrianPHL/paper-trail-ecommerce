@@ -59,137 +59,138 @@ const initializeShopPage = () => {
 
     };
 
-    const renderProductCard = (product) => {
-        let stockClass = 'in_stock';
-        if (!product.is_active) {
-            stockClass = 'discontinued';
-        } else if (product.stock_quantity === 0) {
-            stockClass = 'out_of_stock';
-        } else if (product.stock_quantity <= 5) {
-            stockClass = 'low_stock';
-        }
-
-        const truncateWords = (text, wordCount) => {
-            const words = text.split(' ');
-            if (words.length > wordCount) {
-                return words.slice(0, wordCount).join(' ') + '...';
-            }
-            return text;
-        };
-
-        const canAddToCart = product.is_in_stock && product.stock_quantity > 0 && product.is_active;
-
-        return `
-            <div class="product_card">
-                <div class="product_card-image-container">
-                    <img class="product_card-image" src="${product.image_url}" alt="${product.name} product image" />
-                </div>
-                
-                <div class="product_card-wrapper">
-                    <div class="product_card-info">
-                        <small class="product_card-info-status">
-                            <span class="${stockClass}">
-                                ${product.stock_status}
-                            </span>
-                            <i class="fa-solid fa-circle"></i>
-                            ${product.category_display}
-                        </small>
-                        <h4 class="product_card-info-label">
-                            ${product.name}
-                        </h4>
-                        <p class="product_card-info-description">
-                            ${truncateWords(product.description, 20)}
-                        </p>
-                    </div>
-                    <h3 class="product_card-price">
-                        PHP ${product.price}
-                    </h3>
-
-                    <div class="product_card-ctas">
-                        ${canAddToCart ? `
-                            <form method="post" action="/cart/add/" class="product_card-add_to_cart_form" style="display:flex; gap:0.5rem; width:100%;">
-                                <input type="hidden" name="csrfmiddlewaretoken" value="${getCookie('csrftoken')}">
-                                <input type="hidden" name="product_id" value="${product.id}">
-                                <input type="hidden" name="quantity" value="1">
-                                <button type="submit" class="button-secondary product_card-ctas-primary_btn">
-                                    <i class="fa-solid fa-cart-shopping"></i>
-                                    Add to cart
-                                </button>
-                            </form>
-                        ` : `
-                            <button class="button-secondary product_card-ctas-primary_btn" disabled>
-                                <i class="fa-solid fa-exclamation-triangle"></i>
-                                ${product.stock_status}
-                            </button>
-                        `}
-                        <a href="${product.url}" class="button-icon_outlined product_card-ctas-secondary_btn">
-                            <i class="fa-solid fa-square-up-right"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        `;
-    };
-
-    const getCookie = (name) => {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    };
-
-    const fetchAndRenderProducts = async (formData) => {
-        const shopListWrapper = document.querySelector('.shop-list-wrapper');
-
-        shopListWrapper.innerHTML = '<div class="shop-list-placeholder"><h3>Loading...</h3></div>';
-
-        try {
-            const response = await fetch(`/api/shop/products/?${formData.toString()}`);
-            const data = await response.json();
-
-            if (data.products.length > 0) {
-                shopListWrapper.innerHTML = data.products.map(product => renderProductCard(product)).join('');
-            } else {
-                shopListWrapper.innerHTML = `
-                    <div class="shop-list-placeholder">
-                        <h3>No products found</h3>
-                        <p>Try adjusting your search or filter criteria.</p>
-                    </div>
-                `;
-            }
-        } catch (error) {
-            console.error('Error fetching products:', error);
-            shopListWrapper.innerHTML = `
-                <div class="shop-list-placeholder">
-                    <h3>Error loading products</h3>
-                    <p>Please try again later.</p>
-                </div>
-            `;
-        }
-    };
-
-    const debounce = (func, delay) => {
-        let timeoutId;
-        return (...args) => {
-            clearTimeout(timeoutId);
-            timeoutId = setTimeout(() => {
-                func.apply(this, args);
-            }, delay);
-        };
-    };
-
     const initializeAutomaticFiltering = () => {
 
         const sidebarForm = document.querySelector('.shop-sidebar form');
         const modalForm = document.querySelector('.modal form');
+
+        const renderProductCard = (product) => {
+            
+            let stockClass = 'in_stock';
+            if (!product.is_active) {
+                stockClass = 'discontinued';
+            } else if (product.stock_quantity === 0) {
+                stockClass = 'out_of_stock';
+            } else if (product.stock_quantity <= 5) {
+                stockClass = 'low_stock';
+            }
+        
+            const getCookie = (name) => {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            };
+        
+            const truncateWords = (text, wordCount) => {
+                const words = text.split(' ');
+                if (words.length > wordCount) {
+                    return words.slice(0, wordCount).join(' ') + '...';
+                }
+                return text;
+            };
+        
+            const canAddToCart = product.is_in_stock && product.stock_quantity > 0 && product.is_active;
+        
+            return `
+                <div class="product_card">
+                    <div class="product_card-image-container">
+                        <img class="product_card-image" src="${product.image_url}" alt="${product.name} product image" />
+                    </div>
+                    
+                    <div class="product_card-wrapper">
+                        <div class="product_card-info">
+                            <small class="product_card-info-status">
+                                <span class="${stockClass}">
+                                    ${product.stock_status}
+                                </span>
+                                <i class="fa-solid fa-circle"></i>
+                                ${product.category_display}
+                            </small>
+                            <h4 class="product_card-info-label">
+                                ${product.name}
+                            </h4>
+                            <p class="product_card-info-description">
+                                ${truncateWords(product.description, 20)}
+                            </p>
+                        </div>
+                        <h3 class="product_card-price">
+                            PHP ${product.price}
+                        </h3>
+        
+                        <div class="product_card-ctas">
+                            ${canAddToCart ? `
+                                <form method="post" action="/cart/add/" class="product_card-add_to_cart_form" style="display:flex; gap:0.5rem; width:100%;">
+                                    <input type="hidden" name="csrfmiddlewaretoken" value="${getCookie('csrftoken')}">
+                                    <input type="hidden" name="product_id" value="${product.id}">
+                                    <input type="hidden" name="quantity" value="1">
+                                    <button type="submit" class="button-secondary product_card-ctas-primary_btn">
+                                        <i class="fa-solid fa-cart-shopping"></i>
+                                        Add to cart
+                                    </button>
+                                </form>
+                            ` : `
+                                <button class="button-secondary product_card-ctas-primary_btn" disabled>
+                                    <i class="fa-solid fa-exclamation-triangle"></i>
+                                    ${product.stock_status}
+                                </button>
+                            `}
+                            <a href="${product.url}" class="button-icon_outlined product_card-ctas-secondary_btn">
+                                <i class="fa-solid fa-square-up-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        };
+
+        const fetchAndRenderProducts = async (formData) => {
+            const shopListWrapper = document.querySelector('.shop-list-wrapper');
+
+            shopListWrapper.innerHTML = '<div class="shop-list-placeholder"><h3>Loading...</h3></div>';
+
+            try {
+                const response = await fetch(`/api/shop/products/?${formData.toString()}`);
+                const data = await response.json();
+
+                if (data.products.length > 0) {
+                    shopListWrapper.innerHTML = data.products.map(product => renderProductCard(product)).join('');
+                } else {
+                    shopListWrapper.innerHTML = `
+                        <div class="shop-list-placeholder">
+                            <h3>No products found</h3>
+                            <p>Try adjusting your search or filter criteria.</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error fetching products:', error);
+                shopListWrapper.innerHTML = `
+                    <div class="shop-list-placeholder">
+                        <h3>Error loading products</h3>
+                        <p>Please try again later.</p>
+                    </div>
+                `;
+            }
+        };
+
+        const debounce = (func, delay) => {
+            let timeoutId;
+            return (...args) => {
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(() => {
+                    func.apply(this, args);
+                }, delay);
+            };
+        };
 
         const handleFilterChange = (form) => {
             const formData = new FormData(form);
