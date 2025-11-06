@@ -100,3 +100,41 @@ class OrderAdmin(admin.ModelAdmin):
 class OrderItemAdmin(admin.ModelAdmin):
     list_display = ('id', 'order', 'product', 'quantity', 'price')
     search_fields = ('order__full_name', 'product__name')
+
+from .models import Feedback
+
+@admin.register(Feedback)
+class FeedbackAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'category', 'subject', 'status', 'created_at')
+    list_filter = ('status', 'category', 'created_at')
+    search_fields = ('name', 'email', 'subject', 'message')
+    readonly_fields = ('created_at', 'updated_at')
+    
+    fieldsets = (
+        ('Customer Information', {
+            'fields': ('user', 'name', 'email')
+        }),
+        ('Feedback Details', {
+            'fields': ('category', 'subject', 'message', 'status')
+        }),
+        ('Admin', {
+            'fields': ('admin_notes', 'created_at', 'updated_at')
+        }),
+    )
+    
+    def get_readonly_fields(self, request, obj=None):
+        if obj:  # Editing an existing object
+            return self.readonly_fields + ('user', 'name', 'email', 'category', 'subject', 'message')
+        return self.readonly_fields
+    
+    actions = ['mark_as_read', 'mark_as_archived']
+    
+    def mark_as_read(self, request, queryset):
+        queryset.update(status='read')
+        self.message_user(request, f'{queryset.count()} feedback(s) marked as read.')
+    mark_as_read.short_description = 'Mark selected as read'
+    
+    def mark_as_archived(self, request, queryset):
+        queryset.update(status='archived')
+        self.message_user(request, f'{queryset.count()} feedback(s) archived.')
+    mark_as_archived.short_description = 'Archive selected'

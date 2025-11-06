@@ -1,0 +1,110 @@
+.feedback-wrapper {
+    min-height: calc(100vh - 5rem);
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: var(--bg-primary);
+}
+
+.feedback-container {
+    max-width: 800px;
+    width: 100%;
+    background-color: var(--bg-secondary);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.feedback-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.feedback-header-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--tg-primary);
+    margin-bottom: 0.5rem;
+}
+
+.feedback-header-description {
+    font-size: 1rem;
+    color: var(--tg-secondary);
+}
+
+.feedback-messages {
+    margin-bottom: 1.5rem;
+}
+
+.feedback-message {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.feedback-message-success {
+    background-color: rgba(34, 197, 94, 0.1);
+    color: #22c55e;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.feedback-message-error {
+    background-color: rgba(233, 32, 79, 0.1);
+    color: var(--tg-error);
+    border: 1px solid rgba(233, 32, 79, 0.3);
+}
+
+.feedback-message i {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.feedback-message p {
+    margin: 0;
+    font-weight: 500;
+}
+
+.feedback-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.feedback-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.feedback-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.feedback-form-group label {
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--tg-primary);
+}
+
+.feedback-form-group select {
+    cursor: pointer;
+}
+
+.feedback-form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.feedback-form-actions button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}

@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from .models import Product, UserProfile, Address
+from .models import Product, UserProfile, Address, Cart, CartItem, Order, OrderItem, Feedback
 
 def landing(request):
     """Homepage with featured products, bestsellers, and new arrivals"""
@@ -651,3 +651,72 @@ def delete_account(request):
             return redirect('profile')
     
     return redirect('profile')
+
+def feedback(request):
+    """Feedback page"""
+    breadcrumb_items = [
+        {'name': 'Home', 'url': '/'},
+        {'name': 'Feedback', 'url': None}
+    ]
+    
+    if request.method == 'POST':
+        try:
+            # Get form data
+            name = request.POST.get('name', '').strip()
+            email = request.POST.get('email', '').strip()
+            category = request.POST.get('category', 'general')
+            subject = request.POST.get('subject', '').strip()
+            message = request.POST.get('message', '').strip()
+            
+            # Validate required fields
+            if not all([name, email, subject, message]):
+                messages.error(request, 'Please fill in all required fields.')
+                return redirect('feedback')
+            
+            # Create feedback
+            feedback_obj = Feedback.objects.create(
+                user=request.user if request.user.is_authenticated else None,
+                name=name,
+                email=email,
+                category=category,
+                subject=subject,
+                message=message
+            )
+            
+            messages.success(request, 'Thank you for your feedback! We will review it shortly.')
+            return redirect('feedback')
+            
+        except Exception as e:
+            messages.error(request, f'Error submitting feedback: {str(e)}')
+            return redirect('feedback')
+    
+    # Get category choices for the form
+    category_choices = Feedback.CATEGORY_CHOICES
+    
+    # Pre-fill user data if authenticated
+    initial_data = {}
+    if request.user.is_authenticated:
+        initial_data['name'] = f"{request.user.first_name} {request.user.last_name}".strip() or request.user.username
+        initial_data['email'] = request.user.email
+    
+    context = {
+        'breadcrumb_items': breadcrumb_items,
+        'category_choices': category_choices,
+        'initial_data': initial_data,
+    }
+    
+    return render(request, 'shop/feedback.html', context)
+
+def feedback_success(request):
+    """Feedback success page"""
+    breadcrumb_items = [
+        {'name': 'Home', 'url': '/'},
+        {'name': 'Feedback', 'url': '/feedback/'},
+        {'name': 'Success', 'url': None}
+    ]
+    
+    context = {
+        'breadcrumb_items': breadcrumb_items,
+    }
+    
+    return render(request, 'shop/feedback_success.html', context)
