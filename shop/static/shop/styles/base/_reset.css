@@ -9,3 +9,7 @@
 a {
     text-decoration: none;
 }
+
+::-webkit-scrollbar {
+    z-index: 9999;
+}
