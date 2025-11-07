@@ -64,6 +64,81 @@ const initializeSignInPage = () => {
 
     };
 
+    const validateEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
+    const showInputError = (inputElement, message) => {
+        const inputContainer = inputElement.closest('.sign_in-form-group-input');
+        const errorSpan = inputContainer.querySelector('.form-input-error');
+
+        if (inputElement.classList.contains('input-nested')) {
+            inputElement.closest('.input-with-btn').classList.add('error');
+        } else {
+            inputElement.classList.add('error');
+        }
+
+        errorSpan.textContent = message;
+        errorSpan.style.display = 'block';
+    };
+
+    const clearInputError = (inputElement) => {
+        const inputContainer = inputElement.closest('.sign_in-form-group-input');
+        const errorSpan = inputContainer.querySelector('.form-input-error');
+
+        if (inputElement.classList.contains('input-nested')) {
+            inputElement.closest('.input-with-btn').classList.remove('error');
+        } else {
+            inputElement.classList.remove('error');
+        }
+
+        errorSpan.textContent = '';
+        errorSpan.style.display = 'none';
+    };
+
+    const validateInput = (inputElement) => {
+        const inputName = inputElement.name;
+        const inputValue = inputElement.value.trim();
+
+        clearInputError(inputElement);
+
+        if (inputName === 'csrfmiddlewaretoken') return true;
+
+        if (inputElement.required && !inputValue) {
+            showInputError(inputElement, 'This field is required');
+            return false;
+        }
+
+        if (inputName === 'email_address' && inputValue) {
+            if (!validateEmail(inputValue)) {
+                showInputError(inputElement, 'Please enter a valid email address');
+                return false;
+            }
+        }
+
+        if (inputName === 'password' && inputValue) {
+            if (inputValue.length < 8) {
+                showInputError(inputElement, 'Password must be at least 8 characters long');
+                return false;
+            }
+        }
+
+        return true;
+    };
+
+    const validateAllInputs = (formInputs) => {
+        let isValid = true;
+        formInputs.forEach(input => {
+            if (input.name !== 'csrfmiddlewaretoken') {
+                if (!validateInput(input)) {
+                    isValid = false;
+                }
+            }
+        });
+        return isValid;
+    };
+
     const initializeFormHandling = () => {
 
         const form = document.querySelector('form');
@@ -73,6 +148,11 @@ const initializeSignInPage = () => {
         const handleAccountAuthorization = async () => {
 
             const formData = new FormData(form);
+            const formInputs = form.querySelectorAll('input');
+
+            if (!validateAllInputs(formInputs)) {
+                return;
+            }
 
             formError.style.display = 'none';
 
@@ -149,6 +229,7 @@ const initializeSignInPage = () => {
                     return;
             
                 formInput.value = '';
+                clearInputError(formInput);
 
             });
 

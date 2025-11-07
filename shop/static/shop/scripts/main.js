@@ -8,6 +8,7 @@ import initializeCartPage from "./pages/cart.js";
 import initializeAboutUsPage from "./pages/about-us.js";
 import initializeContactUsPage from "./pages/contact-us.js";
 import initializeProfilePage from "./pages/profile.js";
+import initializeFeedbackPage from "./pages/feedback.js";
 import initializeModalComponent from "./components/modal.js";
 import initializeHeaderComponent from "./components/header.js";
 import initializeFooterComponent from "./components/footer.js";
@@ -69,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeCartPage();
     initializeAboutUsPage();
     initializeContactUsPage();
+    initializeFeedbackPage();
 
     // Profile page logic
     initializeProfilePage();

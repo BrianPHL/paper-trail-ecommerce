@@ -16,7 +16,7 @@
                         {{ user.first_name|default:user.username }}
                         <i class="fa-solid fa-chevron-down"></i>
                     </button>
-                    <div class="dropdown-menu" style="display: none;">
+                    <div class="dropdown-menu" data-open="false">
                         <a href="/profile" class="dropdown-item">
                             <i class="fa-solid fa-user-circle"></i>
                             Profile
@@ -68,23 +68,3 @@
         </nav>
     </div>
 </header>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const dropdownTrigger = document.querySelector('.dropdown-trigger');
-    const dropdownMenu = document.querySelector('.dropdown-menu');
-    
-    if (dropdownTrigger && dropdownMenu) {
-        dropdownTrigger.addEventListener('click', (e) => {
-            e.stopPropagation();
-            dropdownMenu.style.display = dropdownMenu.style.display === 'none' ? 'block' : 'none';
-        });
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!dropdownMenu.contains(e.target) && !dropdownTrigger.contains(e.target)) {
-                dropdownMenu.style.display = 'none';
-            }
-        });
-    }
-});
-</script>

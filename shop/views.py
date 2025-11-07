@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from .models import Product, UserProfile, Address
+from .models import Product, UserProfile, Address, Cart, CartItem, Order, OrderItem, Feedback
 
 def landing(request):
     """Homepage with featured products, bestsellers, and new arrivals"""
@@ -97,6 +97,64 @@ def shop(request):
     
     return render(request, 'shop/shop.html', context)
 
+def shop_products_api(request):
+    """API endpoint to get filtered products without page refresh"""
+    from decimal import Decimal, InvalidOperation
+    
+    # Get all active products
+    products = Product.objects.filter(is_active=True)
+    
+    # Handle search - only search by name (title) and price
+    search_query = request.GET.get('search', '')
+    if search_query:
+        # Search by name or price (convert price to string for partial matching)
+        products = products.filter(
+            Q(name__icontains=search_query) | 
+            Q(price__startswith=search_query)
+        )
+    
+    # Handle category filtering
+    selected_categories = request.GET.getlist('categories')
+    if selected_categories:
+        products = products.filter(category__in=selected_categories)
+    
+    # Handle sorting
+    sort_by = request.GET.get('sort_by', 'name')
+    if sort_by == 'a-to-z':
+        products = products.order_by('name')
+    elif sort_by == 'z-to-a':
+        products = products.order_by('-name')
+    elif sort_by == 'price-lowest-first':
+        products = products.order_by('price')
+    elif sort_by == 'price-highest-first':
+        products = products.order_by('-price')
+    elif sort_by == 'recently-added':
+        products = products.order_by('-created_at')
+    else:
+        products = products.order_by('name')
+    
+    # Serialize products to JSON
+    products_data = []
+    for product in products:
+        products_data.append({
+            'id': product.id,
+            'name': product.name,
+            'description': product.description,
+            'price': str(product.price),
+            'image_url': product.image_url,
+            'category': product.category,
+            'category_display': product.get_category_display_name(),
+            'stock_quantity': product.stock_quantity,
+            'stock_status': product.stock_status,
+            'is_active': product.is_active,
+            'is_in_stock': product.is_in_stock,
+            'url': product.get_absolute_url(),
+        })
+    
+    return JsonResponse({
+        'products': products_data,
+        'count': len(products_data)
+    })
 def pdp(request, slug):
     """View for individual product details"""
     product = get_object_or_404(Product, slug=slug)
@@ -122,6 +180,11 @@ def pdp(request, slug):
     return render(request, 'shop/pdp.html', context)
 
 def sign_in(request):
+
+    # Redirect authenticated users to the home page
+    if request.user.is_authenticated:
+        return redirect('landing')
+    
     # Breadcrumb for sign-in page
     breadcrumb_items = [
         {'name': 'Home', 'url': '/'},
@@ -135,6 +198,11 @@ def sign_in(request):
     return render(request, 'shop/sign-in.html', context)
 
 def sign_up(request):
+
+    # Redirect authenticated users to the home page
+    if request.user.is_authenticated:
+        return redirect('landing')
+    
     # Breadcrumb for sign-up page
     breadcrumb_items = [
         {'name': 'Home', 'url': '/'},
@@ -146,28 +214,6 @@ def sign_up(request):
     }
     
     return render(request, 'shop/sign-up.html', context)
-
-def cart(request):
-    # Get the user's cart
-    cart = _get_or_create_cart(request)
-    items = cart.items.all() if cart else []
-    
-    # Calculate cart totals
-    cart_item_count = sum(item.quantity for item in items)
-
-    breadcrumb_items = [
-        {'name': 'Home', 'url': '/'},
-        {'name': 'My Cart', 'url': None}
-    ]
-    
-    context = {
-        'breadcrumb_items': breadcrumb_items,
-        'cart': cart,
-        'items': items,
-        'cart_item_count': cart_item_count,
-    }
-
-    return render(request, 'shop/cart.html', context)
 
 def cart_count_api(request):
     """API endpoint to get current cart count"""
@@ -211,20 +257,6 @@ from django.views.decorators.http import require_POST
 from django.db import transaction
 
 from .models import Product, Cart, CartItem
-
-# ...existing code...
-def cart(request):
-
-    breadcrumb_items = [
-        {'name': 'Home', 'url': '/'},
-        {'name': 'My Cart', 'url': None}
-    ]
-    
-    context = {
-        'breadcrumb_items': breadcrumb_items,
-    }
-
-    return render(request, 'shop/cart.html', context)
 
 def _get_or_create_cart(request):
     """Return an active Cart for the current user or session."""
@@ -619,3 +651,72 @@ def delete_account(request):
             return redirect('profile')
     
     return redirect('profile')
+
+def feedback(request):
+    """Feedback page"""
+    breadcrumb_items = [
+        {'name': 'Home', 'url': '/'},
+        {'name': 'Feedback', 'url': None}
+    ]
+    
+    if request.method == 'POST':
+        try:
+            # Get form data
+            name = request.POST.get('name', '').strip()
+            email = request.POST.get('email', '').strip()
+            category = request.POST.get('category', 'general')
+            subject = request.POST.get('subject', '').strip()
+            message = request.POST.get('message', '').strip()
+            
+            # Validate required fields
+            if not all([name, email, subject, message]):
+                messages.error(request, 'Please fill in all required fields.')
+                return redirect('feedback')
+            
+            # Create feedback
+            feedback_obj = Feedback.objects.create(
+                user=request.user if request.user.is_authenticated else None,
+                name=name,
+                email=email,
+                category=category,
+                subject=subject,
+                message=message
+            )
+            
+            messages.success(request, 'Thank you for your feedback! We will review it shortly.')
+            return redirect('feedback')
+            
+        except Exception as e:
+            messages.error(request, f'Error submitting feedback: {str(e)}')
+            return redirect('feedback')
+    
+    # Get category choices for the form
+    category_choices = Feedback.CATEGORY_CHOICES
+    
+    # Pre-fill user data if authenticated
+    initial_data = {}
+    if request.user.is_authenticated:
+        initial_data['name'] = f"{request.user.first_name} {request.user.last_name}".strip() or request.user.username
+        initial_data['email'] = request.user.email
+    
+    context = {
+        'breadcrumb_items': breadcrumb_items,
+        'category_choices': category_choices,
+        'initial_data': initial_data,
+    }
+    
+    return render(request, 'shop/feedback.html', context)
+
+def feedback_success(request):
+    """Feedback success page"""
+    breadcrumb_items = [
+        {'name': 'Home', 'url': '/'},
+        {'name': 'Feedback', 'url': '/feedback/'},
+        {'name': 'Success', 'url': None}
+    ]
+    
+    context = {
+        'breadcrumb_items': breadcrumb_items,
+    }
+    
+    return render(request, 'shop/feedback_success.html', context)

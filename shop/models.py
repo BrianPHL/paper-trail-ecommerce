@@ -338,3 +338,50 @@ class OrderItem(models.Model):
 
     def total_price(self):
         return self.price * self.quantity
+    
+class Feedback(models.Model):
+    """Customer feedback model"""
+    
+    STATUS_CHOICES = [
+        ('unread', 'Unread'),
+        ('read', 'Read'),
+        ('archived', 'Archived'),
+    ]
+    
+    CATEGORY_CHOICES = [
+        ('general', 'General Feedback'),
+        ('bug', 'Bug Report'),
+        ('feature', 'Feature Request'),
+        ('complaint', 'Complaint'),
+        ('compliment', 'Compliment'),
+        ('other', 'Other'),
+    ]
+    
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='feedbacks')
+    name = models.CharField(max_length=100, help_text="Customer name")
+    email = models.EmailField(help_text="Contact email")
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='general')
+    subject = models.CharField(max_length=200, help_text="Feedback subject")
+    message = models.TextField(help_text="Feedback message")
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='unread')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    admin_notes = models.TextField(blank=True, help_text="Internal notes for admins")
+    
+    class Meta:
+        verbose_name = "Feedback"
+        verbose_name_plural = "Feedbacks"
+        ordering = ['-created_at']
+    
+    def __str__(self):
+        return f"{self.name} - {self.subject} ({self.created_at.strftime('%Y-%m-%d')})"
+    
+    def mark_as_read(self):
+        """Mark feedback as read"""
+        self.status = 'read'
+        self.save()
+    
+    def mark_as_archived(self):
+        """Archive feedback"""
+        self.status = 'archived'
+        self.save()
