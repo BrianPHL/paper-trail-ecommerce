@@ -27,15 +27,6 @@
     width: 8rem;
 }
 
-/* Toggle which logo image to show based on the document theme.
-   Default: show light logo and hide dark logo. When html[data-theme="dark"] is set,
-   show dark logo and hide light logo. */
-.logo--dark { display: none; }
-.logo--light { display: inline-block; }
-
-html[data-theme="dark"] .logo--dark { display: inline-block; }
-html[data-theme="dark"] .logo--light { display: none; }
-
 .header-bottom {
     justify-content: space-between;
     display: flex;
