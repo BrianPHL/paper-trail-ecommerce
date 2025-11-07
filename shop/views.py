@@ -793,7 +793,20 @@ def delete_account(request):
     return redirect('profile')
 
 def feedback(request):
-    """Feedback page"""
+    """Feedback page with submission form and user's feedback history"""
+    # Clear any non-feedback related messages from previous pages
+    from django.contrib.messages import get_messages
+    storage = get_messages(request)
+    
+    # Store feedback-related messages temporarily
+    feedback_messages = []
+    for message in storage:
+        # Only keep messages that are likely feedback-related (or clear all if coming from GET)
+        if request.method == 'POST':
+            feedback_messages.append(message)
+    
+    # If it's a GET request, messages are cleared by iterating through them above
+    
     breadcrumb_items = [
         {'name': 'Home', 'url': '/'},
         {'name': 'Feedback', 'url': None}
@@ -839,10 +852,16 @@ def feedback(request):
         initial_data['name'] = f"{request.user.first_name} {request.user.last_name}".strip() or request.user.username
         initial_data['email'] = request.user.email
     
+    # Get user's feedback history if authenticated
+    user_feedbacks = []
+    if request.user.is_authenticated:
+        user_feedbacks = Feedback.objects.filter(user=request.user).order_by('-created_at')
+    
     context = {
         'breadcrumb_items': breadcrumb_items,
         'category_choices': category_choices,
         'initial_data': initial_data,
+        'user_feedbacks': user_feedbacks,
     }
     
     return render(request, 'shop/feedback.html', context)
