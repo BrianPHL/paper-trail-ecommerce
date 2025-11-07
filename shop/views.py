@@ -393,13 +393,17 @@ def checkout(request):
     cart = _get_or_create_cart(request)
     
     # Get selected item IDs from POST or session
-    if request.method == "POST":
+    if request.method == "POST" and 'selected_items' in request.POST:
+        # This is from the cart page "Proceed to Checkout" button
         selected_item_ids = request.POST.getlist('selected_items')
-        # Store in session for GET requests after redirect
+        # Store in session for subsequent requests
         if selected_item_ids:
             request.session['selected_items'] = selected_item_ids
+        else:
+            messages.warning(request, "Please select at least one item to checkout.")
+            return redirect('cart')
     else:
-        # Get from session if available
+        # Get from session if available (for GET requests or form submissions)
         selected_item_ids = request.session.get('selected_items', [])
     
     # If no items are selected, redirect back to cart
@@ -430,30 +434,43 @@ def checkout(request):
     else:
         shipping_fee = Decimal('50.00')
 
+    # Check if this is the actual checkout form submission
     if request.method == "POST" and 'full_name' in request.POST:
-        # This is the actual checkout submission, not just the proceed to checkout
+        # This is the actual checkout submission
         # Get form data
-        full_name = request.POST.get('full_name')
-        email = request.POST.get('email')
-        address = request.POST.get('address')
-        payment_method = request.POST.get('payment_method')
+        full_name = request.POST.get('full_name', '').strip()
+        email = request.POST.get('email', '').strip()
+        address = request.POST.get('address', '').strip()
+        payment_method = request.POST.get('payment_method', 'COD')
 
         if not all([full_name, email, address, payment_method]):
             messages.error(request, "All fields are required.")
+            breadcrumb_items = [
+                {'name': 'Home', 'url': '/'},
+                {'name': 'My Cart', 'url': '/cart'},
+                {'name': 'Checkout', 'url': None}
+            ]
             return render(request, "shop/checkout.html", {
                 "cart": cart,
                 "items": items,
-                "shipping_fee": shipping_fee
+                "shipping_fee": shipping_fee,
+                "breadcrumb_items": breadcrumb_items
             })
         
         # Check stock availability before processing
         for item in items:
             if item.product.stock_quantity < item.quantity:
                 messages.error(request, f"Insufficient stock for {item.product.name}. Available: {item.product.stock_quantity}")
+                breadcrumb_items = [
+                    {'name': 'Home', 'url': '/'},
+                    {'name': 'My Cart', 'url': '/cart'},
+                    {'name': 'Checkout', 'url': None}
+                ]
                 return render(request, "shop/checkout.html", {
                     "cart": cart,
                     "items": items,
-                    "shipping_fee": shipping_fee
+                    "shipping_fee": shipping_fee,
+                    "breadcrumb_items": breadcrumb_items
                 })
         
         # Subtotal and shipping fee already calculated above
@@ -469,7 +486,7 @@ def checkout(request):
                 payment_method=payment_method,
                 total_amount=total_amount,
                 shipping_fee=shipping_fee,
-                status='Pending'
+                status='pending'  # Changed from 'Pending' to 'pending' to match choices
             )
 
             # Create OrderItems and deduct stock
@@ -477,12 +494,15 @@ def checkout(request):
             
             for item in items:
                 # Create order item
-                OrderItem.objects.create(
+                order_item = OrderItem.objects.create(
                     order=order,
                     product=item.product,
                     quantity=item.quantity,
                     price=item.product.price,
                 )
+                # Calculate total_price for the order item
+                order_item.total_price = order_item.quantity * order_item.price
+                order_item.save()
                 
                 # Deduct stock
                 product = item.product
@@ -524,6 +544,7 @@ def checkout(request):
             "breadcrumb_items": breadcrumb_items
         })
 
+    # GET request or POST from cart page - show checkout form
     breadcrumb_items = [
         {'name': 'Home', 'url': '/'},
         {'name': 'My Cart', 'url': '/cart'},
@@ -536,7 +557,6 @@ def checkout(request):
         "shipping_fee": shipping_fee,
         "breadcrumb_items": breadcrumb_items
     })
-
 @login_required
 def user_profile(request):  # Renamed from 'profile' to 'user_profile'
     """User profile page"""
@@ -794,18 +814,13 @@ def delete_account(request):
 
 def feedback(request):
     """Feedback page with submission form and user's feedback history"""
-    # Clear any non-feedback related messages from previous pages
-    from django.contrib.messages import get_messages
-    storage = get_messages(request)
     
-    # Store feedback-related messages temporarily
-    feedback_messages = []
-    for message in storage:
-        # Only keep messages that are likely feedback-related (or clear all if coming from GET)
-        if request.method == 'POST':
-            feedback_messages.append(message)
-    
-    # If it's a GET request, messages are cleared by iterating through them above
+    # For GET requests, clear all existing messages from previous pages
+    if request.method == 'GET':
+        from django.contrib.messages import get_messages
+        storage = get_messages(request)
+        # Consume all messages to clear them
+        list(storage)
     
     breadcrumb_items = [
         {'name': 'Home', 'url': '/'},
@@ -819,10 +834,10 @@ def feedback(request):
             email = request.POST.get('email', '').strip()
             category = request.POST.get('category', 'general')
             subject = request.POST.get('subject', '').strip()
-            message = request.POST.get('message', '').strip()
+            message_text = request.POST.get('message', '').strip()
             
             # Validate required fields
-            if not all([name, email, subject, message]):
+            if not all([name, email, subject, message_text]):
                 messages.error(request, 'Please fill in all required fields.')
                 return redirect('feedback')
             
@@ -833,7 +848,7 @@ def feedback(request):
                 email=email,
                 category=category,
                 subject=subject,
-                message=message
+                message=message_text
             )
             
             messages.success(request, 'Thank you for your feedback! We will review it shortly.')
