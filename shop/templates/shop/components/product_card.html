@@ -28,15 +28,14 @@
         <!-- C A R T-->
         <div class="product_card-ctas">
             {% if product.is_in_stock and product.stock_quantity > 0 and product.is_active %}
-                 <form method="post" action="{% url 'add_to_cart' %}" class="product_card-add_to_cart_form" style="display:flex; gap:0.5rem; width:100%;">
-                    {% csrf_token %}
-                    <input type="hidden" name="product_id" value="{{ product.id }}">
-                    <input type="hidden" name="quantity" value="1">
-                    <button type="submit" class="button-secondary product_card-ctas-primary_btn">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        Add to cart
-                    </button>
-                </form>
+                <button 
+                    type="button" 
+                    class="button-secondary product_card-ctas-primary_btn product-card-add-to-cart"
+                    data-product-id="{{ product.id }}"
+                    data-product-name="{{ product.name }}">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    Add to cart
+                </button>
             {% else %}
                 <button class="button-secondary product_card-ctas-primary_btn" disabled>
                     <i class="fa-solid fa-exclamation-triangle"></i>
@@ -48,4 +47,5 @@
             </a>
         </div>
     </div>
+    
 </div>
