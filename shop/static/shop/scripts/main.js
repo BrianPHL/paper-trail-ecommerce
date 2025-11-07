@@ -9,6 +9,7 @@ import initializeAboutUsPage from "./pages/about-us.js";
 import initializeContactUsPage from "./pages/contact-us.js";
 import initializeProfilePage from "./pages/profile.js";
 import initializeFeedbackPage from "./pages/feedback.js";
+import initializeCheckoutPage from "./pages/checkout.js";
 import initializeModalComponent from "./components/modal.js";
 import initializeHeaderComponent from "./components/header.js";
 import initializeFooterComponent from "./components/footer.js";
@@ -72,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeContactUsPage();
     initializeFeedbackPage();
     initializeProfilePage();
+    initializeCheckoutPage();
 
     // Components JavaScript Logic
     initializeModalComponent();
