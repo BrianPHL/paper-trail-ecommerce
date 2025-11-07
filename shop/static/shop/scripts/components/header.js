@@ -30,24 +30,45 @@ const initializeHeaderComponent = () => {
 
     const initializeDropdownModule = () => {
 
-        const dropdownTrigger = document.querySelector('.dropdown-trigger');
-        const dropdownMenu = document.querySelector('.dropdown-menu');
         
-        if (dropdownTrigger && dropdownMenu) {
-            dropdownTrigger.addEventListener('click', (e) => {
+        const dropdownWrappers = document.querySelectorAll('.user-dropdown');
+
+        if (!dropdownWrappers || dropdownWrappers.length === 0) return;
+
+        dropdownWrappers.forEach((wrapper) => {
+            const trigger = wrapper.querySelector('.dropdown-trigger');
+            const menu = wrapper.querySelector('.dropdown-menu');
+
+            if (!trigger || !menu) return;
+
+            
+            if (!menu.hasAttribute('data-open')) menu.setAttribute('data-open', 'false');
+
+            trigger.addEventListener('click', (e) => {
                 e.stopPropagation();
 
-                (dropdownMenu.getAttribute('data-open') === 'false')
-                    ? dropdownMenu.setAttribute('data-open', 'true')
-                    : dropdownMenu.setAttribute('data-open', 'false')
+                const isOpen = menu.getAttribute('data-open') === 'true';
+                menu.setAttribute('data-open', isOpen ? 'false' : 'true');
+
+                
+                if (menu.style.display) menu.style.display = '';
             });
 
+            
             document.addEventListener('click', (e) => {
-                if (!dropdownMenu.contains(e.target) && !dropdownTrigger.contains(e.target)) {
-                    dropdownMenu.style.display = 'none';
+                if (!menu.contains(e.target) && !trigger.contains(e.target)) {
+                    menu.setAttribute('data-open', 'false');
                 }
             });
-        };
+
+            
+            document.addEventListener('keyup', (e) => {
+                if (e.key === 'Escape') {
+                    menu.setAttribute('data-open', 'false');
+                }
+            });
+        });
+
     };
 
     initializeNavigationModule();

@@ -472,11 +472,9 @@
 
 
     <!-- Main JS for dark mode and interactivity -->
-    <script src="{% static 'shop/scripts/main.js' %}"></script>
-</body>
-</html>
+    <script type="module" src="{% static 'shop/scripts/main.js' %}"></script>
 
-<script>
+    <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Avatar upload functionality
     const avatarEditBtn = document.getElementById('avatar-edit-btn');
@@ -789,4 +787,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
+</body>
+</html>
 
