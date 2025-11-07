@@ -478,7 +478,6 @@ def checkout(request):
             # Clear the cart
             cart.items.all().delete()
 
-        messages.success(request, f"Order #{order.id} placed successfully!")
         return render(request, "shop/checkout_success.html", {"order": order})
 
     return render(request, "shop/checkout.html", {
