@@ -276,11 +276,9 @@ class Cart(models.Model):
         owner = self.user.username if self.user else f"session:{self.session_key}"
         return f"Cart {self.pk} ({owner})"
 
-    @property
     def item_count(self):
         return sum(item.quantity for item in self.items.all())
 
-    @property
     def total_price(self):
         from decimal import Decimal
         total = Decimal('0.00')
@@ -317,6 +315,14 @@ class CartItem(models.Model):
 
     # O R D E R S
 class Order(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('out_for_delivery', 'Out for Delivery'),
+        ('delivered', 'Delivered'),
+        ('returned', 'Returned'),
+        ('refunded', 'Refunded'),
+    ]
+    
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='orders')
     full_name = models.CharField(max_length=100)
     email = models.EmailField()
@@ -325,7 +331,7 @@ class Order(models.Model):
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
     shipping_fee = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     placed_at = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=20, default='Pending')  
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
 
     def __str__(self):
         return f"Order #{self.pk} by {self.full_name} ({self.payment_method})"

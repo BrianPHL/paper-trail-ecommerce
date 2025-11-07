@@ -180,18 +180,44 @@ class CartItemAdmin(admin.ModelAdmin):
     search_fields = ('product__name',)
     readonly_fields = ('created_at', 'updated_at')
 
+
 # O R D E R S
+from .models import Order, OrderItem
+
+class OrderItemInline(admin.TabularInline):
+    model = OrderItem
+    readonly_fields = ('product', 'quantity', 'price', 'total_price')
+    can_delete = False
+    extra = 0
+
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'full_name', 'email', 'address', 'payment_method', 'total_amount', 'placed_at', 'status', 'user')
-    search_fields = ('full_name', 'email', 'address', 'user__username')
-    list_filter = ('status', 'payment_method', 'placed_at')
-    readonly_fields = ('placed_at',)
+    list_display = ('id', 'full_name', 'email', 'total_amount', 'status', 'placed_at')
+    list_filter = ('status', 'placed_at', 'payment_method')
+    search_fields = ('full_name', 'email', 'id')
+    readonly_fields = ('placed_at', 'user')
+    list_editable = ('status',)  # Allow editing status directly in the list view
+    inlines = [OrderItemInline]
+    
+    fieldsets = (
+        ('Order Information', {
+            'fields': ('user', 'full_name', 'email', 'address', 'payment_method', 'status')
+        }),
+        ('Pricing', {
+            'fields': ('total_amount', 'shipping_fee')
+        }),
+        ('Timestamps', {
+            'fields': ('placed_at',),
+            'classes': ('collapse',)
+        })
+    )
 
 @admin.register(OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):
-    list_display = ('id', 'order', 'product', 'quantity', 'price')
-    search_fields = ('order__full_name', 'product__name')
+    list_display = ('order', 'product', 'quantity', 'price', 'total_price')
+    list_filter = ('order__status', 'product')
+    search_fields = ('order__id', 'product__name')
+    readonly_fields = ('total_price',)
 
 from .models import Feedback
 
