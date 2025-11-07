@@ -420,7 +420,7 @@ def checkout(request):
                 })
         
         # Calculate subtotal
-        subtotal = cart.total_price if cart else Decimal('0.00')
+        subtotal = cart.total_price() if cart else Decimal('0.00')
 
         # Calculate shipping fee
         if subtotal < Decimal('200.00'):
