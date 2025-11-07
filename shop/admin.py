@@ -1,4 +1,7 @@
 from django.contrib import admin
+from django.db.models import Sum, Count, Avg
+from django.urls import path
+from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.html import format_html
@@ -70,6 +73,49 @@ class ProductAdmin(admin.ModelAdmin):
             '<span style="color: {}; font-weight: bold;">{}</span>',
             color, status
         )
+    # methods for sales analytics
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            path('sales-analytics/', self.admin_site.admin_view(self.sales_analytics_view), name='sales-analytics'),
+        ]
+        return custom_urls + urls
+    
+    def sales_analytics_view(self, request):
+        # Calculate analytics
+        total_orders = Order.objects.count()
+        total_revenue = Order.objects.aggregate(total=Sum('total_amount'))['total'] or 0
+        completed_orders = Order.objects.filter(status='completed').count()
+        pending_orders = Order.objects.filter(status='pending').count()
+        cancelled_orders = Order.objects.filter(status='cancelled').count()
+        
+        # Top products
+        top_products = OrderItem.objects.values('product__name').annotate(
+            total_sold=Sum('quantity'),
+            revenue=Sum('price')
+        ).order_by('-total_sold')[:10]
+        
+        # Monthly sales (last 12 months)
+        from django.db.models.functions import TruncMonth
+        monthly_sales = Order.objects.filter(status='completed').annotate(
+            month=TruncMonth('placed_at')
+        ).values('month').annotate(
+            orders=Count('id'),
+            revenue=Sum('total_amount')
+        ).order_by('-month')[:12]
+        
+        context = dict(
+            self.admin_site.each_context(request),
+            total_orders=total_orders,
+            total_revenue=total_revenue,
+            completed_orders=completed_orders,
+            pending_orders=pending_orders,
+            cancelled_orders=cancelled_orders,
+            top_products=top_products,
+            monthly_sales=monthly_sales,
+        )
+        return render(request, 'admin/sales_analytics.html', context)
+
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
@@ -138,3 +184,6 @@ class FeedbackAdmin(admin.ModelAdmin):
         queryset.update(status='archived')
         self.message_user(request, f'{queryset.count()} feedback(s) archived.')
     mark_as_archived.short_description = 'Archive selected'
+
+# LINK EXTENSION FOR CUSTOM ADMIN 
+admin.site.index_template = 'admin/custom_index.html'

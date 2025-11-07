@@ -353,53 +353,79 @@ from django.views.decorators.http import require_POST
 
 def checkout(request):
     cart = _get_or_create_cart(request)
-    items = cart.items.select_related('product').all()
-    shipping_fee = 0  # Set your shipping fee logic if needed
+    items = cart.items.select_related('product').all() if cart else []
+    shipping_fee = Decimal('0.00')  # Placeholder; will be calculated in POST
 
     if request.method == "POST":
         # Get form data
         full_name = request.POST.get('full_name')
         email = request.POST.get('email')
         address = request.POST.get('address')
-        payment_method = request.POST.get('payment_method', 'COD')
-        total_amount = cart.total_price + shipping_fee
+        payment_method = request.POST.get('payment_method')
 
-        # Create Order
-        order = Order.objects.create(
-            user=request.user if request.user.is_authenticated else None,
-            full_name=full_name,
-            email=email,
-            address=address,
-            payment_method=payment_method,
-            total_amount=total_amount,
-            status='Pending'
-        )
+        if not all([full_name, email, address, payment_method]):
+            messages.error(request, "All fields are required.")
+            return render(request, "shop/checkout.html", {
+                "cart": cart,
+                "items": items,
+                "shipping_fee": shipping_fee
+            })
+        
+        # Calculate subtotal
+        subtotal = cart.total_price if cart else Decimal('0.00')
 
-        # Create OrderItems
-        for item in items:
-            OrderItem.objects.create(
-                order=order,
-                product=item.product,
-                quantity=item.quantity,
-                price=item.price
+        # Calculate shipping fee
+        if subtotal < Decimal('200.00'):
+            shipping_fee = Decimal('50.00')
+        elif subtotal >= Decimal('200.00'):  # Adjusted to >= 300 as per your earlier request
+            shipping_fee = Decimal('70.00')
+        else:
+            shipping_fee = Decimal('50.00')  # For 200-299
+        
+        total_amount = subtotal + shipping_fee
+
+        with transaction.atomic():
+            # Create Order
+            order = Order.objects.create(
+                user=request.user if request.user.is_authenticated else None,
+                full_name=full_name,
+                email=email,
+                address=address,
+                payment_method=payment_method,
+                total_amount=total_amount,
+                shipping_fee=shipping_fee,
             )
 
-        # Optionally clear the cart
-        cart.items.all().delete()
-        cart.is_active = False
-        cart.save()
+            # Create OrderItems
+            for item in items:
+                OrderItem.objects.create(
+                    order=order,
+                    product=item.product,
+                    quantity=item.quantity,
+                    price=item.product.price,
+                    #total_price=item.total_price(),
+                )
+
+            # Clear the cart
+            cart.items.all().delete()
 
         # Show success page
         return render(request, "shop/checkout_success.html", {"order": order})
 
-    return render(request, "shop/checkout.html", {"cart": cart, "items": items, "shipping_fee": shipping_fee})
-def profile(request):
-    """Profile page"""
+    return render(request, "shop/checkout.html", {
+        "cart": cart,
+        "items": items,
+        "shipping_fee": shipping_fee
+    })
+
+@login_required
+def user_profile(request):  # Renamed from 'profile' to 'user_profile'
+    """User profile page"""
     breadcrumb_items = [
         {'name': 'Home', 'url': '/'},
         {'name': 'Profile', 'url': None}
     ]
-
+    
     user_profile = None
     if request.user.is_authenticated:
         try:
@@ -471,6 +497,7 @@ def profile(request):
     }
 
     return render(request, 'shop/profile.html', context)
+
 
 def add_address(request):
     """Add a new address"""
