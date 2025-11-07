@@ -131,10 +131,13 @@
 
                 </div>
 
-                <a href="{% url 'checkout' %}" class="button-primary cart-summary-proceed_to_checkout" {% if not items %}style="pointer-events: none; opacity: 0.5;"{% endif %}>
-                    Proceed to Checkout
-                    <i class="fa-solid fa-circle-arrow-right"></i>
-                </a>
+                <form method="POST" action="{% url 'checkout' %}" id="checkout-form">
+                    {% csrf_token %}
+                    <button type="submit" class="button-primary cart-summary-proceed_to_checkout" {% if not items %}style="pointer-events: none; opacity: 0.5;" disabled{% endif %}>
+                        Proceed to Checkout
+                        <i class="fa-solid fa-circle-arrow-right"></i>
+                    </button>
+                </form>
 
             </div>
 

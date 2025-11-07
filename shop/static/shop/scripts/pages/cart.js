@@ -121,6 +121,43 @@ const initializeCartPage = () => {
             }
         };
         
+        // Handle checkout form submission
+        const checkoutForm = document.getElementById('checkout-form');
+        if (checkoutForm) {
+            checkoutForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Get all selected item IDs
+                const selectedItems = [];
+                const itemCheckboxes = document.querySelectorAll('input[name="cart-select"]:checked');
+                
+                itemCheckboxes.forEach(checkbox => {
+                    selectedItems.push(checkbox.value);
+                });
+                
+                // Check if any items are selected
+                if (selectedItems.length === 0) {
+                    alert('Please select at least one item to checkout.');
+                    return;
+                }
+                
+                // Remove any existing hidden inputs to avoid duplication
+                checkoutForm.querySelectorAll('input[name="selected_items"]').forEach(input => input.remove());
+                
+                // Add selected items as hidden inputs
+                selectedItems.forEach(itemId => {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'selected_items';
+                    input.value = itemId;
+                    checkoutForm.appendChild(input);
+                });
+                
+                // Submit the form
+                checkoutForm.submit();
+            });
+        }
+        
         // Handle increment buttons
         incrementButtons.forEach(button => {
             button.addEventListener('click', (e) => {

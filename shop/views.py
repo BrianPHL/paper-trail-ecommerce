@@ -391,10 +391,47 @@ from django.views.decorators.http import require_POST
 
 def checkout(request):
     cart = _get_or_create_cart(request)
-    items = cart.items.select_related('product').all() if cart else []
-    shipping_fee = Decimal('0.00')
-
+    
+    # Get selected item IDs from POST or session
     if request.method == "POST":
+        selected_item_ids = request.POST.getlist('selected_items')
+        # Store in session for GET requests after redirect
+        if selected_item_ids:
+            request.session['selected_items'] = selected_item_ids
+    else:
+        # Get from session if available
+        selected_item_ids = request.session.get('selected_items', [])
+    
+    # If no items are selected, redirect back to cart
+    if not selected_item_ids:
+        messages.warning(request, "Please select at least one item to checkout.")
+        return redirect('cart')
+    
+    # Filter items based on selection
+    items = cart.items.select_related('product').filter(id__in=selected_item_ids) if cart else []
+    
+    # Double-check that items exist (in case session data is stale)
+    if not items:
+        messages.warning(request, "Selected items are no longer available in your cart.")
+        if 'selected_items' in request.session:
+            del request.session['selected_items']
+        return redirect('cart')
+    
+    # Calculate subtotal for all cases (both GET and POST)
+    subtotal = Decimal('0.00')
+    for item in items:
+        subtotal += item.product.price * item.quantity
+    
+    # Calculate shipping fee based on subtotal
+    if subtotal < Decimal('200.00'):
+        shipping_fee = Decimal('50.00')
+    elif subtotal >= Decimal('200.00'):
+        shipping_fee = Decimal('70.00')
+    else:
+        shipping_fee = Decimal('50.00')
+
+    if request.method == "POST" and 'full_name' in request.POST:
+        # This is the actual checkout submission, not just the proceed to checkout
         # Get form data
         full_name = request.POST.get('full_name')
         email = request.POST.get('email')
@@ -419,17 +456,7 @@ def checkout(request):
                     "shipping_fee": shipping_fee
                 })
         
-        # Calculate subtotal
-        subtotal = cart.total_price() if cart else Decimal('0.00')
-
-        # Calculate shipping fee
-        if subtotal < Decimal('200.00'):
-            shipping_fee = Decimal('50.00')
-        elif subtotal >= Decimal('200.00'):
-            shipping_fee = Decimal('70.00')
-        else:
-            shipping_fee = Decimal('50.00')
-        
+        # Subtotal and shipping fee already calculated above
         total_amount = subtotal + shipping_fee
 
         with transaction.atomic():
@@ -476,8 +503,13 @@ def checkout(request):
                     created_by=request.user if request.user.is_authenticated else None
                 )
 
-            # Clear the cart
-            cart.items.all().delete()
+            # Clear the cart (only selected items)
+            for item in items:
+                item.delete()
+            
+            # Clear selected items from session
+            if 'selected_items' in request.session:
+                del request.session['selected_items']
 
         breadcrumb_items = [
             {'name': 'Home', 'url': '/'},
