@@ -389,3 +389,32 @@ class Feedback(models.Model):
         """Archive feedback"""
         self.status = 'archived'
         self.save()
+
+class InventoryTransaction(models.Model):
+    """Track all inventory changes"""
+    
+    TRANSACTION_TYPES = [
+        ('sale', 'Sale'),
+        ('restock', 'Restock'),
+        ('adjustment', 'Manual Adjustment'),
+        ('return', 'Return'),
+        ('damaged', 'Damaged/Lost'),
+    ]
+    
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='inventory_transactions')
+    order = models.ForeignKey('Order', on_delete=models.SET_NULL, null=True, blank=True, related_name='inventory_transactions')
+    transaction_type = models.CharField(max_length=20, choices=TRANSACTION_TYPES)
+    quantity_change = models.IntegerField(help_text="Positive for additions, negative for deductions")
+    stock_before = models.PositiveIntegerField(help_text="Stock quantity before this transaction")
+    stock_after = models.PositiveIntegerField(help_text="Stock quantity after this transaction")
+    notes = models.TextField(blank=True, help_text="Additional notes about this transaction")
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='inventory_transactions')
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = "Inventory Transaction"
+        verbose_name_plural = "Inventory Transactions"
+    
+    def __str__(self):
+        return f"{self.transaction_type.upper()}: {self.product.name} ({self.quantity_change:+d}) - {self.created_at.strftime('%Y-%m-%d %H:%M')}"

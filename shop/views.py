@@ -355,7 +355,7 @@ from django.views.decorators.http import require_POST
 def checkout(request):
     cart = _get_or_create_cart(request)
     items = cart.items.select_related('product').all() if cart else []
-    shipping_fee = Decimal('0.00')  # Placeholder; will be calculated in POST
+    shipping_fee = Decimal('0.00')
 
     if request.method == "POST":
         # Get form data
@@ -372,16 +372,26 @@ def checkout(request):
                 "shipping_fee": shipping_fee
             })
         
+        # Check stock availability before processing
+        for item in items:
+            if item.product.stock_quantity < item.quantity:
+                messages.error(request, f"Insufficient stock for {item.product.name}. Available: {item.product.stock_quantity}")
+                return render(request, "shop/checkout.html", {
+                    "cart": cart,
+                    "items": items,
+                    "shipping_fee": shipping_fee
+                })
+        
         # Calculate subtotal
         subtotal = cart.total_price if cart else Decimal('0.00')
 
         # Calculate shipping fee
         if subtotal < Decimal('200.00'):
             shipping_fee = Decimal('50.00')
-        elif subtotal >= Decimal('200.00'):  # Adjusted to >= 300 as per your earlier request
+        elif subtotal >= Decimal('200.00'):
             shipping_fee = Decimal('70.00')
         else:
-            shipping_fee = Decimal('50.00')  # For 200-299
+            shipping_fee = Decimal('50.00')
         
         total_amount = subtotal + shipping_fee
 
@@ -395,22 +405,44 @@ def checkout(request):
                 payment_method=payment_method,
                 total_amount=total_amount,
                 shipping_fee=shipping_fee,
+                status='Pending'
             )
 
-            # Create OrderItems
+            # Create OrderItems and deduct stock
+            from .models import InventoryTransaction
+            
             for item in items:
+                # Create order item
                 OrderItem.objects.create(
                     order=order,
                     product=item.product,
                     quantity=item.quantity,
                     price=item.product.price,
-                    #total_price=item.total_price(),
+                )
+                
+                # Deduct stock
+                product = item.product
+                stock_before = product.stock_quantity
+                product.stock_quantity -= item.quantity
+                product.save()
+                stock_after = product.stock_quantity
+                
+                # Create inventory transaction record
+                InventoryTransaction.objects.create(
+                    product=product,
+                    order=order,
+                    transaction_type='sale',
+                    quantity_change=-item.quantity,
+                    stock_before=stock_before,
+                    stock_after=stock_after,
+                    notes=f"Order #{order.id} - {full_name}",
+                    created_by=request.user if request.user.is_authenticated else None
                 )
 
             # Clear the cart
             cart.items.all().delete()
 
-        # Show success page
+        messages.success(request, f"Order #{order.id} placed successfully!")
         return render(request, "shop/checkout_success.html", {"order": order})
 
     return render(request, "shop/checkout.html", {
