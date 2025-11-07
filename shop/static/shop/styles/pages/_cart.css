@@ -182,9 +182,7 @@
     display: flex;
     padding: 1.25rem; 
     border: 1px solid var(--bg-outline);
-    width: 16rem; 
-    max-width: 18rem; 
-    min-width: 14rem; 
+    width: 20rem; 
     gap: 1rem; 
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); 
     align-self: flex-start; 
