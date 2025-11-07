@@ -2,7 +2,9 @@
 
 <header class="header">
     <div class="header-top">
-        <img class="header-top-logo logo" src="{% static 'shop/images/logo-light.png' %}" alt="PaperTrail logo" />
+    <!-- Provide both light and dark logos and toggle visibility via CSS based on html[data-theme] -->
+    <img class="header-top-logo logo logo--light" src="{% static 'shop/images/logo-light.png' %}" alt="PaperTrail logo light" />
+    <img class="header-top-logo logo logo--dark" src="{% static 'shop/images/logo-dark.png' %}" alt="PaperTrail logo dark" />
         <div class="header-top-ctas">
             <a class="button-secondary" href="/cart" id="cart-link">
                 <i class="fa-solid fa-cart-shopping"></i>
