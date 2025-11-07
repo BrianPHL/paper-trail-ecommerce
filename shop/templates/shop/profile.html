@@ -93,39 +93,7 @@
                 </form>
             </div>
 
-            <!-- Settings Section -->
-            <div class="profile-section">
-                <h3 class="section-title">Settings</h3>
-                <form method="POST" id="settings-form">
-                    {% csrf_token %}
-                    <input type="hidden" name="update_settings" value="1">
-                    <div class="settings-grid">
-                        <div class="setting-item">
-                            <label>Preferred Currency</label>
-                            <select class="form-select" name="preferred_currency" id="preferred_currency">
-                                <option value="PHP" {% if user_profile.preferred_currency == 'PHP' %}selected{% endif %}>Philippine Peso (₱)</option>
-                                <option value="USD" {% if user_profile.preferred_currency == 'USD' %}selected{% endif %}>US Dollar ($)</option>
-                                <option value="EUR" {% if user_profile.preferred_currency == 'EUR' %}selected{% endif %}>Euro (€)</option>
-                            </select>
-                        </div>
-                        <div class="setting-item">
-                            <label>Preferred Payment Method</label>
-                            <select class="form-select" name="preferred_payment_method" id="preferred_payment_method">
-                                <option value="COD" {% if user_profile.preferred_payment_method == 'COD' %}selected{% endif %}>Cash on Delivery</option>
-                                <option value="CREDIT_CARD" {% if user_profile.preferred_payment_method == 'CREDIT_CARD' %}selected{% endif %}>Credit Card</option>
-                                <option value="PAYPAL" {% if user_profile.preferred_payment_method == 'PAYPAL' %}selected{% endif %}>PayPal</option>
-                                <option value="GCASH" {% if user_profile.preferred_payment_method == 'GCASH' %}selected{% endif %}>GCash</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="section-actions">
-                        <button type="button" class="btn-secondary" id="update-settings-btn">
-                            <i class="fa-solid fa-save"></i> Update settings
-                        </button>
-                        <button type="button" class="btn-outline" id="reset-settings-btn">Reset</button>
-                    </div>
-                </form>
-            </div>
+            <!-- Settings removed: site now supports only PHP + COD -->
 
             <!-- Address Book Section -->
             <div class="profile-section">
@@ -472,11 +440,9 @@
 
 
     <!-- Main JS for dark mode and interactivity -->
-    <script src="{% static 'shop/scripts/main.js' %}"></script>
-</body>
-</html>
+    <script type="module" src="{% static 'shop/scripts/main.js' %}"></script>
 
-<script>
+    <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Avatar upload functionality
     const avatarEditBtn = document.getElementById('avatar-edit-btn');
@@ -600,34 +566,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Settings functionality
-    const updateSettingsBtn = document.getElementById('update-settings-btn');
-    const resetSettingsBtn = document.getElementById('reset-settings-btn');
-    const settingsForm = document.getElementById('settings-form');
-    const currencySelect = document.getElementById('preferred_currency');
-    const paymentSelect = document.getElementById('preferred_payment_method');
-    
-    let originalCurrency = '';
-    let originalPayment = '';
-    
-    // Store original values
-    if (currencySelect && paymentSelect) {
-        originalCurrency = currencySelect.value;
-        originalPayment = paymentSelect.value;
-    }
-    
-    if (updateSettingsBtn && settingsForm) {
-        updateSettingsBtn.addEventListener('click', function() {
-            settingsForm.submit();
-        });
-    }
-    
-    if (resetSettingsBtn && currencySelect && paymentSelect) {
-        resetSettingsBtn.addEventListener('click', function() {
-            currencySelect.value = originalCurrency;
-            paymentSelect.value = originalPayment;
-        });
-    }
+    // Settings removed: no client-side handlers needed (site locked to PHP + COD)
 
     // Change password functionality
     const changePasswordBtn = document.getElementById('change-password-btn');
@@ -789,4 +728,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
+</body>
+</html>
 

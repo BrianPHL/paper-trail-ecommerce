@@ -308,12 +308,6 @@ def add_to_cart(request):
             item.save()
     # redirect to the same URL that serves your cart page
     return redirect('cart')
-    
-def cart_detail(request):
-    """Show cart and line items (alias of cart view)."""
-    cart = _get_or_create_cart(request)
-    items = cart.items.select_related('product').all()
-    return render(request, 'shop/cart.html', {'cart': cart, 'items': items})
 
 # Replace the simple cart view above with this one so /cart/ shows items
 def cart(request):
@@ -338,13 +332,13 @@ def update_cart_item(request, item_id):
     # Ensure item belongs to the current cart
     cart = _get_or_create_cart(request)
     if item.cart_id != cart.id:
-        return redirect('cart_detail')
+        return redirect('cart')
     if qty <= 0:
         item.delete()
     else:
         item.quantity = qty
         item.save()
-    return redirect('cart_detail')
+    return redirect('cart')
 
 @require_POST
 def remove_cart_item(request, item_id):
@@ -352,7 +346,7 @@ def remove_cart_item(request, item_id):
     cart = _get_or_create_cart(request)
     if item.cart_id == cart.id:
         item.delete()
-    return redirect('cart_detail')
+    return redirect('cart')
 
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
