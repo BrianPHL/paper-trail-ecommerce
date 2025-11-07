@@ -3,11 +3,7 @@ import * as responsiveUtilities from "../utils/responsive.js";
 
 const initializeCartPage = () => {
 
-    console.log("bugok")
-
     if (window.location.pathname !== '/cart/') return;
-
-    console.log("bugok pt. 2")
 
     const logos = document.querySelectorAll('.logo');
     const htmlElement = document.querySelector('html');
