@@ -3,7 +3,11 @@ import * as responsiveUtilities from "../utils/responsive.js";
 
 const initializeCartPage = () => {
 
+    console.log("bugok")
+
     if (window.location.pathname !== '/cart/') return;
+
+    console.log("bugok pt. 2")
 
     const logos = document.querySelectorAll('.logo');
     const htmlElement = document.querySelector('html');
@@ -52,19 +56,10 @@ const initializeCartPage = () => {
     const initializePageLayoutHandling = () => {
 
         const header = document.querySelector('.header');
-        const cartWrapper = document.querySelector('.cart-wrapper');
+        const hero = document.querySelector('.cart-wrapper');
 
-        const adjustCartLayout = () => {
-            if (header && cartWrapper) {
-                const headerHeight = header.offsetHeight;
-                // Use CSS custom properties for dynamic header height
-                document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);
-            }
-        };
-
-        window.addEventListener('resize', adjustCartLayout);
-        window.addEventListener('load', adjustCartLayout);
-        adjustCartLayout(); // Run immediately
+        window.addEventListener('resize', () => responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero, false));
+        window.addEventListener('load', () => responsiveUtilities.equalizeHeaderAndHeroSpacing(header, hero, false));
 
     };
 
