@@ -17,7 +17,9 @@ def cart_context(request):
                 cart = Cart.objects.filter(session_key=session_key, user=None, is_active=True).first()
             
             if cart:
-                cart_item_count = sum(item.quantity for item in cart.items.all())
+                # Count distinct items (number of CartItem rows) rather than summing quantities
+                # This makes the navbar reflect how many different products are in the cart
+                cart_item_count = cart.items.count()
                 
         except Exception:
             cart_item_count = 0
