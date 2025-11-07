@@ -21,6 +21,10 @@
                             <i class="fa-solid fa-user-circle"></i>
                             Profile
                         </a>
+                        <a href="/orders" class="dropdown-item">
+                            <i class="fa-solid fa-receipt"></i>
+                            Account Orders
+                        </a>
                         <form action="{% url 'logout' %}" method="POST" class="dropdown-item">
                             {% csrf_token %}
                             <button type="submit" class="dropdown-button">

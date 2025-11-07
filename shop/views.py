@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from .models import Product, UserProfile, Address, Cart, CartItem, Order, OrderItem, Feedback
 
 def landing(request):
@@ -442,13 +443,30 @@ def checkout(request):
             # Clear the cart
             cart.items.all().delete()
 
+        breadcrumb_items = [
+            {'name': 'Home', 'url': '/'},
+            {'name': 'My Cart', 'url': '/cart'},
+            {'name': 'Checkout', 'url': '/checkout'},
+            {'name': 'Order Confirmed', 'url': None}
+        ]
+
         messages.success(request, f"Order #{order.id} placed successfully!")
-        return render(request, "shop/checkout_success.html", {"order": order})
+        return render(request, "shop/checkout_success.html", {
+            "order": order,
+            "breadcrumb_items": breadcrumb_items
+        })
+
+    breadcrumb_items = [
+        {'name': 'Home', 'url': '/'},
+        {'name': 'My Cart', 'url': '/cart'},
+        {'name': 'Checkout', 'url': None}
+    ]
 
     return render(request, "shop/checkout.html", {
         "cart": cart,
         "items": items,
-        "shipping_fee": shipping_fee
+        "shipping_fee": shipping_fee,
+        "breadcrumb_items": breadcrumb_items
     })
 
 @login_required
@@ -774,3 +792,44 @@ def feedback_success(request):
     }
     
     return render(request, 'shop/feedback_success.html', context)
+
+@login_required
+def orders(request):
+    """Display user's order history"""
+    # Get all orders for the current user, ordered by newest first
+    user_orders = Order.objects.filter(user=request.user).prefetch_related('items__product').order_by('-placed_at')
+    
+    # Paginate orders (10 per page)
+    paginator = Paginator(user_orders, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    breadcrumb_items = [
+        {'name': 'Home', 'url': '/'},
+        {'name': 'My Orders', 'url': None}
+    ]
+    
+    context = {
+        'orders': page_obj,
+        'breadcrumb_items': breadcrumb_items,
+    }
+    
+    return render(request, 'shop/orders.html', context)
+
+@login_required
+def order_detail(request, order_id):
+    """Display detailed information about a specific order"""
+    order = get_object_or_404(Order, id=order_id, user=request.user)
+    
+    breadcrumb_items = [
+        {'name': 'Home', 'url': '/'},
+        {'name': 'My Orders', 'url': '/orders'},
+        {'name': f'Order #{order.id}', 'url': None}
+    ]
+    
+    context = {
+        'order': order,
+        'breadcrumb_items': breadcrumb_items,
+    }
+    
+    return render(request, 'shop/order_detail.html', context)
