@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.html import format_html
+from datetime import date, timedelta
 from .models import UserProfile, Product, Cart, CartItem, Order, OrderItem
 
 class UserProfileInline(admin.StackedInline):
@@ -94,15 +95,57 @@ class ProductAdmin(admin.ModelAdmin):
             total_sold=Sum('quantity'),
             revenue=Sum('price')
         ).order_by('-total_sold')[:10]
+
+        # Bottom products (least sold)
+        bottom_products = OrderItem.objects.values('product__name').annotate(
+             total_sold=Sum('quantity'),
+             revenue=Sum('price')
+        ).order_by('total_sold')[:10]
         
-        # Monthly sales (last 12 months)
-        from django.db.models.functions import TruncMonth
-        monthly_sales = Order.objects.filter(status='completed').annotate(
-            month=TruncMonth('placed_at')
-        ).values('month').annotate(
-            orders=Count('id'),
-            revenue=Sum('total_amount')
-        ).order_by('-month')[:12]
+        # Monthly sales filter
+        current_year = date.today().year
+        selected_month = request.GET.get('month')
+        
+        if selected_month:
+            try:
+                year, month = map(int, selected_month.split('-'))
+                start_date = date(year, month, 1)
+                if month == 12:
+                    end_date = date(year + 1, 1, 1) - timedelta(days=1)
+                else:
+                    end_date = date(year, month + 1, 1) - timedelta(days=1)
+                
+                filtered_sales = Order.objects.filter(
+                    placed_at__date__range=(start_date, end_date)
+                ).aggregate(
+                    orders=Count('id'),
+                    revenue=Sum('total_amount')
+                )
+                monthly_sales = [{
+                    'month': start_date,
+                    'orders': filtered_sales['orders'] or 0,
+                    'revenue': filtered_sales['revenue'] or 0
+                }]
+            except ValueError:
+                monthly_sales = []  # Invalid month, show nothing
+        else:
+            # Default: last 12 months
+            from django.db.models.functions import TruncMonth
+            monthly_sales = Order.objects.filter(status='completed').annotate(
+                month=TruncMonth('placed_at')
+            ).values('month').annotate(
+                orders=Count('id'),
+                revenue=Sum('total_amount')
+            ).order_by('-month')[:12]
+        
+        # Generate month options (January to December of current year)
+        month_options = []
+        for month in range(1, 13):
+            month_date = date(current_year, month, 1)
+            month_options.append({
+                'value': month_date.strftime('%Y-%m'),
+                'label': month_date.strftime('%B %Y')
+            })
         
         context = dict(
             self.admin_site.each_context(request),
@@ -112,7 +155,10 @@ class ProductAdmin(admin.ModelAdmin):
             pending_orders=pending_orders,
             cancelled_orders=cancelled_orders,
             top_products=top_products,
+            bottom_products=bottom_products,
             monthly_sales=monthly_sales,
+            month_options=month_options,
+            selected_month=selected_month,
         )
         return render(request, 'admin/sales_analytics.html', context)
 

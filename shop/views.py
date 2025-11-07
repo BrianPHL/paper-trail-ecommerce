@@ -377,10 +377,10 @@ def checkout(request):
         # Calculate shipping fee
         if subtotal < Decimal('200.00'):
             shipping_fee = Decimal('50.00')
-        elif subtotal >= Decimal('200.00'):  # Adjusted to >= 300 as per your earlier request
+        elif subtotal >= Decimal('200.00'):  
             shipping_fee = Decimal('70.00')
         else:
-            shipping_fee = Decimal('50.00')  # For 200-299
+            shipping_fee = Decimal('50.00')  
         
         total_amount = subtotal + shipping_fee
 
