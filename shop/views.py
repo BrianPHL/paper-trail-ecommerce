@@ -296,9 +296,30 @@ def add_to_cart(request):
     """Add product to cart or increment quantity."""
     product_id = request.POST.get('product_id')
     qty = int(request.POST.get('quantity', 1))
+    
+    # Validate quantity
+    if qty < 1:
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({'success': False, 'error': 'Invalid quantity'}, status=400)
+        messages.error(request, 'Invalid quantity')
+        return redirect(request.META.get('HTTP_REFERER', 'shop'))
+    
     product = get_object_or_404(Product, pk=product_id)
-
+    
+    # Check stock availability
     cart = _get_or_create_cart(request)
+    existing_item = CartItem.objects.filter(cart=cart, product=product).first()
+    new_quantity = (existing_item.quantity if existing_item else 0) + qty
+    
+    if new_quantity > product.stock_quantity:
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({
+                'success': False, 
+                'error': f'Insufficient stock. Only {product.stock_quantity} available.'
+            }, status=400)
+        messages.error(request, f'Insufficient stock. Only {product.stock_quantity} available.')
+        return redirect(request.META.get('HTTP_REFERER', 'shop'))
+    
     with transaction.atomic():
         item, created = CartItem.objects.get_or_create(
             cart=cart,
@@ -308,7 +329,22 @@ def add_to_cart(request):
         if not created:
             item.quantity += qty
             item.save()
-    # redirect to the same URL that serves your cart page
+    
+    # Calculate new cart count
+    cart_item_count = sum(item.quantity for item in cart.items.all())
+    
+    # For AJAX requests, return JSON
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return JsonResponse({
+            'success': True,
+            'message': f'{product.name} added to cart',
+            'cart_count': cart_item_count,
+            'product_name': product.name,
+            'quantity_added': qty
+        })
+    
+    # For regular requests, redirect to cart
+    messages.success(request, f'{product.name} added to cart!')
     return redirect('cart')
 
 # Replace the simple cart view above with this one so /cart/ shows items

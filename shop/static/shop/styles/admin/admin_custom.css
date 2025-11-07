@@ -180,6 +180,12 @@ th, td {
     background: var(--border-color) !important;
 }
 
+#topProductsChart, #bottomProductsChart {
+    max-width: 100% !important;
+    height: 400px !important;
+    margin-bottom: 20px !important;
+}
+
 @media (max-width: 768px) {
     .analytics-metrics-container, .analytics-status-container {
         flex-direction: column !important;

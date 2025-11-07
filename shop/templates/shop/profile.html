@@ -6,14 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile | Paper Trails</title>
     <link rel="stylesheet" href="{% static 'shop/styles/main.css' %}">
-    <link rel="stylesheet" href="{% static 'shop/styles/pages/_profile.css' %}">
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="{% static 'shop/styles/vendors/_font-awesome.css' %}">
 </head>
-<body style="min-height: 100vh; display: flex; flex-direction: column;">
+<body>
+
     {% include "./components/header.html" %}
 
-    <div style="flex: 1; background: var(--bg-primary);">
+    <div class="profile-wrapper">
         <main class="profile-main-wrapper">
             <!-- Profile Header -->
             <h1 class="profile-title">My Profile</h1>
@@ -730,6 +728,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
+<script type="module" src="{% static 'shop/scripts/main.js' %}"></script>
 
 </body>
 </html>
