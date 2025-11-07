@@ -185,6 +185,5 @@ class FeedbackAdmin(admin.ModelAdmin):
         self.message_user(request, f'{queryset.count()} feedback(s) archived.')
     mark_as_archived.short_description = 'Archive selected'
 
-
-    # D A S H B O A R D V I E W
-
+# LINK EXTENSION FOR CUSTOM ADMIN 
+admin.site.index_template = 'admin/custom_index.html'
