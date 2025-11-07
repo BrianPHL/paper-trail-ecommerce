@@ -219,7 +219,8 @@ def cart_count_api(request):
     """API endpoint to get current cart count"""
     cart = _get_or_create_cart(request)
     items = cart.items.all() if cart else []
-    cart_item_count = sum(item.quantity for item in items)
+    # Return number of distinct items (CartItem rows), not the sum of quantities
+    cart_item_count = items.count() if hasattr(items, 'count') else len(items)
     
     return JsonResponse({'count': cart_item_count})
 

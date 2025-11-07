@@ -12,13 +12,13 @@
 /* Profile Layout */
 .profile-layout {
     display: flex;
-    gap: 1.5rem;
+    gap: 3rem;
     align-items: flex-start;
     width: 100%;
 }
 
 .profile-sidebar {
-    flex: 0 0 320px;
+    flex: 0 0 260px;
     position: sticky;
     top: 80px;
     align-self: flex-start;
@@ -69,8 +69,8 @@
 }
 
 .profile-avatar {
-    width: 8rem;
-    height: 8rem;
+    width: 7rem;
+    height: 7rem;
     border-radius: 50%;
     position: relative;
     overflow: hidden;
@@ -99,142 +99,54 @@
 }
 
 .avatar-edit-btn {
-    position: absolute;
-    bottom: -10px;
-    right: -10px;
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
-    background: linear-gradient(45deg, var(--accent), #ff69b4);
-    border: 4px solid white;
-    color: white;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4), 0 0 0 0 rgba(255, 105, 180, 0.6);
-    z-index: 5;
+    gap: 0.5rem;
+    width: 100%;
+    margin-top: 0.75rem;
+    padding: 0.625rem 1rem;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .avatar-edit-btn:hover {
-    transform: scale(1.25) rotate(5deg);
-    background: linear-gradient(45deg, #ff69b4, var(--accent));
-    box-shadow: 0 8px 25px rgba(255, 105, 180, 0.6), 0 0 20px rgba(255, 105, 180, 0.8);
-    animation: wiggle 0.5s ease-in-out;
+    background: var(--accent-hover, #e84c8e);
+    transform: translateY(-1px);
 }
 
 .avatar-edit-btn:active {
-    transform: scale(1.05);
+    transform: translateY(0);
 }
 
-/* Super obvious pulse animation */
-@keyframes editPulse {
-    0% {
-        transform: scale(1);
-        box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4), 0 0 0 0 rgba(255, 105, 180, 0.6);
-    }
-    50% {
-        transform: scale(1.1);
-        box-shadow: 0 8px 25px rgba(255, 105, 180, 0.6), 0 0 0 15px rgba(255, 105, 180, 0.3);
-    }
-    100% {
-        transform: scale(1);
-        box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4), 0 0 0 0 rgba(255, 105, 180, 0);
-    }
+.avatar-edit-btn i {
+    font-size: 1rem;
 }
 
-/* Wiggle animation on hover */
-@keyframes wiggle {
-    0%, 100% { transform: scale(1.25) rotate(5deg); }
-    25% { transform: scale(1.25) rotate(-3deg); }
-    75% { transform: scale(1.25) rotate(7deg); }
-}
-
-/* Bouncing animation for extra attention */
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-8px); }
-    60% { transform: translateY(-4px); }
-}
-
-.avatar-edit-btn {
-    animation: editPulse 1.5s infinite, bounce 3s infinite;
-}
-
-.avatar-edit-btn:hover {
-    animation: wiggle 0.5s ease-in-out;
-}
-
-/* Super obvious tooltip */
-.avatar-edit-btn::after {
-    content: '📷 CLICK TO CHANGE PHOTO! 📷';
-    position: absolute;
-    bottom: 130%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: linear-gradient(45deg, #ff69b4, var(--accent));
-    color: white;
-    padding: 0.75rem 1rem;
-    border-radius: 1rem;
-    font-size: 0.8rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    box-shadow: 0 8px 25px rgba(255, 105, 180, 0.6);
-    border: 2px solid white;
-    z-index: 10;
-    animation: tooltipPulse 2s infinite;
-}
-
-.avatar-edit-btn::before {
-    content: '';
-    position: absolute;
-    bottom: 115%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-top: 8px solid white;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    z-index: 10;
-    filter: drop-shadow(0 2px 4px rgba(255, 105, 180, 0.4));
-}
-
-/* Tooltip pulse animation */
-@keyframes tooltipPulse {
-    0%, 100% { transform: translateX(-50%) scale(1); }
-    50% { transform: translateX(-50%) scale(1.05); }
-}
-
-.avatar-edit-btn:hover::after,
-.avatar-edit-btn:hover::before {
-    opacity: 1;
-    visibility: visible;
-    animation: none;
-    transform: translateX(-50%) scale(1.1);
+.profile-info {
+    text-align: left;
+    margin-top: 1.5rem;
 }
 
 .profile-info h2 {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: var(--tg-primary);
-    margin: 0 0 0.75rem 0;
+    margin: 0 0 0.5rem 0;
+    word-break: break-word;
 }
 
 .profile-email {
     color: var(--tg-secondary);
-    font-size: 1.25rem;
-    margin: 0 0 1.25rem 0;
+    font-size: 0.95rem;
+    margin: 0 0 1rem 0;
+    word-break: break-word;
 }
 
 .profile-meta {
@@ -246,7 +158,7 @@
 .profile-meta p {
     margin: 0;
     color: var(--tg-secondary);
-    font-size: 1rem;
+    font-size: 0.85rem;
 }
 
 /* Alert Warning */

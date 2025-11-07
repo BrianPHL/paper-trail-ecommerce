@@ -29,10 +29,12 @@
                                     <span class="avatar-initial">{{ user.first_name.0|default:user.username.0|upper }}</span>
                                 </div>
                             {% endif %}
-                            <button class="avatar-edit-btn" id="avatar-edit-btn" title="Click to change profile picture">
-                                <i class="fa-solid fa-pencil"></i>
-                            </button>
                         </div>
+                        
+                        <button class="avatar-edit-btn" id="avatar-edit-btn" title="Click to change profile picture">
+                            <i class="fa-solid fa-camera"></i>
+                            <span>Change photo</span>
+                        </button>
                         
                         <form method="POST" enctype="multipart/form-data" id="avatar-form" style="display: none;">
                             {% csrf_token %}
