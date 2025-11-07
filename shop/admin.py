@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.html import format_html
+from datetime import date, timedelta
 from .models import UserProfile, Product, Cart, CartItem, Order, OrderItem, Feedback, InventoryTransaction, Address
 
 class UserProfileInline(admin.StackedInline):
