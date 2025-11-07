@@ -71,8 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeAboutUsPage();
     initializeContactUsPage();
     initializeFeedbackPage();
-
-    // Profile page logic
     initializeProfilePage();
 
     // Components JavaScript Logic

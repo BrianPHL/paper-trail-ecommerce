@@ -147,20 +147,20 @@
 
 .about_us-meet_the_team-member-img-container {
     justify-content: center;
-    padding: 1rem;
     display: flex;
-    height: 12rem;
+    height: 20rem;
 }
 
 .about_us-meet_the_team-member-img {
-    object-fit: contain;
+    object-fit: cover;
+    object-position: center;
     color: var(--tg-secondary);
-    height: 100%;
+    width: 100%;
 }
 
 .about_us-meet_the_team-member-info {
 	border-top: 1px solid var(--bg-outline);
-	padding: 0.5rem;
+	padding: 1rem;
 }
 
 .about_us-meet_the_team-member-info-name {

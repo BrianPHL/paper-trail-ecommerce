@@ -31,6 +31,7 @@
 @import url('pages/_about-us.css');
 @import url('pages/_contact-us.css');
 @import url('pages/_feedback.css');
+@import url('pages/_profile.css');
 
 /* LAYOUT - Layout-related styles */
 @import url('layout/_header.css');
@@ -45,3 +46,4 @@
 @import url('layout/_about-us.css');
 @import url('layout/_contact-us.css');
 @import url('layout/_feedback.css');
+@import url('layout/_profile.css');

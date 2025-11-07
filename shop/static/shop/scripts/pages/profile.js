@@ -1,16 +1,70 @@
-const initializeProfilePage = () => {
-    // Dark mode logic: apply theme based on localStorage or default
-    const theme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-theme', theme);
+import * as themeUtilities from "../utils/theme.js";
+import * as responsiveUtilities from "../utils/responsive.js";
 
-    // Edit form toggle logic
-    const editBtn = document.getElementById('edit-profile-btn');
-    const editForm = document.getElementById('edit-profile-form');
-    if (editBtn && editForm) {
-        editBtn.addEventListener('click', () => {
-            editForm.style.display = editForm.style.display === 'none' ? 'flex' : 'none';
+const initializeProfilePage = () => {
+
+    if (window.location.pathname !== '/profile/') return;
+
+    console.log("profile")
+
+    const logos = document.querySelectorAll('.logo');
+    const htmlElement = document.querySelector('html');
+
+    const initializePageTheme = () => {
+
+        themeUtilities.getTheme((theme) => {
+
+            themeUtilities.setTheme(theme);
+
+            logos.forEach(logo => logo.src = `/static/shop/images/logo-${ theme }.png`)
+
+            htmlElement.setAttribute('data-theme', theme);
+
         });
-    }
+
+    };
+
+    const initializePageThemeHandling = () => {
+        
+        const themeSwitchBtns = document.querySelectorAll('.theme-switcher-btn');
+
+        themeSwitchBtns.forEach(themeSwitchBtn => themeSwitchBtn.addEventListener('click', () => {
+
+            themeUtilities.getTheme((callback) => {
+
+                const alternateTheme =
+                (callback === 'light')
+                ? 'dark'
+                : 'light'
+
+                themeSwitchBtn.innerHTML=
+                `
+                    <i class="fa-solid ${ alternateTheme === 'light' ? 'fa-moon' : 'fa-sun' }"></i>
+                `
+
+                themeUtilities.setTheme(alternateTheme);
+                initializePageTheme();
+
+            });
+
+        }));
+
+    };
+
+    const initializePageLayoutHandling = () => {
+
+        const header = document.querySelector('.header');
+        const feedbackWrapper = document.querySelector('.profile-wrapper');
+
+        window.addEventListener('resize', () =>  responsiveUtilities.equalizeHeaderAndHeroSpacing(header, feedbackWrapper, false));
+        window.addEventListener('load', () =>  responsiveUtilities.equalizeHeaderAndHeroSpacing(header, feedbackWrapper, false));
+
+    };
+
+    initializePageLayoutHandling();
+    initializePageTheme();
+    initializePageThemeHandling();
+
 };
 
 export default initializeProfilePage;
