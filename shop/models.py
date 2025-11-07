@@ -276,9 +276,11 @@ class Cart(models.Model):
         owner = self.user.username if self.user else f"session:{self.session_key}"
         return f"Cart {self.pk} ({owner})"
 
+    @property
     def item_count(self):
         return sum(item.quantity for item in self.items.all())
 
+    @property
     def total_price(self):
         from decimal import Decimal
         total = Decimal('0.00')
