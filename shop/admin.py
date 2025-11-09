@@ -250,9 +250,11 @@ class InventoryTransactionAdmin(admin.ModelAdmin):
     @admin.display(description="Quantity Change")
     def quantity_change_display(self, obj):
         color = 'green' if obj.quantity_change > 0 else 'red'
+        # Format the number with a + sign before passing to format_html
+        formatted_number = '{:+d}'.format(obj.quantity_change)
         return format_html(
-            '<span style="color: {}; font-weight: bold;">{:+d}</span>',
-            color, obj.quantity_change
+            '<span style="color: {}; font-weight: bold;">{}</span>',
+            color, formatted_number
         )
     
     @admin.display(description="Order")
