@@ -335,6 +335,9 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Order #{self.pk} by {self.full_name} ({self.payment_method})"
+    
+    def get_price_without_shipping(self):
+        return self.total_amount - self.shipping_fee
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
@@ -345,8 +348,8 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.quantity} × {self.product.name if self.product else 'Deleted Product'} (Order #{self.order.pk})"
-
-    def total_price(self):
+        
+    def get_subtotal(self):
         return self.price * self.quantity
     
 class Feedback(models.Model):

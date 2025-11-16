@@ -80,7 +80,7 @@
                 <div class="order-summary">
                     <div class="summary-row">
                         <span>Subtotal:</span>
-                        <span>₱{{ order.total_amount }}</span>
+                        <span>₱{{ order.get_price_without_shipping }}</span>
                     </div>
                     <div class="summary-row">
                         <span>Shipping Fee:</span>
@@ -88,11 +88,15 @@
                     </div>
                     <div class="summary-row total-row">
                         <strong>Total:</strong>
-                        <strong class="total-amount">₱{% widthratio order.total_amount 1 1|add:order.shipping_fee %}</strong>
+                        <strong class="total-amount">₱{{ order.total_amount }}</strong>
                     </div>
                     <div class="summary-row">
                         <span>Payment Method:</span>
-                        <span>{{ order.payment_method }}</span>
+                        {% if order.payment_method == 'COD' %}
+                        	<span>Cash on Delivery</span>
+                        {% else %}
+                        	<span>{{ order.payment_method }</span>
+                        {% endif %}
                     </div>
                 </div>
             </div>
