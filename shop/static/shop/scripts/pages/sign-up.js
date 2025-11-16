@@ -196,6 +196,7 @@ const initializeSignUpPage = () => {
     const initializeFormHandling = () => {
 
         const form = document.querySelector('form');
+        const signUp = document.querySelector('.sign_up');
         const formStepsProgressBar = document.querySelector('.sign_up-form-progress_bar-level');
         const formCtasContainers = form.querySelectorAll('.sign_up-form-group-ctas-container');
         const formCtasContainersArray = Array.from(formCtasContainers);
@@ -344,6 +345,8 @@ const initializeSignUpPage = () => {
         formSubmitBtnsArray.forEach(formSubmitBtn => formSubmitBtn.addEventListener('click', (event) => {
             
             event.preventDefault();
+            
+            responsiveUtilities.equalizeChildrenHeightInContainer(signUp);
 
             currentFormStep === '1'
             ? showSecondStep()

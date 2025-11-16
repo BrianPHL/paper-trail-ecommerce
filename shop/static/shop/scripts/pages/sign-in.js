@@ -141,6 +141,7 @@ const initializeSignInPage = () => {
 
     const initializeFormHandling = () => {
 
+        const signIn = document.querySelector('.sign_in');
         const form = document.querySelector('form');
         const formError = document.querySelector('.sign_in-form-error');
         const formErrorText = document.querySelector('.sign_in-form-error-text');
@@ -216,6 +217,7 @@ const initializeSignInPage = () => {
 
         formSubmitBtn.addEventListener('click', async (event) => {
             event.preventDefault();
+            responsiveUtilities.equalizeChildrenHeightInContainer(signIn);
             await handleAccountAuthorization();
         });
 
