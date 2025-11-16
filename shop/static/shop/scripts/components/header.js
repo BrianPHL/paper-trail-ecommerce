@@ -71,8 +71,57 @@ const initializeHeaderComponent = () => {
 
     };
 
+    const initializeLogoutModalModule = () => {
+        const logoutTrigger = document.getElementById('logout-trigger');
+        const modalOverlay = document.querySelector('.logout-modal-overlay');
+        const modalClose = document.getElementById('logout-modal-close');
+        const modalCancel = document.getElementById('logout-modal-cancel');
+
+        if (!logoutTrigger || !modalOverlay) return;
+
+        // Show modal when logout is clicked
+        logoutTrigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            modalOverlay.style.display = 'flex';
+            
+            // Close dropdown menu
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+            if (dropdownMenu) {
+                dropdownMenu.setAttribute('data-open', 'false');
+            }
+        });
+
+        // Close modal handlers
+        const closeModal = () => {
+            modalOverlay.style.display = 'none';
+        };
+
+        if (modalClose) {
+            modalClose.addEventListener('click', closeModal);
+        }
+
+        if (modalCancel) {
+            modalCancel.addEventListener('click', closeModal);
+        }
+
+        // Close modal when clicking outside
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                closeModal();
+            }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keyup', (e) => {
+            if (e.key === 'Escape' && modalOverlay.style.display === 'flex') {
+                closeModal();
+            }
+        });
+    };
+
     initializeNavigationModule();
     initializeDropdownModule();
+    initializeLogoutModalModule();
 
 };
 
