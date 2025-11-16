@@ -60,6 +60,9 @@ class UserProfile(models.Model):
     
     def __str__(self):
         return f"{self.user.username}'s profile"
+        
+    def get_user_full_name(self):
+        return self.user.first_name + ' ' + self.user.last_name
     
     @property
     def profile_picture_url(self):
