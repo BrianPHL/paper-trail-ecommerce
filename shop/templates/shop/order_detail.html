@@ -6,101 +6,98 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order #{{ order.id }} | Paper Trails</title>
     <link rel="stylesheet" href="{% static 'shop/styles/main.css' %}">
-    <link rel="stylesheet" href="{% static 'shop/styles/pages/_orders.css' %}">
-    <link rel="stylesheet" href="{% static 'shop/styles/vendors/_font-awesome.css' %}">
 </head>
-<body style="min-height: 100vh; display: flex; flex-direction: column;">
-    {% include "./components/header.html" %}
+<body>
+    
+	{% include "./components/header.html" %}
 
-    <div style="flex: 1; background: var(--bg-primary);">
-        <main class="orders-main-wrapper">
-            <div class="order-detail-header">
-                <h1 class="orders-title">Order #{{ order.id }}</h1>
-                <a href="/orders" class="btn-back">
-                    <i class="fa-solid fa-arrow-left"></i>
-                    Back to Orders
-                </a>
-            </div>
-            
-            <div class="order-detail-container">
-                <!-- Order Status & Date -->
-                <div class="detail-card">
-                    <h2>Order Status</h2>
-                    <div class="status-info">
-                        <span class="status-badge status-{{ order.status|lower }}">
-                            {{ order.status }}
-                        </span>
-                        <p class="order-date">
-                            <i class="fa-solid fa-calendar"></i>
-                            Placed on {{ order.placed_at|date:"F d, Y - h:i A" }}
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Shipping Address -->
-                <div class="detail-card">
-                    <h2>Shipping Address</h2>
-                    <div class="address-info">
-                        <p><strong>{{ order.full_name }}</strong></p>
-                        <p>{{ order.address }}</p>
-                        <p><i class="fa-solid fa-envelope"></i> {{ order.email }}</p>
-                    </div>
-                </div>
-
-                <!-- Order Items -->
-                <div class="detail-card">
-                    <h2>Order Items</h2>
-                    <div class="order-items">
-                        {% for item in order.items.all %}
-                        <div class="order-item-detail">
-                            <div class="item-image">
-                                {% if item.product.image %}
-                                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
-                                {% else %}
-                                <div class="item-placeholder">
-                                    <i class="fa-solid fa-image"></i>
-                                </div>
-                                {% endif %}
-                            </div>
-                            <div class="item-info">
-                                <h3>{{ item.product.name }}</h3>
-                                <p class="item-quantity">Quantity: {{ item.quantity }}</p>
-                                <p class="item-unit-price">Unit Price: ₱{{ item.price }}</p>
-                            </div>
-                            <div class="item-subtotal">
-                                <p>Subtotal</p>
-                                <strong>₱{{ item.get_subtotal }}</strong>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <!-- Order Summary -->
-                <div class="detail-card">
-                    <h2>Order Summary</h2>
-                    <div class="order-summary">
-                        <div class="summary-row">
-                            <span>Subtotal:</span>
-                            <span>₱{{ order.total_amount }}</span>
-                        </div>
-                        <div class="summary-row">
-                            <span>Shipping Fee:</span>
-                            <span>₱{{ order.shipping_fee }}</span>
-                        </div>
-                        <div class="summary-row total-row">
-                            <strong>Total:</strong>
-                            <strong class="total-amount">₱{% widthratio order.total_amount 1 1|add:order.shipping_fee %}</strong>
-                        </div>
-                        <div class="summary-row">
-                            <span>Payment Method:</span>
-                            <span>{{ order.payment_method }}</span>
-                        </div>
-                    </div>
+    <main class="orders-wrapper">
+        <div class="order-detail-header">
+            <h1 class="orders-title">Order #{{ order.id }}</h1>
+            <a href="/orders" class="btn-back">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to Orders
+            </a>
+        </div>
+        
+        <div class="order-detail-container">
+            <!-- Order Status & Date -->
+            <div class="detail-card">
+                <h2>Order Status</h2>
+                <div class="status-info">
+                    <span class="status-badge status-{{ order.status|lower }}">
+                        {{ order.status }}
+                    </span>
+                    <p class="order-date">
+                        <i class="fa-solid fa-calendar"></i>
+                        Placed on {{ order.placed_at|date:"F d, Y - h:i A" }}
+                    </p>
                 </div>
             </div>
-        </main>
-    </div>
+
+            <!-- Shipping Address -->
+            <div class="detail-card">
+                <h2>Shipping Address</h2>
+                <div class="address-info">
+                    <p><strong>{{ order.full_name }}</strong></p>
+                    <p>{{ order.address }}</p>
+                    <p><i class="fa-solid fa-envelope"></i> {{ order.email }}</p>
+                </div>
+            </div>
+
+            <!-- Order Items -->
+            <div class="detail-card">
+                <h2>Order Items</h2>
+                <div class="order-items">
+                    {% for item in order.items.all %}
+                    <div class="order-item-detail">
+                        <div class="item-image">
+                            {% if item.product.image %}
+                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                            {% else %}
+                            <div class="item-placeholder">
+                                <i class="fa-solid fa-image"></i>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="item-info">
+                            <h3>{{ item.product.name }}</h3>
+                            <p class="item-quantity">Quantity: {{ item.quantity }}</p>
+                            <p class="item-unit-price">Unit Price: ₱{{ item.price }}</p>
+                        </div>
+                        <div class="item-subtotal">
+                            <p>Subtotal</p>
+                            <strong>₱{{ item.get_subtotal }}</strong>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="detail-card">
+                <h2>Order Summary</h2>
+                <div class="order-summary">
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span>₱{{ order.total_amount }}</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Shipping Fee:</span>
+                        <span>₱{{ order.shipping_fee }}</span>
+                    </div>
+                    <div class="summary-row total-row">
+                        <strong>Total:</strong>
+                        <strong class="total-amount">₱{% widthratio order.total_amount 1 1|add:order.shipping_fee %}</strong>
+                    </div>
+                    <div class="summary-row">
+                        <span>Payment Method:</span>
+                        <span>{{ order.payment_method }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 
     {% include "./components/footer.html" %}
     

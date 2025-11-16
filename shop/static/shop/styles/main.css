@@ -34,6 +34,7 @@
 @import url('pages/_profile.css');
 @import url('pages/_checkout.css');
 @import url('pages/_checkout-success.css');
+@import url('pages/_orders.css');
 
 /* LAYOUT - Layout-related styles */
 @import url('layout/_header.css');
@@ -51,3 +52,4 @@
 @import url('layout/_profile.css');
 @import url('layout/_checkout.css');
 @import url('layout/_checkout-success.css');
+@import url('layout/_orders.css');

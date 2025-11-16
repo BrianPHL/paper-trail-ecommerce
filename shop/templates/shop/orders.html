@@ -6,105 +6,103 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Orders | Paper Trails</title>
     <link rel="stylesheet" href="{% static 'shop/styles/main.css' %}">
-    <link rel="stylesheet" href="{% static 'shop/styles/pages/_orders.css' %}">
-    <link rel="stylesheet" href="{% static 'shop/styles/vendors/_font-awesome.css' %}">
 </head>
-<body style="min-height: 100vh; display: flex; flex-direction: column;">
+<body>
+
     {% include "./components/header.html" %}
 
-    <div style="flex: 1; background: var(--bg-primary);">
-        <main class="orders-main-wrapper">
-            <h1 class="orders-title">My Orders</h1>
-            
-            <div class="orders-container">
-                {% if orders %}
-                    {% for order in orders %}
-                    <div class="order-card">
-                        <div class="order-header">
-                            <div class="order-info">
-                                <h3>Order #{{ order.id }}</h3>
-                                <span class="order-date">{{ order.placed_at|date:"F d, Y" }}</span>
-                            </div>
-                            <div class="order-status">
-                                <span class="status-badge status-{{ order.status|lower }}">
-                                    {{ order.status }}
-                                </span>
-                            </div>
+    <main class="orders-wrapper">
+        <h1 class="orders-title">My Orders</h1>
+        
+        <div class="orders-container">
+            {% if orders %}
+                {% for order in orders %}
+                <div class="order-card">
+                    <div class="order-header">
+                        <div class="order-info">
+                            <h3>Order #{{ order.id }}</h3>
+                            <span class="order-date">{{ order.placed_at|date:"F d, Y" }}</span>
                         </div>
-                        
-                        <div class="order-items">
-                            {% for item in order.items.all %}
-                            <div class="order-item">
-                                {% if item.product.image %}
-                                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
-                                {% else %}
-                                <div class="item-placeholder">
-                                    <i class="fa-solid fa-image"></i>
-                                </div>
-                                {% endif %}
-                                <div class="item-details">
-                                    <h4>{{ item.product.name }}</h4>
-                                    <p>Quantity: {{ item.quantity }}</p>
-                                    <p class="item-price">₱{{ item.price }}</p>
-                                </div>
-                            </div>
-                            {% endfor %}
-                        </div>
-                        
-                        <div class="order-footer">
-                            <div class="order-total">
-                                <span>Total:</span>
-                                <strong>₱{{ order.total_amount }}</strong>
-                            </div>
-                            <div class="order-actions">
-                                <a href="/orders/{{ order.id }}" class="btn-view-details">
-                                    <i class="fa-solid fa-eye"></i>
-                                    View Details
-                                </a>
-                            </div>
+                        <div class="order-status">
+                            <span class="status-badge status-{{ order.status|lower }}">
+                                {{ order.status }}
+                            </span>
                         </div>
                     </div>
-                    {% endfor %}
                     
-                    <!-- Pagination -->
-                    {% if orders.has_other_pages %}
-                    <div class="pagination">
-                        {% if orders.has_previous %}
-                        <a href="?page={{ orders.previous_page_number }}" class="page-link">
-                            <i class="fa-solid fa-chevron-left"></i>
-                            Previous
-                        </a>
-                        {% endif %}
-                        
-                        <span class="page-info">
-                            Page {{ orders.number }} of {{ orders.paginator.num_pages }}
-                        </span>
-                        
-                        {% if orders.has_next %}
-                        <a href="?page={{ orders.next_page_number }}" class="page-link">
-                            Next
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </a>
-                        {% endif %}
+                    <div class="order-items">
+                        {% for item in order.items.all %}
+                        <div class="order-item">
+                            {% if item.product.image %}
+                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                            {% else %}
+                            <div class="item-placeholder">
+                                <i class="fa-solid fa-image"></i>
+                            </div>
+                            {% endif %}
+                            <div class="item-details">
+                                <h4>{{ item.product.name }}</h4>
+                                <p>Quantity: {{ item.quantity }}</p>
+                                <p class="item-price">₱{{ item.price }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
                     </div>
+                    
+                    <div class="order-footer">
+                        <div class="order-total">
+                            <span>Total:</span>
+                            <strong>₱{{ order.total_amount }}</strong>
+                        </div>
+                        <div class="order-actions">
+                            <a href="/orders/{{ order.id }}" class="btn-view-details">
+                                <i class="fa-solid fa-eye"></i>
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                
+                <!-- Pagination -->
+                {% if orders.has_other_pages %}
+                <div class="pagination">
+                    {% if orders.has_previous %}
+                    <a href="?page={{ orders.previous_page_number }}" class="page-link">
+                        <i class="fa-solid fa-chevron-left"></i>
+                        Previous
+                    </a>
                     {% endif %}
-                {% else %}
-                    <div class="empty-state">
-                        <i class="fa-solid fa-box-open"></i>
-                        <h2>No orders yet</h2>
-                        <p>Start shopping to see your orders here!</p>
-                        <a href="/shop" class="btn-shop-now">
-                            <i class="fa-solid fa-shopping-bag"></i>
-                            Shop Now
-                        </a>
-                    </div>
+                    
+                    <span class="page-info">
+                        Page {{ orders.number }} of {{ orders.paginator.num_pages }}
+                    </span>
+                    
+                    {% if orders.has_next %}
+                    <a href="?page={{ orders.next_page_number }}" class="page-link">
+                        Next
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    {% endif %}
+                </div>
                 {% endif %}
-            </div>
-        </main>
-    </div>
+            {% else %}
+                <div class="empty-state">
+                    <i class="fa-solid fa-box-open"></i>
+                    <h2>No orders yet</h2>
+                    <p>Start shopping to see your orders here!</p>
+                    <a href="/shop" class="btn-shop-now">
+                        <i class="fa-solid fa-shopping-bag"></i>
+                        Shop Now
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </main>
 
     {% include "./components/footer.html" %}
     
-    <script src="{% static 'shop/scripts/utils/theme.js' %}"></script>
+    <script type="module" src="{% static 'shop/scripts/main.js' %}"></script>
+    
 </body>
 </html>
